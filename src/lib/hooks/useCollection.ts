@@ -76,13 +76,6 @@ export function useCollection<T>(
     };
 
     const unsubscribe = onSnapshot(cachedQuery, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-        if(change.type === "added") {
-          console.log('change Data : ', change.doc.data());
-
-        }
-        console.log('change : ', change)
-      })
 
       const data = snapshot.docs.map((doc) =>
         doc.data({ serverTimestamps: 'estimate' })

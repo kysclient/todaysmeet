@@ -6,6 +6,7 @@ import { AppHead } from '@components/common/app-head';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
+import {SessionProvider} from "next-auth/react";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -24,11 +25,11 @@ export default function App({
   return (
     <>
       <AppHead />
-      <AuthContextProvider>
-        <ThemeContextProvider>
-          {getLayout(<Component {...pageProps} />)}
-        </ThemeContextProvider>
-      </AuthContextProvider>
+            <AuthContextProvider>
+                <ThemeContextProvider>
+                    {getLayout(<Component {...pageProps} />)}
+                </ThemeContextProvider>
+            </AuthContextProvider>
     </>
   );
 }

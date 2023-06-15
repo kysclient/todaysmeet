@@ -7,7 +7,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
 import {useTranslation} from "next-i18next";
-import { motion } from "framer-motion";
+import {motion} from "framer-motion";
 import {variants} from "@components/aside/aside-trends";
 
 export interface Props {
@@ -17,6 +17,7 @@ export interface Props {
     messages: Message[];
     setMessages: Dispatch<SetStateAction<Message[]>>,
     messageIsStreaming: boolean;
+    index: number;
 }
 
 export const ChatMessage: FC<Props> = memo(({
@@ -25,7 +26,8 @@ export const ChatMessage: FC<Props> = memo(({
                                                 message,
                                                 setMessages,
                                                 messageIndex,
-                                                onEdit
+                                                onEdit,
+                                                index
                                             }) => {
     const {t} = useTranslation('chat');
 
@@ -58,6 +60,9 @@ export const ChatMessage: FC<Props> = memo(({
     };
 
     const handleDeleteMessage = () => {
+
+        console.log('messages : ', messages)
+        console.log('index : ', index)
 
         const findIndex = messages.findIndex((elm) => elm === message);
 
@@ -107,8 +112,8 @@ export const ChatMessage: FC<Props> = memo(({
         <motion.div
             className={`group md:px-4 ${
                 message.role === 'assistant'
-                    ? 'border-b border-black/10 dark:border-gray-900/50 hover-animation bg-main-sidebar-background'
-                    : 'border-b border-black/10 dark:border-gray-900/50 hover-animation bg-main-background'
+                    ? 'border-b border-black/10 dark:border-gray-900/50 hover-animation bg-main-sidebar-background accent-tab hover-card'
+                    : 'border-b border-black/10 dark:border-gray-900/50 hover-animation bg-main-background accent-tab hover-card'
             }`}
             style={{overflowWrap: 'anywhere'}}
             {...variants}
@@ -152,7 +157,7 @@ export const ChatMessage: FC<Props> = memo(({
                                             onClick={handleEditMessage}
                                             disabled={messageContent.trim().length <= 0}
                                         >
-                                            {t('Save & Submit')}
+                                            {t('저장 & 전송')}
                                         </button>
                                         <button
                                             className="h-[40px] rounded-md border border-neutral-300 px-4 py-1 text-sm font-medium text-neutral-700 hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
@@ -161,7 +166,7 @@ export const ChatMessage: FC<Props> = memo(({
                                                 setIsEditing(false);
                                             }}
                                         >
-                                            {t('Cancel')}
+                                            {t('취소')}
                                         </button>
                                     </div>
                                 </div>
@@ -180,12 +185,12 @@ export const ChatMessage: FC<Props> = memo(({
                                     >
                                         <IconEdit size={20}/>
                                     </button>
-                                    <button
-                                        className="invisible group-hover:visible focus:visible text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
-                                        onClick={handleDeleteMessage}
-                                    >
-                                        <IconTrash size={20}/>
-                                    </button>
+                                    {/*<button*/}
+                                    {/*    className="invisible group-hover:visible focus:visible text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"*/}
+                                    {/*    onClick={handleDeleteMessage}*/}
+                                    {/*>*/}
+                                    {/*    <IconTrash size={20}/>*/}
+                                    {/*</button>*/}
                                 </div>
                             )}
                         </div>

@@ -8,9 +8,7 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
 
-// export const config = {
-//     runtime: 'edge',
-// };
+
 
 const handler = async (req: Request): Promise<Response> => {
     try {
@@ -63,6 +61,10 @@ const handler = async (req: Request): Promise<Response> => {
             return new Response('Error', { status: 500 });
         }
     }
+};
+
+export const config = {
+    runtime: 'experimental-edge',
 };
 
 export default handler;

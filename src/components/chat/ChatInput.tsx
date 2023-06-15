@@ -2,6 +2,7 @@ import {MutableRefObject, useEffect, useRef, useState} from "react";
 import {Message} from "@lib/types/chat";
 import {IconArrowDown, IconPlayerStop, IconRepeat, IconSend} from "@tabler/icons-react";
 import {useTranslation} from "next-i18next";
+import {useWindow} from "@lib/context/window-context";
 
 interface Props {
     onSend: (message: Message, plugin: Plugin | null) => void;
@@ -34,6 +35,7 @@ export const ChatInput = ({
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [showPluginSelect, setShowPluginSelect] = useState(false);
     const [plugin, setPlugin] = useState<Plugin | null>(null);
+    const { isMobile } = useWindow();
 
     const promptListRef = useRef<HTMLUListElement | null>(null);
 
@@ -77,13 +79,14 @@ export const ChatInput = ({
         }, 1000);
     };
 
-    const isMobile = () => {
+    const mobile = () => {
         const userAgent =
             typeof window.navigator === 'undefined' ? '' : navigator.userAgent;
         const mobileRegex =
             /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i;
         return mobileRegex.test(userAgent);
     };
+
 
     const handleKeyDown = (e: any) => {
         if (showPromptList) {
@@ -104,7 +107,7 @@ export const ChatInput = ({
             } else {
                 setActivePromptIndex(0);
             }
-        } else if (e.key === 'Enter' && !isTyping && !isMobile() && !e.shiftKey) {
+        } else if (e.key === 'Enter' && !isTyping && !mobile() && !e.shiftKey) {
             e.preventDefault();
             handleSend();
         } else if (e.key === '/' && e.metaKey) {
@@ -155,7 +158,7 @@ export const ChatInput = ({
                 className="stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl">
                 {messageIsStreaming && (
                     <button
-                        className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 bg-white py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 dark:bg-[#343541] dark:text-white md:mb-0 md:mt-2"
+                        className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 dark:bg-[#343541] dark:text-white md:mb-0 md:mt-2"
                         onClick={handleStopConversation}
                     >
                         <IconPlayerStop size={16}/> {t('멈추기')}
@@ -165,17 +168,18 @@ export const ChatInput = ({
                 {!messageIsStreaming &&
                     messages.length > 0 && (
                         <button
-                            className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 bg-white py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 bg-main-sidebar-background dark:text-white md:mb-0 md:mt-2"
+                            className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 bg-main-sidebar-background dark:text-white md:mb-0 md:mt-2"
                             onClick={onRegenerate}
                         >
                             <IconRepeat size={16}/> {t('응답 재생성')}
                         </button>
                     )}
                 <div
-                    className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10 bg-white shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] sm:mx-4 bg-main-sidebar-background">
+                    style={{marginBottom: `${isMobile ? 60 : 0}px`,}}
+                    className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10 shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:border-gray-900/50 dark:text-white dark:shadow-[0_0_15px_rgba(0,0,0,0.10)] sm:mx-4 bg-main-sidebar-background">
                      <textarea
                          ref={textareaRef}
-                         className="m-0 w-full resize-none border-0 bg-transparent p-0 py-2 pr-8 pl-10 dark:bg-transparent dark:text-white md:py-3 md:pl-10 bg-main-sidebar-background"
+                         className="m-0 w-full resize-none border-0 p-0 py-2 pr-8 pl-10 dark:bg-transparent dark:text-white md:py-3 md:pl-10 bg-main-sidebar-background"
                          style={{
                              resize: 'none',
                              bottom: `${textareaRef?.current?.scrollHeight}px`,
@@ -187,7 +191,7 @@ export const ChatInput = ({
                              }`,
                          }}
                          placeholder={
-                             t('Type a message or type "/" to select a prompt...') || ''
+                             t('봇에게 맛집추천을 받아보세요!') || ''
                          }
                          value={content}
                          rows={1}

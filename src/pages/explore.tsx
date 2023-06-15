@@ -67,6 +67,7 @@ export default function Explore(): JSX.Element {
 
     const onClearAll = () => {
         setMessages([]);
+        closeModal()
     };
 
     const handleScrollDown = () => {
@@ -210,7 +211,7 @@ export default function Explore(): JSX.Element {
             </MainHeader>
 
             <section className='mt-10 relative h-full'>
-                <div className="relative h-full overflow-hidden bg-white dark:bg-[#000]">
+                <div className="relative h-full overflow-hidden bg-main-background">
                     <div
                         className="max-h-full overflow-x-hidden"
                         ref={chatContainerRef}
@@ -234,6 +235,7 @@ export default function Explore(): JSX.Element {
                                             messages.map((message, index) => (
                                                 <MemoizedChatMessage
                                                     key={index}
+                                                    index={index}
                                                     message={message}
                                                     messages={messages}
                                                     setMessages={setMessages}
@@ -252,7 +254,7 @@ export default function Explore(): JSX.Element {
                                         }
                                         {loading && <ChatLoader /> }
                                         <div
-                                            className="h-[162px] bg-white dark:bg-[#000]"
+                                            className="h-[162px] bg-main-background"
                                             ref={messagesEndRef}
                                         />
                                     </>
@@ -269,7 +271,7 @@ export default function Explore(): JSX.Element {
                         messageIsStreaming={messageIsStreaming}
                         onRegenerate={() => {
                             if (currentMessage) {
-                                handleSend(currentMessage, 0, null);
+                                handleSend(currentMessage, 2, null);
                             }
                         }}
                         showScrollDownButton={showScrollDownButton}

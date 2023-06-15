@@ -2,12 +2,9 @@ import { OPENAI_API_HOST, OPENAI_API_TYPE, OPENAI_API_VERSION, OPENAI_ORGANIZATI
 import {OpenAIModel, OpenAIModelID, OpenAIModels} from "@lib/types/openai";
 
 
-// export const config = {
-//     runtime: 'edge',
-// };
+
 
 const handler = async (req: Request): Promise<Response> => {
-    console.log('req : ', req)
     try {
         const { key } = (await req.json()) as {
             key: string;
@@ -68,6 +65,10 @@ const handler = async (req: Request): Promise<Response> => {
         console.error(error);
         return new Response('Error', { status: 500 });
     }
+};
+
+export const config = {
+    runtime: 'experimental-edge',
 };
 
 export default handler;
