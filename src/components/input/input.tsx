@@ -114,9 +114,9 @@ export function Input({
     toast.success(
       () => (
         <span className='flex gap-2'>
-          Your Tweet was sent
+          정상등록 되었습니다.
           <Link href={`/tweet/${tweetId}`}>
-            <a className='custom-underline font-bold'>View</a>
+            <a className='custom-underline font-bold'>보기</a>
           </Link>
         </span>
       ),

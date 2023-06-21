@@ -14,6 +14,7 @@ import type {
   ClipboardEvent
 } from 'react';
 import type { Variants } from 'framer-motion';
+import {ToolTip} from "@components/ui/tooltip";
 
 type InputFormProps = {
   modal?: boolean;
@@ -110,6 +111,7 @@ export function InputForm({
 
   const isVisibilityShown = visited && !reply && !replyModal && !loading;
 
+
   return (
     <div className='flex min-h-[48px] w-full flex-col justify-center gap-4'>
       <Modal
@@ -135,7 +137,7 @@ export function InputForm({
                        hover:bg-main-accent/10 active:bg-main-accent/20 dark:border-light-secondary'
             {...fromTop}
           >
-            <p className='font-bold'>Everyone</p>
+            <p className='font-bold'>전체 공개</p>
             <HeroIcon className='h-4 w-4' iconName='ChevronDownIcon' />
           </motion.button>
         )}
@@ -146,7 +148,7 @@ export function InputForm({
                        placeholder:text-light-secondary dark:placeholder:text-dark-secondary'
             value={inputValue}
             placeholder={
-              reply || replyModal ? 'Tweet your reply' : "What's happening?"
+              reply || replyModal ? '댓글을 입력하세요...' : "무슨 일이 있었나요?"
             }
             onBlur={handleShowHideNav(true)}
             minRows={loading ? 1 : modal && !isUploadingImages ? 3 : 1}
@@ -162,7 +164,7 @@ export function InputForm({
               className='cursor-pointer bg-main-accent px-4 py-1.5 font-bold text-white opacity-50'
               onClick={handleFocus}
             >
-              Reply
+              댓글달기
             </Button>
           )}
         </div>
@@ -179,7 +181,8 @@ export function InputForm({
                        px-3 text-main-accent hover:bg-main-accent/10 active:bg-main-accent/20'
           >
             <HeroIcon className='h-4 w-4' iconName='GlobeAmericasIcon' />
-            <p className='font-bold'>Everyone can reply</p>
+            <ToolTip tip='전체공개'/>
+            {/*<p className='font-bold'>전체 공개</p>*/}
           </button>
         </motion.div>
       )}

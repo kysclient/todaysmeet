@@ -120,9 +120,9 @@ export function MobileSidebarModal({
         <ActionModal
           useIcon
           focusOnMainBtn
-          title='Log out of Twitter?'
+          title='정말로 로그아웃 하시겠습니까?'
           description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
-          mainBtnLabel='Log out'
+          mainBtnLabel='로그 아웃'
           action={signOut}
           closeModal={logOutCloseModal}
         />
@@ -176,7 +176,7 @@ export function MobileSidebarModal({
             {allStats.map(([id, label, stat]) => (
               <Link href={`${userLink}/${id}`} key={id}>
                 <a
-                  className='hover-animation flex h-4 items-center gap-1 border-b border-b-transparent 
+                  className='hover-animation flex h-4 items-center gap-1 border-b border-b-transparent
                              outline-none hover:border-b-light-primary focus-visible:border-b-light-primary
                              dark:hover:border-b-dark-primary dark:focus-visible:border-b-dark-primary'
                 >
@@ -206,7 +206,7 @@ export function MobileSidebarModal({
             ))}
             <Button
               className='accent-tab accent-bg-tab flex items-center gap-2 rounded-md p-1.5 font-bold transition
-                         hover:bg-light-primary/10 focus-visible:ring-2 first:focus-visible:ring-[#878a8c] 
+                         hover:bg-light-primary/10 focus-visible:ring-2 first:focus-visible:ring-[#878a8c]
                          dark:hover:bg-dark-primary/10 dark:focus-visible:ring-white'
               onClick={displayOpenModal}
             >
@@ -215,7 +215,7 @@ export function MobileSidebarModal({
             </Button>
             <Button
               className='accent-tab accent-bg-tab flex items-center gap-2 rounded-md p-1.5 font-bold transition
-                         hover:bg-light-primary/10 focus-visible:ring-2 first:focus-visible:ring-[#878a8c] 
+                         hover:bg-light-primary/10 focus-visible:ring-2 first:focus-visible:ring-[#878a8c]
                          dark:hover:bg-dark-primary/10 dark:focus-visible:ring-white'
               onClick={logOutOpenModal}
             >

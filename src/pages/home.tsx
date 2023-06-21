@@ -29,7 +29,7 @@ export default function Home(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='Home / Twitter' />
+      <SEO title='Home / BungSin' />
       <MainHeader
         useMobileSidebar
         title='홈'

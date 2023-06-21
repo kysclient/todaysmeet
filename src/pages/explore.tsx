@@ -13,7 +13,7 @@ import {useModal} from "@lib/hooks/useModal";
 import {Button} from "@components/ui/button";
 import {HeroIcon} from "@components/ui/hero-icon";
 import {ToolTip} from "@components/ui/tooltip";
-import {
+import React, {
     MutableRefObject,
     memo,
     useCallback,
@@ -30,8 +30,16 @@ import {ChatLoader} from "@components/chat/ChatLoader";
 import {ChatInput} from "@components/chat/ChatInput";
 import {useTranslation} from "react-i18next";
 import {ChatContainer} from "@components/home/chat-container";
+import {CustomIcon} from "@components/ui/custom-icon";
+import {Placeholder} from "@components/common/placeholder";
+import {Router} from "next/router";
+import {useLoading} from "@lib/hooks/useLoading";
+import {AnimatePresence, motion} from "framer-motion";
+import {variants} from "@components/input/input";
+import {Loading} from "@components/ui/loading";
 
 export default function Explore(): JSX.Element {
+    const nowLoading = useLoading();
     const {open, openModal, closeModal} = useModal();
     const {user} = useAuth();
     const [currentMessage, setCurrentMessage] = useState<Message>();
@@ -171,118 +179,166 @@ export default function Explore(): JSX.Element {
 
 
     return (
-        <ChatContainer>
-            <SEO title='맛집추천 / BungSin'/>
-            <Modal
-                modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
-                open={open}
-                closeModal={closeModal}
-            >
-                <ActionModal
-                    title='메세지를 모두 삭제하시겠습니까?'
-                    description='현재 작성된 답변은 저장 혹은 기록되지 않으며, 답변은 항상 달라질 수 있습니다.'
-                    mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75 accent-tab
-                            focus-visible:bg-accent-red/90'
-                    mainBtnLabel='삭제'
-                    action={onClearAll}
-                    closeModal={closeModal}
-                />
-            </Modal>
-            <MainHeader className='flex items-center justify-between' useMobileSidebar>
+        <>
 
-                <div className='-mb-1 flex flex-col'>
-                    <h2 className='-mt-1 text-xl font-bold'>맛집추천</h2>
-                    <p className='text-xs text-light-secondary dark:text-dark-secondary'>
-                        @{user?.username}
-                    </p>
-                </div>
-                <Button
-                    className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
+            <ChatContainer>
+                <SEO title='맛집추천 / BungSin'/>
+                <Modal
+                    modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
+                    open={open}
+                    closeModal={closeModal}
+                >
+                    <ActionModal
+                        title='메세지를 모두 삭제하시겠습니까?'
+                        description='현재 작성된 답변은 저장 혹은 기록되지 않으며, 답변은 항상 달라질 수 있습니다.'
+                        mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75 accent-tab
+                            focus-visible:bg-accent-red/90'
+                        mainBtnLabel='삭제'
+                        action={onClearAll}
+                        closeModal={closeModal}
+                    />
+                </Modal>
+                <MainHeader className='flex items-center justify-between' useMobileSidebar>
+
+                    <div className='-mb-1 flex flex-col'>
+                        <h2 className='-mt-1 text-xl font-bold'>맛집추천</h2>
+                        <p className='text-xs text-light-secondary dark:text-dark-secondary'>
+                            @{user?.username}
+                        </p>
+                    </div>
+                    <Button
+                        className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
                      active:bg-light-primary/20 dark:hover:bg-dark-primary/10
                      dark:active:bg-dark-primary/20'
-                    onClick={openModal}
-                >
-                    <HeroIcon className='h-5 w-5' iconName='ArchiveBoxXMarkIcon'/>
-                    <ToolTip
-                        className='!-translate-x-20 translate-y-3 md:-translate-x-1/2'
-                        tip='메세지 전체 삭제'
-                    />
-                </Button>
-            </MainHeader>
-
-            <section className='mt-10 relative h-full'>
-                <div className="relative h-full overflow-hidden bg-main-background">
-                    <div
-                        className="max-h-full overflow-x-hidden"
-                        ref={chatContainerRef}
-                        onScroll={handleScroll}
+                        onClick={openModal}
                     >
-                        {
-                            messages.length === 0 ? (
-                                    <>
-                                        <div
-                                            className="mx-auto flex flex-col space-y-5 md:space-y-10 px-3 pt-5 md:pt-12 sm:max-w-[600px]">
-                                            <div
-                                                className="text-center text-3xl font-semibold text-gray-800 dark:text-gray-100">
-                                                Chatbot UI
-                                            </div>
-                                        </div>
-                                    </>
-                                )
-                                : (
-                                    <>
-                                        {
-                                            messages.map((message, index) => (
-                                                <MemoizedChatMessage
-                                                    key={index}
-                                                    index={index}
-                                                    message={message}
-                                                    messages={messages}
-                                                    setMessages={setMessages}
-                                                    messageIsStreaming={messageIsStreaming}
-                                                    messageIndex={index}
-                                                    onEdit={(editedMessage) => {
-                                                        setCurrentMessage(editedMessage);
-                                                        // discard edited message and the ones that come after then resend
-                                                        handleSend(
-                                                            editedMessage,
-                                                            messages.length - index,
-                                                        );
-                                                    }}
-                                                />
-                                            ))
+                        <HeroIcon className='h-5 w-5' iconName='ArchiveBoxXMarkIcon'/>
+                        <ToolTip
+                            className='!-translate-x-20 translate-y-3 md:-translate-x-1/2'
+                            tip='메세지 전체 삭제'
+                        />
+                    </Button>
+                </MainHeader>
+
+                <section className='mt-10 relative h-full'>
+                    {nowLoading ? (
+                            <Loading className='mt-5'/>
+                        ) :
+
+                        <AnimatePresence mode='popLayout'>
+                            <div className="relative h-full overflow-hidden bg-main-background">
+                                <div
+                                    className="max-h-full overflow-x-hidden"
+                                    ref={chatContainerRef}
+                                    onScroll={handleScroll}
+                                >
+                                    {
+                                        messages.length === 0 ? (
+                                                <>
+                                                    <div
+                                                        className="mx-auto flex flex-col space-y-4 px-3 pt-5 md:pt-12 sm:max-w-[600px]">
+                                                        <div
+                                                            className="text-center mb-2 text-2xl font-semibold text-gray-800 dark:text-gray-100">
+                                                            추천받으실 (구) 선택 혹은 챗봇과 대화해보세요!
+                                                        </div>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            강남구
+                                                        </p>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            서초구
+                                                        </p>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            송파구
+                                                        </p>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            관악구
+                                                        </p>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            마포구
+                                                        </p>
+
+                                                        <p
+                                                            className='custom-button accent-tab hover-card cursor-pointer block w-full rounded-2xl text-center text-main-accent'
+                                                        >
+                                                            종로구
+                                                        </p>
+
+
+                                                    </div>
+                                                </>
+                                            )
+                                            : (
+                                                <>
+                                                    {
+                                                        messages.map((message, index) => (
+                                                            <MemoizedChatMessage
+                                                                key={index}
+                                                                index={index}
+                                                                message={message}
+                                                                messages={messages}
+                                                                setMessages={setMessages}
+                                                                messageIsStreaming={messageIsStreaming}
+                                                                messageIndex={index}
+                                                                onEdit={(editedMessage) => {
+                                                                    setCurrentMessage(editedMessage);
+                                                                    // discard edited message and the ones that come after then resend
+                                                                    handleSend(
+                                                                        editedMessage,
+                                                                        messages.length - index,
+                                                                    );
+                                                                }}
+                                                            />
+                                                        ))
+                                                    }
+                                                    {loading && <ChatLoader/>}
+                                                    <div
+                                                        className="h-[162px] bg-main-background"
+                                                        ref={messagesEndRef}
+                                                    />
+                                                </>
+                                            )}
+                                </div>
+                                <ChatInput
+                                    stopConversationRef={stopConversationRef}
+                                    textareaRef={textareaRef}
+                                    onSend={(message, plugin) => {
+                                        setCurrentMessage(message);
+                                        handleSend(message, 0, plugin);
+                                    }}
+                                    onScrollDownClick={handleScrollDown}
+                                    messageIsStreaming={messageIsStreaming}
+                                    onRegenerate={() => {
+                                        if (currentMessage) {
+                                            handleSend(currentMessage, 2, null);
                                         }
-                                        {loading && <ChatLoader /> }
-                                        <div
-                                            className="h-[162px] bg-main-background"
-                                            ref={messagesEndRef}
-                                        />
-                                    </>
-                                )}
-                    </div>
-                    <ChatInput
-                        stopConversationRef={stopConversationRef}
-                        textareaRef={textareaRef}
-                        onSend={(message, plugin) => {
-                            setCurrentMessage(message);
-                            handleSend(message, 0, plugin);
-                        }}
-                        onScrollDownClick={handleScrollDown}
-                        messageIsStreaming={messageIsStreaming}
-                        onRegenerate={() => {
-                            if (currentMessage) {
-                                handleSend(currentMessage, 2, null);
-                            }
-                        }}
-                        showScrollDownButton={showScrollDownButton}
-                        messages={messages}
-                    />
+                                    }}
+                                    showScrollDownButton={showScrollDownButton}
+                                    messages={messages}
+                                />
 
-                </div>
+                            </div>
+                        </AnimatePresence>
+                    }
+                </section>
 
-            </section>
+            </ChatContainer>
 
-        </ChatContainer>
+        </>
     )
 }
 Explore.getLayout = (page: ReactElement): ReactNode => (

@@ -73,10 +73,6 @@ export function Sidebar(): JSX.Element {
 
     const username = user?.username as string;
 
-    useEffect(() => {
-        console.log('pathname : ', pathname)
-    }, [pathname])
-
     return (
         <header
             id='sidebar'
@@ -120,7 +116,7 @@ export function Sidebar(): JSX.Element {
                         />
                         {!isMobile && <MoreSettings/>}
                     </nav>
-                    {pathname !== '/explore' ?
+                    {pathname !== '/explore' &&
                         <Button
                             className='accent-tab absolute right-4 -translate-y-[72px] bg-main-accent text-lg font-bold text-white
                        outline-none transition hover:brightness-90 active:brightness-75 xs:static xs:translate-y-0
@@ -131,18 +127,7 @@ export function Sidebar(): JSX.Element {
                                 className='block h-6 w-6 xl:hidden'
                                 iconName='FeatherIcon'
                             />
-                            <p className='hidden xl:block'>Tweet</p>
-                        </Button>
-                        : <Button
-                            className='accent-tab absolute right-4 -translate-y-[72px] bg-main-accent text-lg font-bold text-white
-                       outline-none transition hover:brightness-90 active:brightness-75 xs:hidden xl:w-11/12'
-                            onClick={openModal}
-                        >
-                            <CustomIcon
-                                className='block h-6 w-6 xl:hidden'
-                                iconName='FeatherIcon'
-                            />
-                            <p className='hidden xl:block'>Tweet</p>
+                            <p className='hidden xl:block'>글쓰기</p>
                         </Button>
                     }
 

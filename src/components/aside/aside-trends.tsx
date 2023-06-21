@@ -30,6 +30,8 @@ import {manageReply, manageTotalPhotos, manageTotalTweets} from "@lib/firebase/u
 import {db} from "@lib/firebase/app";
 import {Trends} from "@lib/types/trends";
 import {uuidv4} from "@firebase/util";
+import FlameIcon from "../../../public/assets/flame.png";
+import Image, {StaticImageData} from "next/image";
 
 export const variants: MotionProps = {
     initial: {opacity: 0},
@@ -68,7 +70,9 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                     {...variants}
                 >
                     {!inTrendsPage && (
-                        <h2 className='text-xl font-extrabold'>Trends for you</h2>
+                        <>
+                        <h2 className='text-xl font-extrabold'>이달의 맛집 🔥</h2>
+                        </>
                     )}
                     {trends.map((trend, idx) => (
                         <Link href={trend.trend.url} key={`${uuidv4() + idx}`} passHref>
@@ -94,10 +98,10 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                                     </Button>
                                 </div>
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                                    Trending{' '}
+
                                     {trend.location === 'Worldwide'
                                         ? 'Worldwide'
-                                        : `in ${trend.location as string}`}
+                                        : ` ${trend.location as string}`}
                                 </p>
                                 <p className='font-bold'>{trend.trend.name}</p>
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>

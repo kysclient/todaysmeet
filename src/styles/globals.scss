@@ -38,6 +38,12 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   body {
     @apply hover-animation bg-main-background font-twitter-chirp text-light-primary dark:text-dark-primary;
   }
@@ -53,12 +59,12 @@
   }
 
   .custom-underline {
-    @apply hover-animation underline decoration-transparent outline-none transition [text-decoration-thickness:1px] 
+    @apply hover-animation underline decoration-transparent outline-none transition [text-decoration-thickness:1px]
            hover:decoration-inherit focus-visible:decoration-inherit;
   }
 
   .main-tab {
-    @apply outline-none focus-visible:ring-2 focus-visible:ring-[#878a8c] focus-visible:transition-shadow 
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-[#878a8c] focus-visible:transition-shadow
            focus-visible:duration-200 dark:focus-visible:ring-white;
   }
 
@@ -88,8 +94,8 @@
   }
 
   .menu-container {
-    @apply z-10 rounded-md bg-main-background outline-none 
-           [box-shadow:#65778633_0px_0px_15px,_#65778626_0px_0px_3px_1px] 
+    @apply z-10 rounded-md bg-main-background outline-none
+           [box-shadow:#65778633_0px_0px_15px,_#65778626_0px_0px_3px_1px]
            dark:[box-shadow:#ffffff33_0px_0px_15px,_#ffffff26_0px_0px_3px_1px];
   }
 }

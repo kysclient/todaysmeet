@@ -48,7 +48,7 @@ export function MoreSettings(): JSX.Element {
                   className='h-7 w-7'
                   iconName='EllipsisHorizontalCircleIcon'
                 />{' '}
-                <p className='hidden xl:block'>More</p>
+                <p className='hidden xl:block'>더보기</p>
               </div>
             </Menu.Button>
             <AnimatePresence>
@@ -70,7 +70,7 @@ export function MoreSettings(): JSX.Element {
                         onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='Cog8ToothIcon' />
-                        Settings and privacy
+                        설정
                       </MenuLink>
                     )}
                   </Menu.Item>
@@ -85,7 +85,7 @@ export function MoreSettings(): JSX.Element {
                         onClick={preventBubbling()}
                       >
                         <HeroIcon iconName='QuestionMarkCircleIcon' />
-                        Help center
+                        고객센터
                       </MenuLink>
                     )}
                   </Menu.Item>
@@ -99,7 +99,7 @@ export function MoreSettings(): JSX.Element {
                         onClick={openModal}
                       >
                         <HeroIcon iconName='PaintBrushIcon' />
-                        Display
+                        테마
                       </Button>
                     )}
                   </Menu.Item>

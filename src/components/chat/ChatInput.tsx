@@ -60,7 +60,7 @@ export const ChatInput = ({
             return;
         }
         if (!content) {
-            alert(t('Please enter a message'));
+            alert(t('메세지를 입력하세요.'));
             return;
         }
         onSend({role: 'user', content}, plugin);

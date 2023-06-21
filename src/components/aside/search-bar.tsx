@@ -44,16 +44,16 @@ export function SearchBar(): JSX.Element {
       >
         <i>
           <HeroIcon
-            className='h-5 w-5 text-light-secondary transition-colors 
+            className='h-5 w-5 text-light-secondary transition-colors
                        group-focus-within:text-main-accent dark:text-dark-secondary'
             iconName='MagnifyingGlassIcon'
           />
         </i>
         <input
-          className='peer flex-1 bg-transparent outline-none 
+          className='peer flex-1 bg-transparent outline-none
                      placeholder:text-light-secondary dark:placeholder:text-dark-secondary'
           type='text'
-          placeholder='Search Twitter'
+          placeholder='BungSin 검색'
           ref={inputRef}
           value={inputValue}
           onChange={handleChange}

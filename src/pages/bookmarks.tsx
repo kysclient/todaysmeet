@@ -64,25 +64,25 @@ export default function Bookmarks(): JSX.Element {
         closeModal={closeModal}
       >
         <ActionModal
-          title='Clear all Bookmarks?'
-          description='This can’t be undone and you’ll remove all Tweets you’ve added to your Bookmarks.'
-          mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75 accent-tab 
+          title='북마크 전체삭제'
+          description='삭제하시면 복구가 불가능합니다. 그래도 삭제하시겠습니까?'
+          mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75 accent-tab
                             focus-visible:bg-accent-red/90'
-          mainBtnLabel='Clear'
+          mainBtnLabel='삭제'
           action={handleClear}
           closeModal={closeModal}
         />
       </Modal>
       <MainHeader className='flex items-center justify-between'>
         <div className='-mb-1 flex flex-col'>
-          <h2 className='-mt-1 text-xl font-bold'>Bookmarks</h2>
+          <h2 className='-mt-1 text-xl font-bold'>북마크</h2>
           <p className='text-xs text-light-secondary dark:text-dark-secondary'>
             @{user?.username}
           </p>
         </div>
         <Button
           className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
-                     active:bg-light-primary/20 dark:hover:bg-dark-primary/10 
+                     active:bg-light-primary/20 dark:hover:bg-dark-primary/10
                      dark:active:bg-dark-primary/20'
           onClick={openModal}
         >

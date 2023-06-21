@@ -208,7 +208,7 @@ export function TweetActions({
             <AnimatePresence>
               {open && (
                 <Popover.Panel
-                  className='menu-container group absolute top-[50px] right-2 whitespace-nowrap text-light-primary 
+                  className='menu-container group absolute top-[50px] right-2 whitespace-nowrap text-light-primary
                              dark:text-dark-primary'
                   as={motion.div}
                   {...variants}
@@ -222,7 +222,7 @@ export function TweetActions({
                       onClick={preventBubbling(removeOpenModal)}
                     >
                       <HeroIcon iconName='TrashIcon' />
-                      Delete
+                      삭제
                     </Popover.Button>
                   )}
                   {isOwner ? (
@@ -234,12 +234,12 @@ export function TweetActions({
                       {tweetIsPinned ? (
                         <>
                           <CustomIcon iconName='PinOffIcon' />
-                          Unpin from profile
+                          프로필 고정 취소
                         </>
                       ) : (
                         <>
                           <CustomIcon iconName='PinIcon' />
-                          Pin to your profile
+                          프로필 고정
                         </>
                       )}
                     </Popover.Button>
