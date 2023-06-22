@@ -113,7 +113,7 @@ export function TweetActions({
     ]);
 
     toast.success(
-      `${isInAdminControl ? `@${username}'s` : 'Your'} Tweet was deleted`
+      `${isInAdminControl ? `@${username}'s` : '당신의'} 게시글이 삭제되었습니다`
     );
 
     removeCloseModal();
@@ -122,7 +122,7 @@ export function TweetActions({
   const handlePin = async (): Promise<void> => {
     await managePinnedTweet(tweetIsPinned ? 'unpin' : 'pin', userId, tweetId);
     toast.success(
-      `Your tweet was ${tweetIsPinned ? 'unpinned' : 'pinned'} to your profile`
+      `게시글이 프로필에 ${tweetIsPinned ? '고정 취소' : '고정'} 되었습니다`
     );
     pinCloseModal();
   };
@@ -252,7 +252,7 @@ export function TweetActions({
                       )}
                     >
                       <HeroIcon iconName='UserMinusIcon' />
-                      Unfollow @{username}
+                      언팔로우 @{username}
                     </Popover.Button>
                   ) : (
                     <Popover.Button
@@ -263,7 +263,7 @@ export function TweetActions({
                       )}
                     >
                       <HeroIcon iconName='UserPlusIcon' />
-                      Follow @{username}
+                      팔로우 @{username}
                     </Popover.Button>
                   )}
                 </Popover.Panel>

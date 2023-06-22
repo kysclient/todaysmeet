@@ -33,7 +33,7 @@ export function UpdateUsername(): JSX.Element {
       if (empty) setAvailable(true);
       else {
         setAvailable(false);
-        setErrorMessage('This username has been taken. Please choose another.');
+        setErrorMessage('중복된 사용자명입니다.');
       }
     };
 
@@ -115,7 +115,7 @@ export function UpdateUsername(): JSX.Element {
       </Modal>
       <Button
         className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
-                   active:bg-light-primary/20 dark:hover:bg-dark-primary/10 
+                   active:bg-light-primary/20 dark:hover:bg-dark-primary/10
                    dark:active:bg-dark-primary/20'
         onClick={openModal}
       >

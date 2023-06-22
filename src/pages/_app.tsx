@@ -6,7 +6,18 @@ import { AppHead } from '@components/common/app-head';
 import type { ReactElement, ReactNode } from 'react';
 import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
-import {SessionProvider} from "next-auth/react";
+import Router, {useRouter} from "next/router";
+import NProgress from "nprogress";
+import {useLoading} from "@lib/hooks/useLoading";
+import {useEffect} from "react";
+
+
+Router.events.on('routeChangeStart', (url) => {
+    console.log(`Loading: ${url}`)
+    NProgress.start()
+})
+Router.events.on('routeChangeComplete', () => NProgress.done())
+Router.events.on('routeChangeError', () => NProgress.done())
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,7 +32,11 @@ export default function App({
   pageProps
 }: AppPropsWithLayout): ReactNode {
   const getLayout = Component.getLayout ?? ((page): ReactNode => page);
-
+  const useRoute = useRouter();
+    useEffect(() => {
+        document.documentElement.scrollTop = 0;
+        document.scrollingElement!.scrollTop = 0;
+    }, [useRoute.pathname]);
   return (
     <>
       <AppHead />

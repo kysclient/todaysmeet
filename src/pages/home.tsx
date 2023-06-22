@@ -42,7 +42,7 @@ export default function Home(): JSX.Element {
         {loading ? (
           <Loading className='mt-5' />
         ) : !data ? (
-          <Error message='Something went wrong' />
+          <Error message='정보를 불러올 수 없습니다. 다시 시도해주세요.' />
         ) : (
           <>
             <AnimatePresence mode='popLayout'>

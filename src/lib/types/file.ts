@@ -13,3 +13,11 @@ export type FileWithId = File & { id: string };
 export type FilesWithId = (File & {
   id: string;
 })[];
+
+export type VideoData = {
+  src: string;
+}
+
+export type VideoPreview = VideoData & {
+  id: string;
+}

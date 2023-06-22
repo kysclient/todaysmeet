@@ -1,5 +1,5 @@
 import type { Timestamp, FirestoreDataConverter } from 'firebase/firestore';
-import type { ImagesPreview } from './file';
+import type {ImagesPreview, VideoPreview} from './file';
 import type { User } from './user';
 
 export type Tweet = {

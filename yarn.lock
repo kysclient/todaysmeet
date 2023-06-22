@@ -1455,6 +1455,11 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-18.6.4.tgz"
   integrity sha512-I4BD3L+6AWiUobfxZ49DlU43gtI+FTHSv9pE2Zekg6KjMpre4ByusaljW3vYSLJrvQ1ck1hUaeVu8HVlY3vzHg==
 
+"@types/nprogress@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@types/nprogress/-/nprogress-0.2.0.tgz"
+  integrity sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==
+
 "@types/parse5@^6.0.3":
   version "6.0.3"
   resolved "https://registry.npmjs.org/@types/parse5/-/parse5-6.0.3.tgz"
@@ -5276,6 +5281,11 @@ npm-run-path@^5.1.0:
   integrity sha512-sJOdmRGrY2sjNTRMbSvluQqg+8X7ZK61yvzBEIDhz4f8z1TZFYABsqjjCBd/0PUNE9M6QDgHJXQkGUEm7Q+l9Q==
   dependencies:
     path-key "^4.0.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/nprogress/-/nprogress-0.2.0.tgz"
+  integrity sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==
 
 nwsapi@^2.2.0:
   version "2.2.2"

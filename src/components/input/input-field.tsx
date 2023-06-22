@@ -4,7 +4,7 @@ import type { KeyboardEvent, ChangeEvent } from 'react';
 
 export type InputFieldProps = {
   label: string;
-  inputId: EditableData | Extract<keyof User, 'username'>;
+  inputId: EditableData | Extract<keyof User, 'username'> | '이메일' | '패스워드';
   inputValue: string | null;
   inputLimit?: number;
   useTextArea?: boolean;

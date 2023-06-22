@@ -30,9 +30,9 @@ export function SidebarProfile(): JSX.Element {
         <ActionModal
           useIcon
           focusOnMainBtn
-          title='Log out of Twitter?'
+          title='로그아웃 하시겠습니까?'
           description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
-          mainBtnLabel='Log out'
+          mainBtnLabel='로그아웃'
           action={signOut}
           closeModal={closeModal}
         />
@@ -69,7 +69,7 @@ export function SidebarProfile(): JSX.Element {
                   static
                 >
                   <Menu.Item
-                    className='flex items-center justify-between gap-4 border-b 
+                    className='flex items-center justify-between gap-4 border-b
                                border-light-border px-4 py-3 dark:border-dark-border'
                     as='div'
                     disabled
@@ -104,7 +104,7 @@ export function SidebarProfile(): JSX.Element {
                   </Menu.Item>
                   <i
                     className='absolute -bottom-[10px] left-2 translate-x-1/2 rotate-180
-                               [filter:drop-shadow(#cfd9de_1px_-1px_1px)] 
+                               [filter:drop-shadow(#cfd9de_1px_-1px_1px)]
                                dark:[filter:drop-shadow(#333639_1px_-1px_1px)]
                                xl:left-1/2 xl:-translate-x-1/2'
                   >

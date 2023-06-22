@@ -3,6 +3,8 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
     signOut as signOutFirebase
 } from 'firebase/auth';
 import {
@@ -25,19 +27,38 @@ import type {WithFieldValue} from 'firebase/firestore';
 import type {User} from '@lib/types/user';
 import type {Bookmark} from '@lib/types/bookmark';
 import type {Stats} from '@lib/types/stats';
-import {signIn, useSession} from "next-auth/react";
+
+
+const imageUrls = [
+    "/assets/avatars/avatar_1-003262ed.jpg",
+    "/assets/avatars/avatar_2-ceeb03f6.jpg",
+    "/assets/avatars/avatar_3-74e0fbce.jpg",
+    "/assets/avatars/avatar_4-2497c77c.jpg",
+    "/assets/avatars/avatar_5-89cf34e3.jpg",
+    "/assets/avatars/avatar_6-1e41071d.jpg",
+    "/assets/avatars/avatar_7-8a66cd04.jpg",
+    "/assets/avatars/avatar_8-1956d908.jpg",
+    "/assets/avatars/avatar_9-f12c0596.jpg",
+];
 
 type AuthContext = {
     user: User | null;
     setUser: Dispatch<SetStateAction<User | null>>,
     error: Error | null;
     loading: boolean;
+    setLoading: Dispatch<SetStateAction<boolean>>,
     isAdmin: boolean;
     randomSeed: string;
     userBookmarks: Bookmark[] | null;
     signOut: () => Promise<void>;
     signInWithGoogle: () => Promise<void>
+    signInWithEmailPassword: (email: string, password: string) => void
 };
+
+const selectRandomImage = () => {
+    const randomIndex = Math.floor(Math.random() * imageUrls.length);
+    return imageUrls[randomIndex];
+}
 
 export const AuthContext = createContext<AuthContext | null>(null);
 
@@ -130,8 +151,8 @@ export function AuthContextProvider({
                 setLoading(false);
             }
         };
-
         onAuthStateChanged(auth, handleUserAuth);
+
     }, []);
 
     useEffect(() => {
@@ -162,12 +183,100 @@ export function AuthContextProvider({
         try {
             const provider = new GoogleAuthProvider();
             const authResponse = await signInWithPopup(auth, provider);
-            // eslint-disable-next-line no-console
-            console.log('authResponse : ', authResponse);
         } catch (error) {
             setError(error as Error);
         }
     };
+
+    function authenticateUser(email: string, password: string) {
+        return signInWithEmailAndPassword(auth, email, password)
+            .then(async (userCredential) => {
+                const user = userCredential.user;
+                const newUser = (await getDoc(doc(usersCollection, user.uid))).data();
+                setUser(newUser as User);
+                return true
+            })
+            .catch((error) => {
+                return false
+            });
+    }
+
+    const signInWithEmailPassword = async (email: string, password: string) => {
+        setLoading(true)
+        if (await authenticateUser(email, password)) {
+            setLoading(false);
+        } else {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(async (userCredential) => {
+                    const user = userCredential.user;
+                    const randomInt = getRandomInt(1, 10_000)
+                    let displayName = randomInt.toString()
+                    const delimiterIndex = user?.email?.indexOf("@");
+                    if (delimiterIndex !== -1) {
+                        displayName = user!.email!.substring(0, delimiterIndex) + randomInt
+                    }
+                    const userData: WithFieldValue<User> = {
+                        id: user.uid,
+                        bio: null,
+                        name: displayName as string,
+                        theme: null,
+                        accent: null,
+                        website: null,
+                        location: null,
+                        photoURL: selectRandomImage(),
+                        username: user?.email?.substring(0, delimiterIndex) || "Anonymous",
+                        verified: false,
+                        following: [],
+                        followers: [],
+                        createdAt: serverTimestamp(),
+                        updatedAt: null,
+                        totalTweets: 0,
+                        totalPhotos: 0,
+                        pinnedTweet: null,
+                        coverPhotoURL: null
+                    };
+
+                    const userStatsData: WithFieldValue<Stats> = {
+                        likes: [],
+                        tweets: [],
+                        updatedAt: null
+                    };
+                    try {
+                        await Promise.all([
+                            setDoc(doc(usersCollection, user.uid), userData),
+                            setDoc(doc(userStatsCollection(user.uid), 'stats'), userStatsData)
+                        ]);
+                        const newUser = (await getDoc(doc(usersCollection, user.uid))).data();
+                        setUser(newUser as User);
+                    } catch (error) {
+                        setError(error as Error);
+                    }
+                })
+                .catch((error) => {
+                    if (error.message.includes("already")) {
+                        existsUser(email, password)
+                    } else {
+                        setLoading(false)
+                        setError(error as Error)
+                    }
+                })
+        }
+
+
+    }
+
+    const existsUser = (email: string, password: string) => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then(async (userCredential) => {
+                const newUser = (await getDoc(doc(usersCollection, userCredential.user.uid))).data();
+                setUser(newUser as User)
+                setLoading(false)
+            })
+            .catch((error) => {
+                setLoading(false)
+                setError(error as Error)
+            })
+    }
 
     const signOut = async (): Promise<void> => {
         try {
@@ -185,11 +294,13 @@ export function AuthContextProvider({
         setUser,
         error,
         loading,
+        setLoading,
         isAdmin,
         randomSeed,
         userBookmarks,
         signOut,
         signInWithGoogle,
+        signInWithEmailPassword
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

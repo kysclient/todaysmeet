@@ -36,14 +36,12 @@ import {User} from "@lib/types/user";
 import {addDoc, getDoc, serverTimestamp, WithFieldValue} from "firebase/firestore";
 import {Tweet} from "@lib/types/tweet";
 import {manageReply, manageTotalPhotos, manageTotalTweets, uploadImages} from "@lib/firebase/utils";
-import {useLoading} from "@lib/hooks/useLoading";
 import {Loading} from "@components/ui/loading";
 import {sleep} from "@lib/utils";
 import {tweetsCollection} from "@lib/firebase/collections";
 import Link from "next/link";
 
 export default function Calc(): JSX.Element {
-    const nowLoading = useLoading();
     const [showResult, setShowResult] = useState<boolean>(false);
     const {theme} = useTheme();
     const {open, openModal, closeModal} = useModal();
@@ -490,6 +488,7 @@ export default function Calc(): JSX.Element {
                                                     previewCount={previewCount}
                                                     src={noImage}
                                                     alt={"no_image"}
+                                                    useSkeleton
                                                 />
                                                 <p className='xl:block ml-2 mt-3 text-light-secondary dark:text-dark-secondary'>No
                                                     image available</p>

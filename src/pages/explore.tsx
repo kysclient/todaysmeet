@@ -221,10 +221,6 @@ export default function Explore(): JSX.Element {
                 </MainHeader>
 
                 <section className='mt-10 relative h-full'>
-                    {nowLoading ? (
-                            <Loading className='mt-5'/>
-                        ) :
-
                         <AnimatePresence mode='popLayout'>
                             <div className="relative h-full overflow-hidden bg-main-background">
                                 <div
@@ -333,7 +329,6 @@ export default function Explore(): JSX.Element {
 
                             </div>
                         </AnimatePresence>
-                    }
                 </section>
 
             </ChatContainer>

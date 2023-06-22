@@ -23,7 +23,7 @@ import type { WithFieldValue } from 'firebase/firestore';
 import type { Variants } from 'framer-motion';
 import type { User } from '@lib/types/user';
 import type { Tweet } from '@lib/types/tweet';
-import type { FilesWithId, ImagesPreview, ImageData } from '@lib/types/file';
+import type {FilesWithId, ImagesPreview, ImageData, VideoPreview} from '@lib/types/file';
 
 type InputProps = {
   modal?: boolean;
@@ -51,6 +51,7 @@ export function Input({
 }: InputProps): JSX.Element {
   const [selectedImages, setSelectedImages] = useState<FilesWithId>([]);
   const [imagesPreview, setImagesPreview] = useState<ImagesPreview>([]);
+  const [videoPreview, setVideoPreview] = useState<VideoPreview>();
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [visited, setVisited] = useState(false);
@@ -124,6 +125,14 @@ export function Input({
     );
   };
 
+  const handleVideoUpload = (
+      e: ChangeEvent<HTMLInputElement>
+  ): void => {
+    if(e.target.files)  {
+      const file = e.target.files[0];
+      const url = URL.createObjectURL(file);
+    }
+  }
 
   const handleImageUpload = (
     e: ChangeEvent<HTMLInputElement> | ClipboardEvent<HTMLTextAreaElement>
@@ -275,6 +284,7 @@ export function Input({
                 isValidTweet={isValidTweet}
                 isCharLimitExceeded={isCharLimitExceeded}
                 handleImageUpload={handleImageUpload}
+                handleVideoUpload={handleVideoUpload}
               />
             )}
           </AnimatePresence>
