@@ -12,6 +12,7 @@ import {SidebarProfile} from './sidebar-profile';
 import type {IconName} from '@components/ui/hero-icon';
 import {useRouter} from "next/router";
 import {useEffect} from "react";
+import {uuidv4} from "@firebase/util";
 
 export type NavLink = {
     href: string;
@@ -20,6 +21,7 @@ export type NavLink = {
     disabled?: boolean;
     canBeHidden?: boolean;
 };
+// eslint-disable-next-line react-hooks/rules-of-hooks
 
 const navLinks: Readonly<NavLink[]> = [
     {
@@ -41,12 +43,6 @@ const navLinks: Readonly<NavLink[]> = [
     //   href: '/notifications',
     //   linkName: 'Notifications',
     //   iconName: 'BellIcon',
-    //   disabled: true
-    // },
-    // {
-    //   href: '/messages',
-    //   linkName: 'Messages',
-    //   iconName: 'EnvelopeIcon',
     //   disabled: true
     // },
     {
@@ -72,6 +68,7 @@ export function Sidebar(): JSX.Element {
     const {open, openModal, closeModal} = useModal();
 
     const username = user?.username as string;
+    const userId = user?.id as string;
 
     return (
         <header
@@ -108,6 +105,12 @@ export function Sidebar(): JSX.Element {
                         {navLinks.map(({...linkData}) => (
                             <SidebarLink {...linkData} key={linkData.href}/>
                         ))}
+                        <SidebarLink
+                            href={`/messages/${uuidv4()}`}
+                            username={username}
+                            linkName='메세지'
+                            iconName='EnvelopeIcon'
+                        />
                         <SidebarLink
                             href={`/user/${username}`}
                             username={username}

@@ -12,7 +12,6 @@ import {OpenAIError, OpenAIStream} from "@lib/server";
 
 const handler = async (req: Request): Promise<Response> => {
     try {
-        console.log('req : ', req)
         const { model, messages, key, prompt, temperature } = (await req.json()) as ChatBody;
 
         await init((imports) => WebAssembly.instantiate(wasm, imports));

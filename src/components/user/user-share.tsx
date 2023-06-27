@@ -17,7 +17,7 @@ export function UserShare({ username }: UserShareProps): JSX.Element {
   const handleCopy = (closeMenu: () => void) => async (): Promise<void> => {
     closeMenu();
     await navigator.clipboard.writeText(`${siteURL}/user/${username}`);
-    toast.success('Copied to clipboard');
+    toast.success('클립보드에 복사되었습니다.');
   };
 
   return (

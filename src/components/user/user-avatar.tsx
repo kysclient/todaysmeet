@@ -40,7 +40,7 @@ export function UserAvatar({
   username,
   className
 }: UserAvatarProps): JSX.Element {
-  const pictureSize = size ?? 48;
+  const pictureSize = size ?? 40;
   const selectRandomImage = () => {
     const randomIndex = Math.floor(Math.random() * imageUrls.length);
     return imageUrls[randomIndex];

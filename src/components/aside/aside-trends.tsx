@@ -45,10 +45,6 @@ type AsideTrendsProps = {
 
 export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
 
-    // const {data, loading} = useTrends(1, inTrendsPage ? 100 : 10, {
-    //     refreshInterval: 30000
-    // });
-
     const { data: trends, loading: trendsLoading}  = useCollection(
         query(trendsCollection, orderBy(documentId()), limit(10))
     );
@@ -71,7 +67,7 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                 >
                     {!inTrendsPage && (
                         <>
-                        <h2 className='text-xl font-extrabold'>이달의 맛집 🔥</h2>
+                        <h2 className='text-xl font-extrabold'>이달의 장소 🔥</h2>
                         </>
                     )}
                     {trends.map((trend, idx) => (

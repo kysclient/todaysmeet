@@ -10,8 +10,8 @@ export default function NotFound(): JSX.Element {
   return (
     <>
       <SEO
-        title='Page not found / BungSin'
-        description='Sorry we couldn’t find the page you were looking for.'
+        title='페이지를 찾을 수 없습니다 / BungSin'
+        description='페이지를 찾을 수 없습니다 URL을 다시 확인해 주세요.'
         image='/404.svg'
       />
       <Error statusCode={404} withDarkMode={isDarkMode} />

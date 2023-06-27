@@ -62,3 +62,10 @@ export function PeopleLayout({ children }: LayoutProps): JSX.Element {
     </>
   );
 }
+
+export function MessageLayout({ children }: LayoutProps): JSX.Element {
+    return (
+        <>
+        </>
+    );
+}

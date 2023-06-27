@@ -32,13 +32,13 @@ export default function People(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='People / Twitter' />
+      <SEO title='사람 / BungSin' />
       <MainHeader useActionButton title='People' action={back} />
       <section>
         {loading ? (
           <Loading className='mt-5' />
         ) : !data ? (
-          <Error message='Something went wrong' />
+          <Error message='정보를 불러 올 수 없습니다. 다시 시도해주세요.' />
         ) : (
           <>
             <motion.div className='mt-0.5' {...variants}>

@@ -9,6 +9,8 @@ import type {Bookmark} from '@lib/types/bookmark';
 import type {Stats} from '@lib/types/stats';
 import {trendConverter} from "@lib/types/trends";
 import {Notis, notisConverter} from "@lib/types/notis";
+import {chatRoomConverter} from "@lib/types/chatRooms";
+import {Messages, messagesConverter} from "@lib/types/messages";
 
 export const usersCollection = collection(db, 'users').withConverter(
     userConverter
@@ -22,6 +24,10 @@ export const trendsCollection = collection(db, 'trends').withConverter(
     trendConverter
 );
 
+export const chatRoomsCollection = collection(db, 'chatRooms').withConverter(
+    chatRoomConverter
+)
+
 export function userBookmarksCollection(
     id: string
 ): CollectionReference<Bookmark> {
@@ -32,6 +38,10 @@ export function userBookmarksCollection(
 
 export function userStatsCollection(id: string): CollectionReference<Stats> {
     return collection(db, `users/${id}/stats`).withConverter(statsConverter);
+}
+
+export function chatRoomMessagesCollection(id: string): CollectionReference<Messages> {
+    return collection(db, `chatRooms/${id}/messages`).withConverter(messagesConverter)
 }
 
 export function userNotisCollection(id: string): CollectionReference<Notis> {

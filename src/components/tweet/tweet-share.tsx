@@ -37,13 +37,13 @@ export function TweetShare({
         type === 'bookmark'
           ? (): JSX.Element => (
               <span className='flex gap-2'>
-                Tweet added to your Bookmarks
+               북마크에 추가되었습니다.
                 <Link href='/bookmarks' legacyBehavior>
-                  <a className='custom-underline font-bold'>View</a>
+                  <a className='custom-underline font-bold'>보기</a>
                 </Link>
               </span>
             )
-          : 'Tweet removed from your bookmarks'
+          : '북마크에서 삭제되었습니다.'
       );
     };
 

@@ -3,11 +3,11 @@ import {motion} from 'framer-motion';
 import {Button} from '@components/ui/button';
 import {HeroIcon} from '@components/ui/hero-icon';
 import {ToolTip} from '@components/ui/tooltip';
-import {variants} from './input';
-import {ProgressBar} from './progress-bar';
 import type {ChangeEvent, ClipboardEvent} from 'react';
 import type {IconName} from '@components/ui/hero-icon';
 import {IconSend} from "@tabler/icons-react";
+import {variants} from "@components/input/input";
+import {ProgressBar} from "@components/input/progress-bar";
 
 type Options = {
     name: string;
@@ -23,35 +23,18 @@ const options: Readonly<Options> = [
         disabled: false
     },
     {
-        name: 'Video',
-        iconName: 'VideoCameraIcon',
-        disabled: true
-    },
-    {
-        name: 'Poll',
-        iconName: 'ChartBarIcon',
-        disabled: true
+        name: 'Gif',
+        iconName: 'GifIcon',
+        disabled: false
     },
     {
         name: 'Emoji',
         iconName: 'FaceSmileIcon',
         disabled: true
     },
-    {
-        name: 'Schedule',
-        iconName: 'CalendarDaysIcon',
-        disabled: true
-    },
-    {
-        name: 'Location',
-        iconName: 'MapPinIcon',
-        disabled: true
-    }
 ];
 
-type InputOptionsProps = {
-    reply?: boolean;
-    modal?: boolean;
+type MessageInputOptionsProps = {
     inputLimit: number;
     inputLength: number;
     isValidTweet: boolean;
@@ -59,31 +42,19 @@ type InputOptionsProps = {
     handleImageUpload: (
         e: ChangeEvent<HTMLInputElement> | ClipboardEvent<HTMLTextAreaElement>
     ) => void;
-    handleVideoUpload: (
-        e: ChangeEvent<HTMLInputElement>
-    ) => void;
 };
 
-export function InputOptions({
-                                 reply,
-                                 modal,
+export function MessageInputOptions({
                                  inputLimit,
                                  inputLength,
                                  isValidTweet,
                                  isCharLimitExceeded,
                                  handleImageUpload,
-                                 handleVideoUpload
-                             }: InputOptionsProps): JSX.Element {
+                             }: MessageInputOptionsProps): JSX.Element {
     const inputFileRef = useRef<HTMLInputElement>(null);
-    const inputVideoRef = useRef<HTMLInputElement>(null);
     const onClick = (): void => inputFileRef.current?.click();
-    const onClick2 = (): void => inputVideoRef.current?.click();
     let filteredOptions = options;
 
-    if (reply)
-        filteredOptions = filteredOptions.filter(
-            (_, index) => ![2, 4].includes(index)
-        );
 
     return (
         <motion.div className='flex justify-between' {...variants}>
@@ -100,25 +71,17 @@ export function InputOptions({
                     multiple
                 />
 
-                <input
-                    className='hidden'
-                    type='file'
-                    accept='.mov, .mp4'
-                    onChange={handleVideoUpload}
-                    ref={inputVideoRef}
-                    multiple={false}
-                />
 
                 {filteredOptions.map(({name, iconName, disabled}, index) => (
                     <Button
                         className='accent-tab accent-bg-tab group relative rounded-full p-2
                        hover:bg-main-accent/10 active:bg-main-accent/20'
-                        onClick={index === 0 ? onClick : index === 1 ? onClick2 : undefined}
+                        onClick={index === 0 ? onClick : undefined}
                         disabled={disabled}
                         key={name}
                     >
                         <HeroIcon className='h-5 w-5' iconName={iconName}/>
-                        <ToolTip tip={name} modal={modal}/>
+                        <ToolTip tip={name} modal={false}/>
                     </Button>
                 ))}
             </div>
@@ -130,24 +93,20 @@ export function InputOptions({
                     }
                 >
                     <ProgressBar
-                        modal={modal}
+                        modal={false}
                         inputLimit={inputLimit}
                         inputLength={inputLength}
                         isCharLimitExceeded={isCharLimitExceeded}
                     />
-                    {!reply && (
-                        <>
-                            <i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>
-                            <Button
-                                className='group relative hidden rounded-full border border-light-line-reply p-[1px]
+                    <i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>
+                    <Button
+                        className='group relative hidden rounded-full border border-light-line-reply p-[1px]
                            text-main-accent dark:border-light-secondary xs:block'
-                                disabled
-                            >
-                                <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>
-                                <ToolTip tip='Add' modal={modal}/>
-                            </Button>
-                        </>
-                    )}
+                        disabled
+                    >
+                        <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>
+                        <ToolTip tip='Add' modal={false}/>
+                    </Button>
                 </motion.div>
                 <Button
                     type='submit'
@@ -156,7 +115,7 @@ export function InputOptions({
                      enabled:active:bg-main-accent/75'
                     disabled={!isValidTweet}
                 >
-                    {reply ? '댓글 달기' : '게시'}
+                    <IconSend size={18}/>
                 </Button>
             </div>
         </motion.div>

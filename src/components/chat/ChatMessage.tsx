@@ -1,4 +1,4 @@
-import React, {Dispatch, FC, memo, SetStateAction, useEffect, useRef, useState} from "react";
+import React, {Dispatch, FC, memo, SetStateAction, useContext, useEffect, useRef, useState} from "react";
 import {Message} from "@lib/types/chat";
 import {IconCheck, IconCopy, IconEdit, IconRobot, IconTrash, IconUser} from "@tabler/icons-react";
 import {CodeBlock} from "@components/chat/CodeBlock";
@@ -9,26 +9,29 @@ import rehypeMathjax from "rehype-mathjax";
 import {useTranslation} from "next-i18next";
 import {motion} from "framer-motion";
 import {variants} from "@components/aside/aside-trends";
+import ChatContext from "@lib/context/chat-context";
 
 export interface Props {
     message: Message;
     messageIndex: number;
     onEdit?: (editedMessage: Message) => void,
-    messages: Message[];
-    setMessages: Dispatch<SetStateAction<Message[]>>,
-    messageIsStreaming: boolean;
     index: number;
 }
 
 export const ChatMessage: FC<Props> = memo(({
-                                                messages,
-                                                messageIsStreaming,
                                                 message,
-                                                setMessages,
                                                 messageIndex,
                                                 onEdit,
                                                 index
                                             }) => {
+    const {
+        state: {
+            messages,
+            messageIsStreaming,
+        },
+        dispatch: chatDispatch,
+    } = useContext(ChatContext);
+
     const {t} = useTranslation('chat');
 
     const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -61,9 +64,6 @@ export const ChatMessage: FC<Props> = memo(({
 
     const handleDeleteMessage = () => {
 
-        console.log('messages : ', messages)
-        console.log('index : ', index)
-
         const findIndex = messages.findIndex((elm) => elm === message);
 
         if (findIndex < 0) return;
@@ -72,9 +72,9 @@ export const ChatMessage: FC<Props> = memo(({
             findIndex < messages.length - 1 &&
             messages[findIndex + 1].role === 'assistant'
         ) {
-            setMessages([...messages.splice(findIndex, 2)]);
+            chatDispatch({field: 'messages', value: [...messages.splice(findIndex, 2)]})
         } else {
-            setMessages([...messages.splice(findIndex, 1)]);
+            chatDispatch({field: 'messages', value: [...messages.splice(findIndex, 1)]})
         }
 
     };
@@ -119,7 +119,7 @@ export const ChatMessage: FC<Props> = memo(({
             {...variants}
         >
             <div
-                className="relative m-auto flex p-4 text-base md:max-w-2xl md:gap-6 md:py-6 lg:max-w-2xl lg:px-0 xl:max-w-3xl">
+                className="relative m-auto flex p-4 text-base md:max-w-2xl md:gap-6 md:py-6 lg:max-w-2xl  xl:max-w-3xl">
                 <div className="min-w-[40px] text-right font-bold">
                     {message.role === 'assistant' ? (
                         <IconRobot size={30}/>
@@ -255,7 +255,7 @@ export const ChatMessage: FC<Props> = memo(({
                             </MemoizedReactMarkdown>
 
                             <div
-                                className="md:-mr-8 ml-1 md:ml-0 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
+                                className="md:-mr-8 ml-1 md:ml-0 pr-2 flex flex-col md:flex-row gap-4 md:gap-1 items-center md:items-start justify-end md:justify-start">
                                 {messagedCopied ? (
                                     <IconCheck
                                         size={20}
@@ -263,7 +263,7 @@ export const ChatMessage: FC<Props> = memo(({
                                     />
                                 ) : (
                                     <button
-                                        className="invisible group-hover:visible focus:visible text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                                        className="invisible group-hover:visible focus:visible text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 pr-2"
                                         onClick={copyOnClick}
                                     >
                                         <IconCopy size={20}/>
