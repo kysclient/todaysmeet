@@ -8,9 +8,10 @@ import type { LayoutProps } from './common-layout';
 
 const toastOptions: DefaultToastOptions = {
   style: {
-    color: 'white',
-    borderRadius: '4px',
-    backgroundColor: 'rgb(var(--main-accent))'
+    padding:'10px 25px',
+    borderRadius: '25px',
+    background: '#333',
+    color: '#fff',
   },
   success: { duration: 4000 }
 };
@@ -23,7 +24,7 @@ export function MainLayout({ children }: LayoutProps): JSX.Element {
         <SWRConfig value={{ fetcher: fetchJSON }}>{children}</SWRConfig>
       </WindowContextProvider>
       <Toaster
-        position='bottom-center'
+        position='top-center'
         toastOptions={toastOptions}
         containerClassName='mb-12 xs:mb-0'
       />
