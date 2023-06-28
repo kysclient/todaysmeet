@@ -30,12 +30,6 @@ export const OpenAIStream = async (
     }
 
 
-    // CORS 설정 추가
-    const headers = new Headers();
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    headers.append('Access-Control-Allow-Headers', 'Content-Type');
-
     const res = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',

@@ -51,7 +51,7 @@ const handler = async (req: Request): Promise<Response> => {
     } catch (error) {
         console.error(error);
         if (error instanceof OpenAIError) {
-            return new Response('Error', { status: 500, statusText: error.message });
+            return new Response('Error', { status: 500, statusText: "ai error ?" });
         } else {
             return new Response('Error', { status: 500 });
         }
