@@ -1,8 +1,8 @@
 {
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/chat",
-      "methods": ["POST"]
+      "source": "/api/chat",
+      "destination": "/api/chat.ts"
     }
   ],
   "headers": [
