@@ -27,6 +27,7 @@ type MessageCardProps = {
     setSelected: Dispatch<SetStateAction<number>>,
     cardUser: User | undefined,
     setCardUser: Dispatch<SetStateAction<User | undefined>>
+    setShowList: Dispatch<SetStateAction<boolean>>
 }
 
 export function MessageCard(message: MessageCardProps): JSX.Element {
@@ -55,6 +56,7 @@ export function MessageCard(message: MessageCardProps): JSX.Element {
             onClick={() => {
                 message.setSelectedData(messagesData);
                 message.setSelected(message.idx);
+                message.setShowList(false);
             }}
             className={`accent-tab hover-animation grid grid-cols-[auto,1fr] gap-3 px-4
                    py-3 hover:bg-light-primary/5 dark:hover:bg-dark-primary/5 cursor-pointer ${message.selected === message.idx ? "border-r-2 border-r-main-accent bg-light-primary/5 dark:bg-dark-primary/5": ""}`}>

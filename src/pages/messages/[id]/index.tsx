@@ -25,6 +25,7 @@ import {ToolTip} from "@components/ui/tooltip";
 import {t} from "i18next";
 import {MessageInput} from "@components/messages/message-input";
 import {MessageBox} from "@components/messages/message-box";
+import {MessageSelect} from "@components/messages/message-select";
 
 
 export default function Messages(): JSX.Element {
@@ -50,6 +51,7 @@ export default function Messages(): JSX.Element {
     const chatContainerRef = useRef<HTMLDivElement>(null);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+    const [showList, setShowList] = useState<boolean>(false)
 
     const handleScroll = () => {
         if (chatContainerRef.current) {
@@ -66,7 +68,6 @@ export default function Messages(): JSX.Element {
             }
         }
     };
-
 
     const handleScrollDown = () => {
         chatContainerRef.current?.scrollTo({
@@ -102,7 +103,7 @@ export default function Messages(): JSX.Element {
 
     return (
         <>
-            <MessagesContainer >
+            <MessagesContainer showList={showList}>
                 <MainHeader title='메세지'/>
                 <section>
                     {loading ? (
@@ -124,6 +125,7 @@ export default function Messages(): JSX.Element {
                                                      selectedData={selectedData}
                                                      cardUser={cardUser}
                                                      setCardUser={setCardUser}
+                                                     setShowList={setShowList}
                                         />
                                     </>
                                 ))}
@@ -134,8 +136,12 @@ export default function Messages(): JSX.Element {
                 </section>
             </MessagesContainer>
 
-            <MessageContainer className="overflow-y-auto">
-                <MainHeader useActionButton={width < 1024}
+            <MessageContainer className="overflow-y-auto" showList={showList}>
+                <MainHeader useActionButton={width < 1024} action={() => {
+                    setSelectedData(null);
+                    setSelected(-1);
+                    setShowList(true);
+                }}
                             className={`flex items-center ${width < 1024 ? "justify-between" : "justify-end"}`}>
                     <Button
                         className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
@@ -150,16 +156,21 @@ export default function Messages(): JSX.Element {
 
                     {
                         !selectedData ? (
-                                <Loading className='mt-5'/>
+                                <MessageSelect />
                             ) :
                             <>
                                 <div>
                                     <UserMessageProfile
                                         user={cardUser}
                                     />
-                                    <MessageBox
-                                        />
-
+                                    <div className="flex flex-col">
+                                        <div className="flex-1 overflow-y-auto p-4">
+                                            <div className="flex flex-col gap-2">
+                                                <MessageBox
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div
                                         className="h-[162px] bg-main-background"
                                         ref={messagesEndRef}
@@ -171,8 +182,6 @@ export default function Messages(): JSX.Element {
                                     showScrollDownButton={showScrollDownButton}
                                     />
                             </>
-
-
                     }
                 </section>
             </MessageContainer>

@@ -1,19 +1,21 @@
 import cn from 'clsx';
-import type { ReactNode } from 'react';
+import type {ReactNode} from 'react';
 import {useWindow} from "@lib/context/window-context";
 
 type MessagesContainerProps = {
     children: ReactNode;
     className?: string;
+    showList: boolean;
 };
 
 export function MessagesContainer({
-                                  children,
-                                  className
-                              }: MessagesContainerProps): JSX.Element | null {
-    const { width } = useWindow();
+                                      children,
+                                      className,
+                                      showList
+                                  }: MessagesContainerProps): JSX.Element | null {
+    const {width} = useWindow();
 
-    if (width < 1024) return null;
+    if (width < 1024 && !showList) return null;
     return (
         <main
             className={cn(
