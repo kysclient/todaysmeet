@@ -130,11 +130,11 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': "*"
                 },
                 signal: controller.signal,
                 body,
             });
+            console.log('response : ', response)
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});
                 chatDispatch({field: 'messageIsStreaming', value: false});
