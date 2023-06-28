@@ -11,12 +11,6 @@ const handler = async (req: Request): Promise<Response> => {
     try {
         const { model, messages, key, prompt, temperature } = (await req.json()) as ChatBody;
 
-        // CORS 설정 추가
-        const headers = new Headers();
-        headers.append('Access-Control-Allow-Origin', '*');
-        headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-        headers.append('Access-Control-Allow-Headers', 'Content-Type');
-
         await init((imports) => WebAssembly.instantiate(wasm, imports));
         const encoding = new Tiktoken(
             tiktokenModel.bpe_ranks,
@@ -53,7 +47,7 @@ const handler = async (req: Request): Promise<Response> => {
         encoding.free();
 
         const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-        return new Response(stream, { headers });
+        return new Response(stream);
     } catch (error) {
         console.error(error);
         if (error instanceof OpenAIError) {

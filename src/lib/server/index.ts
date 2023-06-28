@@ -28,9 +28,20 @@ export const OpenAIStream = async (
     if (OPENAI_API_TYPE === 'azure') {
         url = `${OPENAI_API_HOST}/openai/deployments/${AZURE_DEPLOYMENT_ID}/chat/completions?api-version=${OPENAI_API_VERSION}`;
     }
+
+
+    // CORS 설정 추가
+    const headers = new Headers();
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    headers.append('Access-Control-Allow-Headers', 'Content-Type');
+
     const res = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
             ...(OPENAI_API_TYPE === 'openai' && {
                 Authorization: `Bearer ${key ? key : process.env.OPENAI_API_KEY}`
             }),
