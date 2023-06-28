@@ -38,9 +38,12 @@ export function UserMessageProfile(props: UserMessageProfileProps): JSX.Element 
 
                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
                     {
-                        props.user?.following.find(follow => follow === userId) !== undefined ?
-                            "서로 팔로우" : props.user?.followers.find(follow => follow === userId !== undefined) ?
-                                "내가 팔로우하는 사람이 팔로우하지 않음" : "서로 팔로우가 아님"
+                        props.user?.following.find(follow => follow === userId) !== undefined &&
+                        props.user?.followers.find(follow => follow === userId) !== undefined ?
+                            "서로 팔로우" : props.user?.following.find(follow => follow === userId) !== undefined ?
+                                "상대방이 나를 팔로우" :
+                                props.user?.followers.find(follow => follow === userId) !== undefined ?
+                                    "내가 팔로우하는 사람이 팔로우하지 않음" : "서로 팔로우가 아님"
                     }
                 </p>
             </div>

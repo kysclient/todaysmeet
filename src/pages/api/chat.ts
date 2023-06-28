@@ -66,4 +66,4 @@ export const config = {
     runtime: 'experimental-edge',
 };
 
-export default handler;
+export default handler
