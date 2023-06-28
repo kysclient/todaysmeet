@@ -8,7 +8,6 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import Router, {useRouter} from "next/router";
 import NProgress from "nprogress";
-import {useLoading} from "@lib/hooks/useLoading";
 import {useEffect} from "react";
 
 
@@ -45,6 +44,7 @@ export default function App({
                     {getLayout(<Component {...pageProps} />)}
                 </ThemeContextProvider>
             </AuthContextProvider>
+
     </>
   );
 }

@@ -11,7 +11,10 @@ import {OpenAIError, OpenAIStream} from "@lib/server";
 
 
 const handler = async (req: Request): Promise<Response> => {
+    console.log('여긴 들어옴 ?')
     try {
+        console.log('try ?')
+
         const { model, messages, key, prompt, temperature } = (await req.json()) as ChatBody;
 
         await init((imports) => WebAssembly.instantiate(wasm, imports));
@@ -53,6 +56,7 @@ const handler = async (req: Request): Promise<Response> => {
 
         return new Response(stream);
     } catch (error) {
+        console.log('catch ?')
         console.error(error);
         if (error instanceof OpenAIError) {
             return new Response('Error', { status: 500, statusText: error.message });
