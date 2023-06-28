@@ -1,7 +1,8 @@
 {
   "routes": [
-    "/api/chat": {
+    {
+      "src": "/api/chat",
       "methods": ["GET", "POST"]
-    ]
-  }
+    }
+  ]
 }
