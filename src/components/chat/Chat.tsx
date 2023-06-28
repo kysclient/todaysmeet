@@ -123,13 +123,14 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 prompt: message.content,
                 temperature: 1.0,
             };
-            const endpoint = 'api/chat'
+            const endpoint = 'api/aichat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': "*"
                 },
                 signal: controller.signal,
                 body,

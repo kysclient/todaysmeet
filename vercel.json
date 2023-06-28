@@ -1,13 +1,13 @@
 {
   "rewrites": [
     {
-      "source": "/api/chat",
-      "destination": "/api/chat.ts"
+      "source": "/api/aichat",
+      "destination": "/api/aichat.ts"
     }
   ],
   "headers": [
     {
-      "source": "/api/chat",
+      "source": "/api/aichat",
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
