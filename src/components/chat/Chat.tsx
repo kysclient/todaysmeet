@@ -135,12 +135,12 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 body,
             });
             console.log('response : ', response)
-            if (!response.ok) {
-                chatDispatch({field: 'loading', value: false});
-                chatDispatch({field: 'messageIsStreaming', value: false});
-                toast.error(response.statusText);
-                return;
-            }
+            // if (!response.ok) {
+            //     chatDispatch({field: 'loading', value: false});
+            //     chatDispatch({field: 'messageIsStreaming', value: false});
+            //     toast.error(response.statusText);
+            //     return;
+            // }
             const data = response.body;
             if (!data) {
                 chatDispatch({field: 'loading', value: false});
