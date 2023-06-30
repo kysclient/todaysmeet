@@ -49,7 +49,8 @@ export const MessageInput = ({
                                 inputLength={280}
                                 isValidTweet={true}
                                 isCharLimitExceeded={false}
-                                handleImageUpload={() => {}}
+                                handleImageUpload={() => {
+                                }}
                             />
                         </div>
                     </div>

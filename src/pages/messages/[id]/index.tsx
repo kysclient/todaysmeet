@@ -44,7 +44,7 @@ export default function Messages(): JSX.Element {
         {allowNull: true, preserve: true},
         {marginBottom: 500}
     );
-    const [selectedData, setSelectedData] = useState<UserWithChatRooms>(null)
+    const [selectedData, setSelectedData] = useState<UserWithChatRooms | null>(null)
     const [selected, setSelected] = useState<number>(-1);
     const [autoScrollEnabled, setAutoScrollEnabled] = useState<boolean>(true);
     const [showScrollDownButton, setShowScrollDownButton] =
@@ -125,11 +125,6 @@ export default function Messages(): JSX.Element {
             setMyChatList(myData)
         }
     }, [data, userId])
-
-
-    useEffect(() => {
-        console.log('mychatlist : ', myChatList)
-    }, [myChatList])
 
     return (
         <>
