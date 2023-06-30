@@ -7,13 +7,26 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
 import {NextRequest} from "next/server";
+import cors from 'cors';
+import {NextApiResponse} from "next";
 
 
 export const config = {
     runtime: 'experimental-edge',
+    api: {
+        bodyParser: false,
+    },
 };
 
-export default async function handler (req: NextRequest): Promise<Response> {
+const corsOptions = {
+    origin: '*', // 허용할 도메인을 지정해도 됩니다. 필요에 따라 '*' 대신 특정 도메인을 지정할 수 있습니다.
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 허용할 메서드 목록
+};
+
+
+export default async function handler (req: NextRequest,  res: NextApiResponse): Promise<Response> {
+    await cors(corsOptions)(req, res);
+
     if(req.method === 'POST') {
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
