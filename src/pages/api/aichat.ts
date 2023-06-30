@@ -7,6 +7,11 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
 
+
+export const config = {
+    runtime: 'experimental-edge',
+};
+
 const handler = async (req: Request): Promise<Response> => {
     try {
         const { model, messages, key, prompt, temperature } = (await req.json()) as ChatBody;
@@ -51,15 +56,13 @@ const handler = async (req: Request): Promise<Response> => {
     } catch (error) {
         console.error(error);
         if (error instanceof OpenAIError) {
-            return new Response('Error', { status: 500, statusText: "ai error ?" });
+            return new Response('Error', { status: 500, statusText: error.message });
         } else {
             return new Response('Error', { status: 500 });
         }
     }
 };
 
-export const config = {
-    runtime: 'experimental-edge',
-};
+
 
 export default handler
