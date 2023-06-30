@@ -71,13 +71,11 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                         </>
                     )}
                     {trends.map((trend, idx) => (
-                        <Link href={trend.trend.url} key={`${uuidv4() + idx}`} passHref>
-                            <a
-                                target={'_blank'}
-                                className='hover-animation accent-tab hover-card relative
+                        <Link href={trend.trend.url} key={`${uuidv4() + idx}`} passHref
+                              target={'_blank'}
+                              className='hover-animation accent-tab hover-card relative
                            flex  flex-col gap-0.5 p-5'
-                                // onClick={preventBubbling()}
-                            >
+                        >
                                 <div className='absolute right-2 top-2'>
                                     <Button
                                         className='hover-animation group relative cursor-not-allowed p-2
@@ -103,17 +101,12 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
                                     {formatNumber(trend.trend.tweet_volume!)} tweets
                                 </p>
-                            </a>
                         </Link>
                     ))}
                     {!inTrendsPage && (
-                        <Link href='/trends'>
-                            <a
-                                className='custom-button accent-tab hover-card block w-full rounded-2xl
-                           rounded-t-none text-center text-main-accent'
-                            >
+                        <Link href='/trends' className='custom-button accent-tab hover-card block w-full rounded-2xl
+                           rounded-t-none text-center text-main-accent'>
                                 더보기
-                            </a>
                         </Link>
                     )}
                 </motion.div>

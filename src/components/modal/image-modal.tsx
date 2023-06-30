@@ -11,6 +11,7 @@ import { backdrop, modal } from './modal';
 import type { VariantLabels } from 'framer-motion';
 import type { ImageData } from '@lib/types/file';
 import type { IconName } from '@components/ui/hero-icon';
+import Link from "next/link";
 
 type ImageModalProps = {
   tweet?: boolean;
@@ -111,7 +112,7 @@ export function ImageModal({
                 alt={alt}
                 onClick={preventBubbling()}
               />
-              <a
+              <Link
                 className='trim-alt accent-tab absolute bottom-0 right-0 mx-2 mb-2 translate-y-4
                            rounded-md bg-main-background/40 px-2 py-1 text-sm text-light-primary/80 opacity-0
                            transition hover:bg-main-accent hover:text-white focus-visible:translate-y-0
@@ -123,9 +124,9 @@ export function ImageModal({
                 onClick={preventBubbling(null, true)}
               >
                 {alt}
-              </a>
+              </Link>
             </picture>
-            <a
+            <Link
               className='custom-underline absolute left-0 -bottom-7 font-medium text-light-primary/80
                          decoration-transparent underline-offset-2 transition hover:text-light-primary hover:underline
                          hover:decoration-light-primary focus-visible:text-light-primary dark:text-dark-primary/80
@@ -136,7 +137,7 @@ export function ImageModal({
               onClick={preventBubbling(null, true)}
             >
               이미지 원본보기
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

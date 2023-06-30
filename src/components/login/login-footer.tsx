@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const footerLinks = [
   ['About', 'https://about.twitter.com'],
   ['Help Center', 'https://help.twitter.com'],
@@ -25,7 +27,7 @@ export function LoginFooter(): JSX.Element {
     <footer className='hidden justify-center p-4 text-sm text-light-secondary dark:text-dark-secondary lg:flex'>
       <nav className='flex flex-wrap justify-center gap-4 gap-y-2'>
         {footerLinks.map(([linkName, href]) => (
-          <a
+          <Link
             className='custom-underline'
             target='_blank'
             rel='noreferrer'
@@ -33,7 +35,7 @@ export function LoginFooter(): JSX.Element {
             key={linkName}
           >
             {linkName}
-          </a>
+          </Link>
         ))}
         <p>© 2022 Twitter, Inc.</p>
       </nav>

@@ -22,15 +22,14 @@ export function UserName({
   const CustomTag = tag ? tag : 'p';
 
   return (
-    <Link href={username ? `/user/${username}` : '#'}>
-      <a
-        className={cn(
-          'flex items-center gap-1 truncate font-bold',
-          username ? 'custom-underline' : 'pointer-events-none',
-          className
-        )}
-        tabIndex={username ? 0 : -1}
-      >
+    <Link href={username ? `/user/${username}` : '#'}
+          className={cn(
+              'flex items-center gap-1 truncate font-bold',
+              username ? 'custom-underline' : 'pointer-events-none',
+              className
+          )}
+          tabIndex={username ? 0 : -1}
+    >
         <CustomTag className='truncate'>{name}</CustomTag>
         {verified && (
           <i>
@@ -41,7 +40,6 @@ export function UserName({
             />
           </i>
         )}
-      </a>
     </Link>
   );
 }

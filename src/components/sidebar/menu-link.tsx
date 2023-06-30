@@ -9,10 +9,8 @@ type MenuLinkProps = ComponentPropsWithRef<'a'> & {
 // eslint-disable-next-line react/display-name
 export const MenuLink = forwardRef<HTMLAnchorElement, MenuLinkProps>(
   ({ href, children, ...rest }, ref) => (
-    <Link href={href} legacyBehavior>
-      <a ref={ref} {...rest}>
+    <Link href={href}  ref={ref} {...rest}>
         {children}
-      </a>
     </Link>
   )
 );

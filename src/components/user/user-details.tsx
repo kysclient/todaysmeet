@@ -6,6 +6,7 @@ import { UserFollowing } from './user-following';
 import { UserFollowStats } from './user-follow-stats';
 import type { IconName } from '@components/ui/hero-icon';
 import type { User } from '@lib/types/user';
+import Link from "next/link";
 
 type UserDetailsProps = Pick<
   User,
@@ -66,14 +67,14 @@ export function UserDetails({
                     <HeroIcon className='h-5 w-5' iconName={icon} />
                   </i>
                   {index === 1 ? (
-                    <a
+                    <Link
                       className='custom-underline text-main-accent'
                       href={`https://${detail}`}
                       target='_blank'
                       rel='noreferrer'
                     >
                       {detail}
-                    </a>
+                    </Link>
                   ) : index === 2 ? (
                     <button className='custom-underline group relative'>
                       {detail}

@@ -46,15 +46,14 @@ export function UserAvatar({
     return imageUrls[randomIndex];
   }
   return (
-    <Link href={username ? `/user/${username}` : '#'}>
-      <a
-        className={cn(
-          'blur-picture flex self-start',
-          !username && 'pointer-events-none',
-          className
-        )}
-        tabIndex={username ? 0 : -1}
-      >
+    <Link href={username ? `/user/${username}` : '#'}
+          className={cn(
+              'blur-picture flex self-start',
+              !username && 'pointer-events-none',
+              className
+          )}
+          tabIndex={username ? 0 : -1}
+    >
         <NextImage
           useSkeleton
           imgClassName='rounded-full'
@@ -64,7 +63,6 @@ export function UserAvatar({
           alt={alt ? alt : `random_avatar_${username}`}
           key={src}
         />
-      </a>
     </Link>
   );
 }

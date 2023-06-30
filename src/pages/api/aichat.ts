@@ -6,26 +6,16 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 // @ts-expect-error
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
-import {NextRequest} from "next/server";
-import cors from 'cors';
-import {NextApiResponse} from "next";
 
 
 export const config = {
-    runtime: 'experimental-edge',
+    runtime: 'edge',
     api: {
         bodyParser: false,
     },
 };
 
-const corsOptions = {
-    origin: '*', // 허용할 도메인을 지정해도 됩니다. 필요에 따라 '*' 대신 특정 도메인을 지정할 수 있습니다.
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 허용할 메서드 목록
-};
-
-
-export default async function handler (req: NextRequest,  res: NextApiResponse): Promise<Response> {
-    // await cors(corsOptions)(req, res);
+export default async function handler (req: Request): Promise<Response> {
 
     if(req.method === 'POST') {
         try {
@@ -65,7 +55,6 @@ export default async function handler (req: NextRequest,  res: NextApiResponse):
             }
 
             encoding.free();
-
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
             return new Response(stream);
         } catch (error) {
@@ -79,7 +68,7 @@ export default async function handler (req: NextRequest,  res: NextApiResponse):
     }else {
         return new Response('Error', {status: 500, statusText: "허용되지 않는 메소드입니다."});
     }
-};
+}
 
 
 

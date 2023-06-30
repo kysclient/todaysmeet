@@ -63,8 +63,8 @@ export function UserHomeLayout({children}: LayoutProps): JSX.Element {
             toast.success((): JSX.Element => (
                     <span className='flex gap-2'>
                북마크에 추가되었습니다.
-                <Link href={`/messages/${uuid}`} legacyBehavior>
-                  <a className='custom-underline font-bold'>보기</a>
+                <Link href={`/messages/${uuid}`}  className='custom-underline font-bold' >
+                  보기
                 </Link>
               </span>
                 )

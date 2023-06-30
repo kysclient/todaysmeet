@@ -116,8 +116,8 @@ export function Input({
       () => (
         <span className='flex gap-2'>
           정상등록 되었습니다.
-          <Link href={`/tweet/${tweetId}`}>
-            <a className='custom-underline font-bold'>보기</a>
+          <Link href={`/tweet/${tweetId}`} className='custom-underline font-bold'>
+            보기
           </Link>
         </span>
       ),
@@ -228,10 +228,8 @@ export function Input({
           {...fromTop}
         >
           Replying to{' '}
-          <Link href={`/user/${parent?.username as string}`}>
-            <a className='custom-underline text-main-accent'>
+          <Link href={`/user/${parent?.username as string}`} className='custom-underline text-main-accent'>
               {parent?.username as string}
-            </a>
           </Link>
         </motion.p>
       )}

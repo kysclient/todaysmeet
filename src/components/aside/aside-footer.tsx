@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const footerLinks = [
   // ['Terms of Service', 'https://twitter.com/tos'],
   // ['Privacy Policy', 'https://twitter.com/privacy'],
@@ -20,7 +22,7 @@ export function AsideFooter(): JSX.Element {
     >
       <nav className='flex flex-wrap justify-center gap-2'>
         {footerLinks.map(([linkName, href]) => (
-          <a
+          <Link
             className='custom-underline'
             target='_blank'
             rel='noreferrer'
@@ -28,7 +30,7 @@ export function AsideFooter(): JSX.Element {
             key={href}
           >
             {linkName}
-          </a>
+          </Link>
         ))}
       </nav>
       <p>© 2023 kysclient</p>

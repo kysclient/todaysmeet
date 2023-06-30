@@ -205,8 +205,8 @@ export default function Calc(): JSX.Element {
             () => (
                 <span className='flex gap-2'>
           정상등록 되었습니다.
-          <Link href={`/tweet/${tweetId}`}>
-            <a className='custom-underline font-bold'>보기</a>
+          <Link href={`/tweet/${tweetId}`} className='custom-underline font-bold'>
+            보기
           </Link>
         </span>
             ),

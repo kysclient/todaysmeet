@@ -21,15 +21,14 @@ export function SidebarLink({
   const isActive = username ? asPath.includes(username) : asPath === href;
 
   return (
-    <Link href={href} legacyBehavior>
-      <a
-        className={cn(
-          'group py-1 outline-none',
-          canBeHidden ? 'hidden xs:flex' : 'flex',
-          disabled && 'cursor-not-allowed'
-        )}
-        onClick={disabled ? preventBubbling() : undefined}
-      >
+    <Link href={href}
+          className={cn(
+              'group py-1 outline-none',
+              canBeHidden ? 'hidden xs:flex' : 'flex',
+              disabled && 'cursor-not-allowed'
+          )}
+          onClick={disabled ? preventBubbling() : undefined}
+    >
         <div
           className={cn(
             `custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
@@ -51,7 +50,6 @@ export function SidebarLink({
           />
           <p className='hidden xl:block'>{linkName}</p>
         </div>
-      </a>
     </Link>
   );
 }

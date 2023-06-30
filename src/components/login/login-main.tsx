@@ -5,6 +5,7 @@ import {Button} from '@components/ui/button';
 import {useModal} from "@lib/hooks/useModal";
 import {Modal} from "@components/modal/modal";
 import {SignInModal} from "@components/modal/sign-in-modal";
+import Link from "next/link";
 
 export function LoginMain(): JSX.Element {
     const {signInWithGoogle} = useAuth();
@@ -91,29 +92,29 @@ export function LoginMain(): JSX.Element {
                          text-light-secondary inner:text-accent-blue dark:text-dark-secondary'
                             >
                                 By signing up, you agree to the{' '}
-                                <a
+                                <Link
                                     href='https://twitter.com/tos'
                                     target='_blank'
                                     rel='noreferrer'
                                 >
                                     Terms of Service
-                                </a>{' '}
+                                </Link>{' '}
                                 and{' '}
-                                <a
+                                <Link
                                     href='https://twitter.com/privacy'
                                     target='_blank'
                                     rel='noreferrer'
                                 >
                                     Privacy Policy
-                                </a>
+                                </Link>
                                 , including{' '}
-                                <a
+                                <Link
                                     href='https://help.twitter.com/rules-and-policies/twitter-cookies'
                                     target='_blank'
                                     rel='noreferrer'
                                 >
                                     Cookie Use
-                                </a>
+                                </Link>
                                 .
                             </p>
                         </div>

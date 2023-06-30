@@ -16,11 +16,10 @@ export function UserCard(user: UserCardProps): JSX.Element {
   const { id, bio, name, modal, follow, username, verified, photoURL } = user;
 
   return (
-    <Link href={`/user/${username}`}>
-      <a
-        className='accent-tab hover-animation grid grid-cols-[auto,1fr] gap-3 px-4
+    <Link href={`/user/${username}`}
+          className='accent-tab hover-animation grid grid-cols-[auto,1fr] gap-3 px-4
                    py-3 hover:bg-light-primary/5 dark:hover:bg-dark-primary/5'
-      >
+    >
         <UserTooltip avatar {...user} modal={modal}>
           <UserAvatar src={photoURL} alt={name} username={username} />
         </UserTooltip>
@@ -46,7 +45,6 @@ export function UserCard(user: UserCardProps): JSX.Element {
           </div>
           {follow && bio && <p className='whitespace-normal'>{bio}</p>}
         </div>
-      </a>
     </Link>
   );
 }

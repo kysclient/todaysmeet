@@ -4,6 +4,7 @@ import { useDocument } from '@lib/hooks/useDocument';
 import { tweetsCollection } from '@lib/firebase/collections';
 import { Tweet } from '@components/tweet/tweet';
 import type { RefObject } from 'react';
+import Link from "next/link";
 
 type ViewParentTweetProps = {
   parentId: string;
@@ -29,18 +30,18 @@ export function ViewParentTweet({
     return (
       <div className='px-4 pt-3 pb-2'>
         <p
-          className='rounded-2xl bg-main-sidebar-background py-3 px-1 pl-4 
+          className='rounded-2xl bg-main-sidebar-background py-3 px-1 pl-4
                      text-light-secondary dark:text-dark-secondary'
         >
           This Tweet was deleted by the Tweet author.{' '}
-          <a
+          <Link
             className='custom-underline text-main-accent'
             href='https://help.twitter.com/rules-and-policies/notices-on-twitter'
             target='_blank'
             rel='noreferrer'
           >
             Learn more
-          </a>
+          </Link>
         </p>
       </div>
     );

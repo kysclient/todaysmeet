@@ -64,12 +64,10 @@ export function MessageCard(message: MessageCardProps): JSX.Element {
                 message.cardUser &&
                 <>
                     <Link href={`/message/${message.id}`}>
-                        <a>
                             <UserTooltip avatar {...message.cardUser} modal={message.modal}>
                                 <UserAvatar src={message.cardUser.photoURL || ""} alt={message.cardUser.photoURL || ""}
                                             username={message.cardUser.username || ""}/>
                             </UserTooltip>
-                        </a>
                     </Link>
                     <div className='flex flex-col gap-1 truncate xs:overflow-visible '>
                         <div className='flex items-center  gap-2 truncate xs:overflow-visible'>
