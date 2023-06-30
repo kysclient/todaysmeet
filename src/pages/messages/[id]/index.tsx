@@ -1,6 +1,6 @@
 import {useAuth} from "@lib/context/auth-context";
 import {useRouter} from "next/router";
-import React, {ReactElement, ReactNode, useEffect, useRef, useState} from "react";
+import React, {ReactElement, ReactNode, useCallback, useEffect, useRef, useState} from "react";
 import {ProtectedLayout} from "@components/layout/common-layout";
 import {MainLayout} from "@components/layout/main-layout";
 import {MainHeader} from "@components/home/main-header";
@@ -9,7 +9,7 @@ import {MessageContainer} from "@components/home/message-container";
 import {useWindow} from "@lib/context/window-context";
 import {useInfiniteScroll} from "@lib/hooks/useInfiniteScroll";
 import {chatRoomMessagesCollection, chatRoomsCollection, usersCollection} from "@lib/firebase/collections";
-import {where} from "firebase/firestore";
+import {doc, getDoc, where} from "firebase/firestore";
 import {Loading} from "@components/ui/loading";
 import {Error} from "@components/ui/error";
 import {motion} from "framer-motion";
@@ -26,22 +26,25 @@ import {t} from "i18next";
 import {MessageInput} from "@components/messages/message-input";
 import {MessageBox} from "@components/messages/message-box";
 import {MessageSelect} from "@components/messages/message-select";
+import {MessageLayout} from "@components/layout/message-layout";
+import {UserWithChatRooms} from "@lib/types/chatRooms";
 
 
 export default function Messages(): JSX.Element {
     const {user} = useAuth();
+    const userId = user?.id as string;
     const {back} = useRouter();
     const {width} = useWindow();
     const [cardUser, setCardUser] = useState<User>()
     const {isMobile} = useWindow();
-
+    const [myChatList, setMyChatList] = useState<UserWithChatRooms[]>([])
     const {data, loading, LoadMore} = useInfiniteScroll(
         chatRoomsCollection,
         [where('participants', 'array-contains', user?.id)],
         {allowNull: true, preserve: true},
         {marginBottom: 500}
     );
-    const [selectedData, setSelectedData] = useState<MessagesType | null>(null)
+    const [selectedData, setSelectedData] = useState<UserWithChatRooms>(null)
     const [selected, setSelected] = useState<number>(-1);
     const [autoScrollEnabled, setAutoScrollEnabled] = useState<boolean>(true);
     const [showScrollDownButton, setShowScrollDownButton] =
@@ -101,6 +104,33 @@ export default function Messages(): JSX.Element {
     }, [messagesEndRef]);
 
 
+    useEffect(() => {
+       createUserList()
+    }, [data])
+
+
+
+    const createUserList = useCallback(  async () => {
+        let myData = [];
+        if (data && userId) {
+            for (const item of data) {
+                const chatUserId = item.participants.find((item) => item !== userId);
+                const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
+                const result = {
+                    user: newUser as User,
+                    chatRoom: item
+                }
+                myData.push(result);
+            }
+            setMyChatList(myData)
+        }
+    }, [data, userId])
+
+
+    useEffect(() => {
+        console.log('mychatlist : ', myChatList)
+    }, [myChatList])
+
     return (
         <>
             <MessagesContainer showList={showList}>
@@ -113,11 +143,13 @@ export default function Messages(): JSX.Element {
                     ) : (
                         <>
                             <motion.div className='mt-0.5' {...variants}>
-                                {data?.map((chatRoom, idx) => (
+                                { myChatList.length > 0 ?
+                                    myChatList.map((data, idx) => (
+                                        data &&
                                     <>
-                                        <MessageCard key={chatRoom.id}
+                                        <MessageCard key={data.user.id}
                                                      idx={idx}
-                                                     {...chatRoom}
+                                                     data={data}
                                                      modal={true}
                                                      setSelected={setSelected}
                                                      selected={selected}
@@ -128,7 +160,12 @@ export default function Messages(): JSX.Element {
                                                      setShowList={setShowList}
                                         />
                                     </>
-                                ))}
+                                ))
+                                :  <Loading
+                                        iconClassName='h-5 w-5'
+                                        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                                    />
+                                }
                             </motion.div>
                             <LoadMore/>
                         </>
@@ -136,55 +173,55 @@ export default function Messages(): JSX.Element {
                 </section>
             </MessagesContainer>
 
-            <MessageContainer className="overflow-y-auto" showList={showList}>
-                <MainHeader useActionButton={width < 1024} action={() => {
-                    setSelectedData(null);
-                    setSelected(-1);
-                    setShowList(true);
-                }}
-                            className={`flex items-center ${width < 1024 ? "justify-between" : "justify-end"}`}>
-                    <Button
-                        className='dark-bg-tab group relative p-2 hover:bg-light-primary/10
-                   active:bg-light-primary/20 dark:hover:bg-dark-primary/10
-                   dark:active:bg-dark-primary/20'
-                    >
-                        <HeroIcon className='h-5 w-5' iconName='SparklesIcon'/>
-                        <ToolTip tip='대화 정보'/>
-                    </Button>
-                </MainHeader>
-                <section className="pt-2 pr-4 h-full">
+            {/*<MessageContainer showList={showList}>*/}
+            {/*    <MainHeader useActionButton={width < 1024} action={() => {*/}
+            {/*        setSelectedData(null);*/}
+            {/*        setSelected(-1);*/}
+            {/*        setShowList(true);*/}
+            {/*    }}*/}
+            {/*                className={`flex items-center ${width < 1024 ? "justify-between" : "justify-end"}`}>*/}
+            {/*        <Button*/}
+            {/*            className='dark-bg-tab group relative p-2 hover:bg-light-primary/10*/}
+            {/*       active:bg-light-primary/20 dark:hover:bg-dark-primary/10*/}
+            {/*       dark:active:bg-dark-primary/20'*/}
+            {/*        >*/}
+            {/*            <HeroIcon className='h-5 w-5' iconName='SparklesIcon'/>*/}
+            {/*            <ToolTip tip='대화 정보'/>*/}
+            {/*        </Button>*/}
+            {/*    </MainHeader>*/}
+            {/*    <section className="pt-2 pr-4 h-full">*/}
 
-                    {
-                        !selectedData ? (
-                                <MessageSelect />
-                            ) :
-                            <>
-                                <div>
-                                    <UserMessageProfile
-                                        user={cardUser}
-                                    />
-                                    <div className="flex flex-col">
-                                        <div className="flex-1 overflow-y-auto p-4">
-                                            <div className="flex flex-col gap-2">
-                                                <MessageBox
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="h-[162px] bg-main-background"
-                                        ref={messagesEndRef}
-                                    />
-                                </div>
-                                <MessageInput
-                                    onScrollDownClick={handleScrollDown}
-                                    textareaRef={textareaRef}
-                                    showScrollDownButton={showScrollDownButton}
-                                    />
-                            </>
-                    }
-                </section>
-            </MessageContainer>
+            {/*        {*/}
+            {/*            !selectedData ? (*/}
+            {/*                    <MessageSelect />*/}
+            {/*                ) :*/}
+            {/*                <>*/}
+            {/*                    <div>*/}
+            {/*                        <UserMessageProfile*/}
+            {/*                            user={cardUser}*/}
+            {/*                        />*/}
+            {/*                        <div className="flex flex-col">*/}
+            {/*                            <div className="flex-1 overflow-y-auto p-4">*/}
+            {/*                                <div className="flex flex-col gap-2">*/}
+            {/*                                    <MessageBox*/}
+            {/*                                    />*/}
+            {/*                                </div>*/}
+            {/*                            </div>*/}
+            {/*                        </div>*/}
+            {/*                        <div*/}
+            {/*                            className="h-[162px] bg-main-background"*/}
+            {/*                            ref={messagesEndRef}*/}
+            {/*                        />*/}
+            {/*                    </div>*/}
+            {/*                    <MessageInput*/}
+            {/*                        onScrollDownClick={handleScrollDown}*/}
+            {/*                        textareaRef={textareaRef}*/}
+            {/*                        showScrollDownButton={showScrollDownButton}*/}
+            {/*                        />*/}
+            {/*                </>*/}
+            {/*        }*/}
+            {/*    </section>*/}
+            {/*</MessageContainer>*/}
         </>
     )
 

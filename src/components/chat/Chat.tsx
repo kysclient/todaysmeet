@@ -236,7 +236,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                                     className="mx-auto flex flex-col space-y-4 px-3 pt-5 md:pt-12 sm:max-w-[600px]">
                                     <div
                                         className="text-center mb-2 text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                                        추천받으실 (구) 선택 혹은 챗봇과 대화해보세요!
+                                        ChatGPT
                                     </div>
 
 
@@ -271,24 +271,24 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                     />
                 </>
                 )}
+                <ChatInput
+                    stopConversationRef={stopConversationRef}
+                    textareaRef={textareaRef}
+                    onSend={(message, plugin) => {
+                        setCurrentMessage(message);
+                        handleSend(message, 0, plugin);
+                    }}
+                    onScrollDownClick={handleScrollDown}
+                    messageIsStreaming={messageIsStreaming}
+                    onRegenerate={() => {
+                        if (currentMessage) {
+                            handleSend(currentMessage, 2, null);
+                        }
+                    }}
+                    showScrollDownButton={showScrollDownButton}
+                    messages={messages}
+                />
             </div>
-            <ChatInput
-                stopConversationRef={stopConversationRef}
-                textareaRef={textareaRef}
-                onSend={(message, plugin) => {
-                    setCurrentMessage(message);
-                    handleSend(message, 0, plugin);
-                }}
-                onScrollDownClick={handleScrollDown}
-                messageIsStreaming={messageIsStreaming}
-                onRegenerate={() => {
-                    if (currentMessage) {
-                        handleSend(currentMessage, 2, null);
-                    }
-                }}
-                showScrollDownButton={showScrollDownButton}
-                messages={messages}
-            />
         </>
     )
 

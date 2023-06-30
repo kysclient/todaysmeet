@@ -31,8 +31,8 @@ const navLinks: Readonly<NavLink[]> = [
     },
     {
         href: '/explore',
-        linkName: '맛집추천',
-        iconName: 'HashtagIcon',
+        linkName: '챗봇',
+        iconName: 'ChatBubbleOvalLeftIcon',
     },
     {
         href: '/calc',

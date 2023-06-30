@@ -11,6 +11,7 @@ type Message = {
     timestamp: Timestamp | null;
 }
 
+
 export const messagesConverter: FirestoreDataConverter<Messages> = {
     toFirestore(message) {
         return {...message};

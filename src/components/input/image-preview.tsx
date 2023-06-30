@@ -126,8 +126,8 @@ export function ImagePreview({
             key={id}
           >
             <NextImage
-              className='relative h-full w-full cursor-pointer transition 
-                         hover:brightness-75 hover:duration-200'
+              className='relative h-full w-full cursor-pointer transition
+                         hover:brightness-75 hover:duration-200  overflow-y-hidden'
               imgClassName={cn(
                 isTweet
                   ? postImageBorderRadius[previewCount][index]
@@ -142,7 +142,7 @@ export function ImagePreview({
             {removeImage && (
               <Button
                 className='group absolute top-0 left-0 translate-x-1 translate-y-1
-                           bg-light-primary/75 p-1 backdrop-blur-sm 
+                           bg-light-primary/75 p-1 backdrop-blur-sm
                            hover:bg-image-preview-hover/75'
                 onClick={preventBubbling(removeImage(id))}
               >

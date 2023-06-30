@@ -191,7 +191,7 @@ export const ChatInput = ({
                              }`,
                          }}
                          placeholder={
-                             t('봇에게 맛집추천을 받아보세요!') || ''
+                             t('메세지를 입력하세요.') || ''
                          }
                          value={content}
                          rows={1}

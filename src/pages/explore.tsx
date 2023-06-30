@@ -62,7 +62,7 @@ export default function Explore(): JSX.Element {
                     </Button>
                 </MainHeader>
 
-                <section className='mt-10 relative h-full'>
+                <section className='mt-10 h-full'>
                     <AnimatePresence mode='popLayout'>
                         <div className="relative h-full overflow-hidden bg-main-background">
                             <Chat
