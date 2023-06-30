@@ -3,7 +3,7 @@
   "rewrites": [
     {
       "source": "/api/aichat",
-      "destination": "/api/aichat"
+      "destination": "/api/aichat.ts"
     }
   ]
 }
