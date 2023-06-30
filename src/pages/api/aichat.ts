@@ -25,7 +25,7 @@ const corsOptions = {
 
 
 export default async function handler (req: NextRequest,  res: NextApiResponse): Promise<Response> {
-    await cors(corsOptions)(req, res);
+    // await cors(corsOptions)(req, res);
 
     if(req.method === 'POST') {
         try {
