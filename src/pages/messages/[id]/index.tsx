@@ -145,7 +145,6 @@ export default function Messages(): JSX.Element {
                                         <MessageCard key={data.user.id}
                                                      idx={idx}
                                                      data={data}
-                                                     modal={true}
                                                      setSelected={setSelected}
                                                      selected={selected}
                                                      setSelectedData={setSelectedData}
