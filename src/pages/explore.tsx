@@ -17,7 +17,6 @@ import React, {
 } from 'react';
 import {useTranslation} from "react-i18next";
 import {ChatContainer} from "@components/home/chat-container";
-import {useLoading} from "@lib/hooks/useLoading";
 import {AnimatePresence, motion} from "framer-motion";
 import {Chat} from "@components/chat/Chat";
 import ChatContext, {ChatInitialState, initialState} from "@lib/context/chat-context";

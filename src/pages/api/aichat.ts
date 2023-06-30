@@ -6,13 +6,14 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 // @ts-expect-error
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
+import {NextRequest} from "next/server";
 
 
 export const config = {
     runtime: 'experimental-edge',
 };
 
-const handler = async (req: Request): Promise<Response> => {
+export default async function handler (req: NextRequest): Promise<Response> {
     if(req.method === 'POST') {
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
@@ -69,4 +70,3 @@ const handler = async (req: Request): Promise<Response> => {
 
 
 
-export default handler
