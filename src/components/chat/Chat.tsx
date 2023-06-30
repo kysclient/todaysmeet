@@ -20,6 +20,7 @@ import ChatContext from "@lib/context/chat-context";
 import {Modal} from "@components/modal/modal";
 import {ActionModal} from "@components/modal/action-modal";
 import {useModal} from "@lib/hooks/useModal";
+import axios from "axios";
 
 interface Props {
     stopConversationRef: MutableRefObject<boolean>
@@ -126,6 +127,9 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             const endpoint = '/api/aichat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
+            const CancelToken = axios.CancelToken;
+            const source = CancelToken.source();
+
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -134,6 +138,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
+
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});
                 chatDispatch({field: 'messageIsStreaming', value: false});
