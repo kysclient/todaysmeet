@@ -24,9 +24,6 @@ export default function Home(): JSX.Element {
   );
 
 
-  const dataReload = () => {
-  }
-
   return (
     <MainContainer>
       <SEO title='Home / BungSin' />

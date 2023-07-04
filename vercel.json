@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/aichat",
-      "destination": "/api/aichat.ts"
+      "src": "/api/aichat",
+      "dest": "/api/aichat.ts"
     }
   ]
 }

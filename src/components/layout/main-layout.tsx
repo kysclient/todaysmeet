@@ -13,7 +13,7 @@ const toastOptions: DefaultToastOptions = {
     background: '#333',
     color: '#fff',
   },
-  success: { duration: 4000 }
+  success: { duration: 2000 }
 };
 
 export function MainLayout({ children }: LayoutProps): JSX.Element {

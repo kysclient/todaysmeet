@@ -12,7 +12,7 @@ const toastOptions: DefaultToastOptions = {
         borderRadius: '4px',
         backgroundColor: 'rgb(var(--main-accent))'
     },
-    success: { duration: 4000 }
+    success: { duration: 2000 }
 };
 
 export function CalcLayout({ children }: LayoutProps): JSX.Element {
