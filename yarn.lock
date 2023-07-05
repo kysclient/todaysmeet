@@ -5261,7 +5261,7 @@ next-i18next@^13.2.2:
     hoist-non-react-statics "^3.3.2"
     i18next-fs-backend "^2.1.1"
 
-next@^13.4.7:
+next@latest:
   version "13.4.7"
   resolved "https://registry.npmjs.org/next/-/next-13.4.7.tgz"
   integrity sha512-M8z3k9VmG51SRT6v5uDKdJXcAqLzP3C+vaKfLIAM0Mhx1um1G7MDnO63+m52qPdZfrTFzMZNzfsgvm3ghuVHIQ==
