@@ -136,9 +136,6 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             const endpoint = '/api/aichat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
-            const CancelToken = axios.CancelToken;
-            const source = CancelToken.source();
-
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
