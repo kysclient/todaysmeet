@@ -10,6 +10,9 @@ import {OpenAIError, OpenAIStream} from "@lib/server";
 
 export const config = {
     runtime: 'edge',
+    unstable_allowDynamic: [
+        '/node_modules/function-bind/**',
+    ]
 };
 
 const handler = async (req: Request): Promise<Response> => {
