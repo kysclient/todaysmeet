@@ -16,6 +16,14 @@ const nextConfig = {
       asyncWebAssembly: true,
       layers: true,
     };
+    config.exportPathMap = async function () {
+      return {
+        '/messages/[id]': { page: '/messages/[id]' },
+        '/tweet/[id]': { page: '/tweet/[id]' },
+        '/user/[id]': { page: '/user/[id]' },
+      };
+    };
+
     return config;
   }
 };
