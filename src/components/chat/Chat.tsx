@@ -138,6 +138,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
+            console.log('response : ', response)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});
@@ -151,7 +152,6 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 chatDispatch({field: 'messageIsStreaming', value: false});
                 return;
             }
-            // chatDispatch({field:'messages', value: messages})
             chatDispatch({field: 'loading', value: false});
             const reader = data.getReader();
             const decoder = new TextDecoder();

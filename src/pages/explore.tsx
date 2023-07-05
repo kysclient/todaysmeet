@@ -38,12 +38,12 @@ export default function Explore(): JSX.Element {
             }}
         >
             <ChatContainer>
-                <SEO title='맛집추천 / BungSin'/>
+                <SEO title='ChatGPT / BungSin'/>
 
                 <MainHeader className='flex items-center justify-between' useMobileSidebar>
 
                     <div className='-mb-1 flex flex-col'>
-                        <h2 className='-mt-1 text-xl font-bold'>맛집추천</h2>
+                        <h2 className='-mt-1 text-xl font-bold'>챗봇</h2>
                         <p className='text-xs text-light-secondary dark:text-dark-secondary'>
                             @{user?.username}
                         </p>

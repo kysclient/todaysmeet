@@ -28,6 +28,7 @@ import {MessageBox} from "@components/messages/message-box";
 import {MessageSelect} from "@components/messages/message-select";
 import {MessageLayout} from "@components/layout/message-layout";
 import {UserWithChatRooms} from "@lib/types/chatRooms";
+import {MainContainer} from "@components/home/main-container";
 
 
 export default function Messages(): JSX.Element {
@@ -166,6 +167,12 @@ export default function Messages(): JSX.Element {
                     )}
                 </section>
             </MessagesContainer>
+
+            <MainContainer>
+                <section>
+
+                </section>
+            </MainContainer>
 
             {/*<MessageContainer showList={showList}>*/}
             {/*    <MainHeader useActionButton={width < 1024} action={() => {*/}
