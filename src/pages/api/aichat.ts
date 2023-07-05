@@ -10,7 +10,7 @@ import {OpenAIError, OpenAIStream} from "@lib/server";
 
 export const config = {
     runtime: 'edge',
-    regions: ['iad1', 'cle1']
+    regions: ['iad1']
 };
 
 const handler = async (req: Request): Promise<Response> => {
