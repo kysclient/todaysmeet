@@ -1,6 +1,6 @@
 export const DEFAULT_SYSTEM_PROMPT =
     process.env.NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT ||
-    "BungSin AI";
+    "Todaysmeet AI";
 
 export const OPENAI_API_HOST =
     process.env.OPENAI_API_HOST || 'https://api.openai.com';

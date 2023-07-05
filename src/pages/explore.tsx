@@ -38,7 +38,7 @@ export default function Explore(): JSX.Element {
             }}
         >
             <ChatContainer>
-                <SEO title='ChatGPT / BungSin'/>
+                <SEO title='ChatGPT - 투밋'/>
 
                 <MainHeader className='flex items-center justify-between' useMobileSidebar>
 

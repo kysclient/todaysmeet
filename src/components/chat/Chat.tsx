@@ -133,6 +133,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 prompt: message.content,
                 temperature: 1.0,
             };
+
             const endpoint = '/api/aichat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
@@ -144,17 +145,6 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
-            const response2 = await fetch('/api/whats', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                signal: controller.signal,
-                body,
-            });
-
-            console.log('response : ', response)
-            console.log('response : ', response2)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});

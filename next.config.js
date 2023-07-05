@@ -12,11 +12,10 @@ const nextConfig = {
     }
   },
   trailingSlash: true,
-
   webpack(config, { isServer, dev }) {
     config.experiments = {
       asyncWebAssembly: true,
-      layers: true,
+      layers: true
     };
     return config;
   }

@@ -41,9 +41,9 @@ export function DisplayModal({ closeModal }: DisplayModalProps): JSX.Element {
           <UserAvatar src='/assets/twitter-avatar.jpg' alt='Twitter' />
           <div>
             <div className='flex gap-1'>
-              <UserName verified name='Bungsin' />
+              <UserName verified name='투밋' />
               <p className='text-light-secondary dark:text-dark-secondary'>
-                @bungsin
+                @Todaysmeet
               </p>
               {/*<div className='flex gap-1 text-light-secondary dark:text-dark-secondary'>*/}
               {/*  <i>·</i>*/}
@@ -54,7 +54,7 @@ export function DisplayModal({ closeModal }: DisplayModalProps): JSX.Element {
               At the heart of Twitter are short messages called Tweets — just
               like this one — which can include photos, videos, links, text,
               hashtags, and mentions like{' '}
-              <span className='text-main-accent'>@bungsin</span>.
+              <span className='text-main-accent'>@todaysmeet</span>.
             </p>
           </div>
         </div>

@@ -10,11 +10,11 @@ import {OpenAIError, OpenAIStream} from "@lib/server";
 
 export const config = {
     runtime: 'edge',
-    regions: ['iad1']
+    // regions: ['iad1']
 };
 
-const handler = async (req: Request): Promise<Response> => {
-    console.log('handler working !?!?');
+export default async function handler (req: Request): Promise<Response> {
+
     try {
         const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
 
@@ -63,6 +63,3 @@ const handler = async (req: Request): Promise<Response> => {
         }
     }
 }
-
-
-export default handler

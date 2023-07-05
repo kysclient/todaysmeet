@@ -10,7 +10,7 @@ export default function NotFound(): JSX.Element {
   return (
     <>
       <SEO
-        title='페이지를 찾을 수 없습니다 / BungSin'
+        title='페이지를 찾을 수 없습니다 - 투밋'
         description='페이지를 찾을 수 없습니다 URL을 다시 확인해 주세요.'
         image='/404.svg'
       />

@@ -26,7 +26,7 @@ export default function Home(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='Home / BungSin' />
+      <SEO title='오늘의 만남 - 투밋' />
       <MainHeader
         useMobileSidebar
         title='홈'

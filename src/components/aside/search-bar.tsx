@@ -53,7 +53,7 @@ export function SearchBar(): JSX.Element {
           className='peer flex-1 bg-transparent outline-none
                      placeholder:text-light-secondary dark:placeholder:text-dark-secondary'
           type='text'
-          placeholder='BungSin 검색'
+          placeholder='투밋 검색'
           ref={inputRef}
           value={inputValue}
           onChange={handleChange}
