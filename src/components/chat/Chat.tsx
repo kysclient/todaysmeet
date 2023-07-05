@@ -147,7 +147,17 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
+            const response2 = await fetch('/api/test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                signal: controller.signal,
+                body,
+            });
+
             console.log('response : ', response)
+            console.log('response : ', response2)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});
@@ -213,7 +223,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             chatDispatch({field: 'messageIsStreaming', value: false});
 
             handleScrollToEnd()
-            
+
         }, [messages, stopConversationRef, chatDispatch])
 
     return (
