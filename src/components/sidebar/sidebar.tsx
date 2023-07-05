@@ -34,11 +34,11 @@ const navLinks: Readonly<NavLink[]> = [
         linkName: '챗봇',
         iconName: 'ChatBubbleOvalLeftIcon',
     },
-    {
-        href: '/calc',
-        linkName: '정산하기',
-        iconName: 'CalculatorIcon',
-    },
+    // {
+    //     href: '/calc',
+    //     linkName: '정산하기',
+    //     iconName: 'CalculatorIcon',
+    // },
     // {
     //   href: '/notifications',
     //   linkName: 'Notifications',

@@ -1,8 +1,8 @@
 {
-  "routes": [
-    {
-      "src": "/api/aichat",
-      "dest": "/api/aichat.ts"
+  "version": 1,
+  "pages": {
+    "api/aichat.ts": {
+      "runtime": "edge",
     }
-  ]
+  }
 }

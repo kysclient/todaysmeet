@@ -144,7 +144,7 @@ export function InputForm({
         <div className='flex items-center gap-3'>
           <TextArea
             id={formId}
-            className='w-full min-w-0 resize-none bg-transparent text-xl outline-none
+            className='w-[70%] min-w-0 resize-none bg-transparent text-xl outline-none
                        placeholder:text-light-secondary dark:placeholder:text-dark-secondary'
             value={inputValue}
             placeholder={
@@ -164,7 +164,7 @@ export function InputForm({
               className='cursor-pointer bg-main-accent px-4 py-1.5 font-bold text-white opacity-50'
               onClick={handleFocus}
             >
-              댓글달기
+              댓글 달기
             </Button>
           )}
         </div>

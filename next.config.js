@@ -11,19 +11,13 @@ const nextConfig = {
       unoptimized: true
     }
   },
+  trailingSlash: true,
+
   webpack(config, { isServer, dev }) {
     config.experiments = {
       asyncWebAssembly: true,
       layers: true,
     };
-    config.exportPathMap = async function () {
-      return {
-        '/messages/[id]': { page: '/messages/[id]' },
-        '/tweet/[id]': { page: '/tweet/[id]' },
-        '/user/[id]': { page: '/user/[id]' },
-      };
-    };
-
     return config;
   }
 };
