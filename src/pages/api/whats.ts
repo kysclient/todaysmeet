@@ -1,9 +1,6 @@
 
 export const config = {
-    runtime: 'edge',
-    unstable_allowDynamic: [
-        '/node_modules/function-bind/**',
-    ]
+    runtime: 'edge'
 };
 
 const handler = async (request: Request): Promise<Response> => {
