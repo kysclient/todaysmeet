@@ -11,14 +11,8 @@ const nextConfig = {
       unoptimized: true
     }
   },
-  trailingSlash: true,
-  webpack(config, { isServer, dev }) {
-    config.experiments = {
-      asyncWebAssembly: true,
-      layers: true
-    };
-    return config;
-  }
+  trailingSlash: true
+
 };
 
 module.exports = nextConfig;

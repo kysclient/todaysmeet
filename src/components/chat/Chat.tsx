@@ -134,7 +134,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 temperature: 1.0,
             };
 
-            const endpoint = '/api/aichat'
+            const endpoint = '/api/chat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
             const response = await fetch(endpoint, {
@@ -145,6 +145,17 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
+
+            const response2 = await fetch('/api/myapi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                signal: controller.signal,
+                body,
+            });
+            console.log('response : ', response)
+            console.log('response : ', response2)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});
@@ -172,7 +183,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 }
                 const {value, done: doneReading} = await reader.read();
                 done = doneReading;
-                const chunkValue = decoder.decode(value);
+                const chunkValue = decoder.decode(value!);
                 text += chunkValue;
                 if (isFirst) {
                     isFirst = false;
