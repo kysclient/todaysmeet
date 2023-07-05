@@ -78,6 +78,15 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
         });
     };
 
+    const handleScrollToEnd = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+            });
+        }
+    };
+
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
@@ -203,8 +212,8 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             chatDispatch({field: 'loading', value: false});
             chatDispatch({field: 'messageIsStreaming', value: false});
 
-            handleScrollDown()
-
+            handleScrollToEnd()
+            
         }, [messages, stopConversationRef, chatDispatch])
 
     return (

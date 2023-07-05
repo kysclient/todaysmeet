@@ -9,6 +9,7 @@ import type { AppProps } from 'next/app';
 import Router, {useRouter} from "next/router";
 import NProgress from "nprogress";
 import {useEffect} from "react";
+import { Analytics } from '@vercel/analytics/react';
 
 
 Router.events.on('routeChangeStart', (url) => {
@@ -31,16 +32,20 @@ export default function App({
 }: AppPropsWithLayout): ReactNode {
   const getLayout = Component.getLayout ?? ((page): ReactNode => page);
   const useRoute = useRouter();
+
     useEffect(() => {
         document.documentElement.scrollTop = 0;
         document.scrollingElement!.scrollTop = 0;
     }, [useRoute.pathname]);
+
+
   return (
     <>
       <AppHead />
             <AuthContextProvider>
                 <ThemeContextProvider>
                     {getLayout(<Component {...pageProps} />)}
+                    <Analytics />
                 </ThemeContextProvider>
             </AuthContextProvider>
 
