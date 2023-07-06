@@ -13,7 +13,7 @@ export const config = {
     // regions: ['iad1']
 };
 
-export default async function handler (req: Request): Promise<Response> {
+export default async function POST (req: Request): Promise<Response> {
     if(req.method === 'POST') {
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
