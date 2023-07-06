@@ -147,7 +147,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             });
 
             const response2 = await fetch('/api/myapi', {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
