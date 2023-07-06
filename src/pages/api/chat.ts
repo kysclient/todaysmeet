@@ -13,8 +13,7 @@ export const config = {
     // regions: ['iad1']
 };
 
-export default async function POST (req: Request): Promise<Response> {
-    if(req.method === 'POST') {
+export default async function handler (req: Request): Promise<Response> {
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
 
@@ -62,7 +61,4 @@ export default async function POST (req: Request): Promise<Response> {
                 return new Response('Error', {status: 500});
             }
         }
-    }else {
-        return new Response('Method Not Allowed', {status: 405});
-    }
 }

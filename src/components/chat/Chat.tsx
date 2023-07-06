@@ -137,7 +137,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             const endpoint = '/api/chat'
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
-            const response = await fetch(endpoint, {
+            const response = await fetch(process.env.NEXT_PUBLIC_URL + endpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
