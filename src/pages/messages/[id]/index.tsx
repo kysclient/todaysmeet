@@ -170,7 +170,7 @@ export default function Messages(): JSX.Element {
 
             <MainContainer>
                 <section>
-                    test
+                    some thing
                 </section>
             </MainContainer>
 
