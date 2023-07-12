@@ -14,6 +14,8 @@ export const config = {
 };
 
 export default async function handler (req: Request): Promise<Response> {
+    if(req.method === 'POST') {
+        const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'POST'];
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
 
@@ -52,7 +54,7 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            return new Response(stream);
+            return new Response(stream, {headers: [{Allow: allowedMethods.join('')}]});
         } catch (error) {
             console.error(error);
             if (error instanceof OpenAIError) {
@@ -61,4 +63,8 @@ export default async function handler (req: Request): Promise<Response> {
                 return new Response('Error', {status: 500});
             }
         }
+    }else {
+        return new Response('Error', {status: 500, statusText: 'Method Not Allowed'});
+    }
+
 }
