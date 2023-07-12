@@ -60,7 +60,7 @@ export default async function handler (req: Request): Promise<Response> {
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE,PUT',
             };
             return new Response(stream, {
-                status: '200',
+                status: 200,
                 statusText:'success',
                 headers:headers
             });
