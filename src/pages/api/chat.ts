@@ -53,7 +53,7 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            return new Response(stream, {headers: {'Allow': ['POST']}});
+            return new Response(stream, {headers: {'Allow': 'POST'}});
         } catch (error) {
             console.error(error);
             if (error instanceof OpenAIError) {
