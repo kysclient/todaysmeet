@@ -54,7 +54,7 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            return new Response(stream, {headers: [{Allow: allowedMethods.join('')}]});
+            return new Response(stream, {headers: {'Allow': allowedMethods.join('')}});
         } catch (error) {
             console.error(error);
             if (error instanceof OpenAIError) {
