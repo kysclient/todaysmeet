@@ -15,7 +15,6 @@ export const config = {
 
 export default async function handler (req: Request): Promise<Response> {
     if(req.method === 'POST') {
-        const allowedMethods = ['GET', 'POST', 'PUT', 'DELETE', 'POST'];
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
 
@@ -54,7 +53,7 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            return new Response(stream, {headers: {'Allow': allowedMethods.join('')}});
+            return new Response(stream, {headers: {'Allow': ['POST']}});
         } catch (error) {
             console.error(error);
             if (error instanceof OpenAIError) {
