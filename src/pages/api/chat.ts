@@ -53,12 +53,12 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            const headers = new Headers({
+            const headers = {
                 'Allow': 'OPTIONS,POST,GET,DELETE,PUT',
                 'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_URL,
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE,PUT'
-            })
+                'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_URL || '',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE,PUT',
+            };
             return new Response(stream, {
                 status: '200',
                 statusText:'success',
