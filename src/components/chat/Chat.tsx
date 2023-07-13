@@ -146,7 +146,17 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 body,
             });
 
+            const response2 = await fetch('/api/myapi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                signal: controller.signal,
+                body,
+            });
+
             console.log('response : ', response)
+            console.log('response : ', response2)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});

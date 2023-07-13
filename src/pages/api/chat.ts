@@ -6,12 +6,14 @@ import tiktokenModel from '@dqbd/tiktoken/encoders/cl100k_base.json';
 // @ts-expect-error
 import wasm from "@dqbd/tiktoken/lite/tiktoken_bg.wasm?module";
 import {OpenAIError, OpenAIStream} from "@lib/server";
+import Cors from 'cors'
 
 
 export const config = {
     runtime: 'edge',
     // regions: ['iad1']
 };
+
 
 export default async function handler (req: Request): Promise<Response> {
     if(req.method === 'POST') {
