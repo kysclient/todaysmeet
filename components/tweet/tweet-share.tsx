@@ -38,7 +38,7 @@ export function TweetShare({
           ? (): JSX.Element => (
               <span className='flex gap-2'>
                북마크에 추가되었습니다.
-                <Link className='custom-underline font-bold' href='/pages/bookmarks' >
+                <Link className='custom-underline font-bold' href='/bookmarks' >
                   보기
                 </Link>
               </span>
