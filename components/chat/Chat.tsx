@@ -155,7 +155,6 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 body,
             });
 
-
             console.log('response : ', response)
             console.log('response : ', response2)
 
