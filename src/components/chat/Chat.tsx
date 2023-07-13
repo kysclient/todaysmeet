@@ -134,7 +134,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 temperature: 1.0,
             };
 
-            const endpoint = `${process.env.NEXT_PUBLIC_URL}/api/chat`
+            const endpoint = `/api/chat`
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
             const response = await fetch(endpoint, {
