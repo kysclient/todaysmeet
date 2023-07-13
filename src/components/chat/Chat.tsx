@@ -146,7 +146,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 body,
             });
 
-            const response2 = await fetch('/api/myapi', {
+            const response2 = await fetch('/api/what', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,6 +154,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
+
 
             console.log('response : ', response)
             console.log('response : ', response2)
