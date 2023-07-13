@@ -4,7 +4,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   darkMode: 'class',
-  content: ['src/pages/**/*.tsx', 'src/components/**/*.tsx'],
+  content: ['pages/**/*.tsx', 'components/**/*.tsx'],
   theme: {
     screens: {
       xs: '500px',
