@@ -15,8 +15,8 @@ export const config = {
 };
 
 
-export default async function handler (req: Request): Promise<Response> {
-    if(req.method === 'POST') {
+export default async function handler(req: Request): Promise<Response> {
+    if (req.method === 'POST') {
         try {
             const {model, messages, key, prompt, temperature} = (await req.json()) as ChatBody;
 
@@ -55,17 +55,8 @@ export default async function handler (req: Request): Promise<Response> {
 
             encoding.free();
             const stream = await OpenAIStream(model, promptToSend, temperatureToUse, key, messagesToSend);
-            const headers = {
-                'Allow': 'OPTIONS,POST,GET,DELETE,PUT',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_URL || '',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET,DELETE,PUT',
-            };
-            return new Response(stream, {
-                status: 200,
-                statusText:'success',
-                headers:headers
-            });
+            return new Response(stream);
+
         } catch (error) {
             console.error(error);
             if (error instanceof OpenAIError) {
@@ -74,7 +65,7 @@ export default async function handler (req: Request): Promise<Response> {
                 return new Response('Error', {status: 500});
             }
         }
-    }else {
+    } else {
         return new Response('Error', {status: 500, statusText: 'Method Not Allowed'});
     }
 

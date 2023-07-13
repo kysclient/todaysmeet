@@ -141,6 +141,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Methods': 'POST'
                 },
                 signal: controller.signal,
                 body,
