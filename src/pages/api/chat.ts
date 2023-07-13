@@ -14,7 +14,6 @@ export const config = {
     // regions: ['iad1']
 };
 
-
 export default async function handler(req: Request): Promise<Response> {
     if (req.method === 'POST') {
         try {
