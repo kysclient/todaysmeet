@@ -1,6 +1,6 @@
 import cn from 'clsx';
 import type {ReactNode} from 'react';
-import {useWindow} from "../../lib/context/window-context";
+import {useWindow} from "@lib/context/window-context";
 
 type MessagesContainerProps = {
     children: ReactNode;
