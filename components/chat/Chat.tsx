@@ -19,8 +19,6 @@ import {ChatInput} from "./ChatInput";
 import ChatContext from "../../lib/context/chat-context";
 import {Modal} from "../modal/modal";
 import {ActionModal} from "../modal/action-modal";
-import {useModal} from "../../lib/hooks/useModal";
-import axios from "axios";
 
 interface Props {
     stopConversationRef: MutableRefObject<boolean>
@@ -137,6 +135,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
             const endpoint = `/api/chat`
             let body = JSON.stringify(chatBody);
             const controller = new AbortController();
+
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
@@ -145,18 +144,6 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 signal: controller.signal,
                 body,
             });
-
-            const response2 = await fetch('/api/what', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                signal: controller.signal,
-                body,
-            });
-
-            console.log('response : ', response)
-            console.log('response : ', response2)
 
             if (!response.ok) {
                 chatDispatch({field: 'loading', value: false});

@@ -20,9 +20,9 @@ export const MessageInput = ({
     return (
         <>
             <div
-                className="absolute bottom-0 left-0 w-full pt-2  md:w-[calc(100%-.5rem)]">
+                className="w-full md:w-[calc(100%-.5rem)]">
                 <div
-                    className="stretch  mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl">
+                    className="stretch flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
                     <div
                         style={{marginBottom: `${isMobile ? 60 : 0}px`,}}
                         className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10  dark:border-gray-900/50 dark:text-white  sm:mx-4 bg-main-sidebar-background">

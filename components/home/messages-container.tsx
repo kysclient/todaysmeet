@@ -14,11 +14,13 @@ export function MessagesContainer({
                                   }: MessagesContainerProps): JSX.Element | null {
     const {width} = useWindow();
 
+    if (width < 768) return null;
+
     return (
         <main
             className={cn(
                 `hover-animation bottom-0 flex min-h-screen w-full max-w-sm flex-col border-x-0
-         border-light-border dark:border-dark-border xs:border-l`,
+         border-light-border dark:border-dark-border xs:border-l xs:border-r`,
                 className
             )}
         >
