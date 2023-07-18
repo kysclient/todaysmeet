@@ -1,10 +1,10 @@
 import {FirestoreDataConverter, Timestamp} from "firebase/firestore";
 
 export type Messages = {
-    messages: Message[]
+    messages: RoomMessage[]
 };
 
-type Message = {
+export type RoomMessage = {
     sender: string;
     text: string;
     photoUrl: string;

@@ -120,10 +120,10 @@ export function InputForm({
         closeModal={closeModal}
       >
         <ActionModal
-          title='Discard Tweet?'
-          description='This can’t be undone and you’ll lose your draft.'
+          title='댓글을 삭제하시겠습니까?'
+          description='이 작업은 취소할 수 없으며 원본을 잃게됩니다.'
           mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75'
-          mainBtnLabel='Discard'
+          mainBtnLabel='삭제'
           action={handleClose}
           closeModal={closeModal}
         />

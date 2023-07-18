@@ -320,3 +320,11 @@ export async function manageChatRooms(
         }
     }
 }
+
+export async function updateChatRooms(
+    roomId: string,
+    messages: Messages
+): Promise<void> {
+    const roomRef = doc(chatRoomMessagesCollection(roomId));
+    await updateDoc(roomRef, messages);
+}

@@ -18,6 +18,7 @@ export type NavLink = {
     href: string;
     linkName: string;
     iconName: IconName;
+    username?: string;
     disabled?: boolean;
     canBeHidden?: boolean;
 };
@@ -27,12 +28,14 @@ const navLinks: Readonly<NavLink[]> = [
     {
         href: '/home',
         linkName: '홈',
-        iconName: 'HomeIcon'
+        iconName: 'HomeIcon',
+        username: 'home'
     },
     {
         href: '/explore',
         linkName: '챗봇',
         iconName: 'ChatBubbleOvalLeftIcon',
+        username: 'explore'
     },
     // {
     //     href: '/calc',
@@ -49,6 +52,7 @@ const navLinks: Readonly<NavLink[]> = [
         href: '/bookmarks',
         linkName: '북마크',
         iconName: 'BookmarkIcon',
+        username:'bookmarks',
         canBeHidden: true
     },
     // {
@@ -86,8 +90,8 @@ export function Sidebar(): JSX.Element {
             </Modal>
             <div
                 className='fixed bottom-0 z-10 flex w-full flex-col justify-between border-t border-light-border
-                   bg-main-background py-0 dark:border-dark-border xs:top-0 xs:h-full xs:w-auto xs:border-0
-                   xs:bg-transparent xs:px-2 xs:py-3 xs:pt-2 md:px-4 xl:w-72'
+                   bg-main-background  pb-2 dark:border-dark-border xs:top-0 xs:h-full xs:w-auto xs:border-0
+                   xs:bg-transparent xs:px-2 xs:py-3 xs:pt-2 md:px-4 xl:w-72 rounded-t-xl'
             >
                 <section className='flex flex-col justify-center gap-2 xs:items-center xl:items-stretch'>
                     <h1 className='hidden xs:flex'>
@@ -104,8 +108,14 @@ export function Sidebar(): JSX.Element {
                             <SidebarLink {...linkData} key={linkData.href}/>
                         ))}
                         <SidebarLink
-                            href={`/messages/${uuidv4()}`}
-                            username={username}
+                            href={`/search`}
+                            username={'search'}
+                            linkName='검색'
+                            iconName='MagnifyingGlassIcon'
+                        />
+                        <SidebarLink
+                            href={`/messages/${userId}`}
+                            username={'messages'}
                             linkName='메세지'
                             iconName='EnvelopeIcon'
                         />

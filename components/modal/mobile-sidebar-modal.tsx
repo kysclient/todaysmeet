@@ -20,23 +20,23 @@ export type MobileNavLink = Omit<NavLink, 'canBeHidden'>;
 const topNavLinks: Readonly<MobileNavLink[]> = [
   {
     href: '/trends',
-    linkName: 'Topics',
+    linkName: '이달의 장소',
     iconName: 'ChatBubbleBottomCenterTextIcon'
   },
   {
     href: '/bookmarks',
-    linkName: 'Bookmarks',
+    linkName: '북마크',
     iconName: 'BookmarkIcon'
   },
-  {
-    href: '/lists',
-    linkName: 'Lists',
-    iconName: 'Bars3BottomLeftIcon',
-    disabled: true
-  },
+  // {
+  //   href: '/lists',
+  //   linkName: 'Lists',
+  //   iconName: 'Bars3BottomLeftIcon',
+  //   disabled: true
+  // },
   {
     href: '/people',
-    linkName: 'Twitter Circle',
+    linkName: '사람 찾아보기',
     iconName: 'UserGroupIcon'
   }
 ];
@@ -44,13 +44,13 @@ const topNavLinks: Readonly<MobileNavLink[]> = [
 const bottomNavLinks: Readonly<MobileNavLink[]> = [
   {
     href: '/settings',
-    linkName: 'Settings and privacy',
+    linkName: '설정',
     iconName: 'Cog8ToothIcon',
     disabled: true
   },
   {
     href: '/help-center',
-    linkName: 'Help center',
+    linkName: '고객센터',
     iconName: 'QuestionMarkCircleIcon',
     disabled: true
   }
@@ -96,8 +96,8 @@ export function MobileSidebarModal({
   } = useModal();
 
   const allStats: Readonly<Stats[]> = [
-    ['following', 'Following', following.length],
-    ['followers', 'Followers', followers.length]
+    ['following', '팔로잉', following.length],
+    ['followers', '팔로워', followers.length]
   ];
 
   const userLink = `/user/${username}`;
@@ -207,7 +207,7 @@ export function MobileSidebarModal({
               onClick={displayOpenModal}
             >
               <HeroIcon className='h-5 w-5' iconName='PaintBrushIcon' />
-              Display
+              디스플레이
             </Button>
             <Button
               className='accent-tab accent-bg-tab flex items-center gap-2 rounded-md p-1.5 font-bold transition
@@ -219,7 +219,7 @@ export function MobileSidebarModal({
                 className='h-5 w-5'
                 iconName='ArrowRightOnRectangleIcon'
               />
-              Log out
+              로그아웃
             </Button>
           </nav>
         </div>

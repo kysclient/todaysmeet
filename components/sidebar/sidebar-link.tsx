@@ -4,6 +4,7 @@ import cn from 'clsx';
 import { preventBubbling } from '../../lib/utils';
 import { HeroIcon } from '../ui/hero-icon';
 import type { NavLink } from './sidebar';
+import {useEffect} from "react";
 
 type SidebarLinkProps = NavLink & {
   username?: string;
@@ -19,6 +20,10 @@ export function SidebarLink({
 }: SidebarLinkProps): JSX.Element {
   const { asPath } = useRouter();
   const isActive = username ? asPath.includes(username) : asPath === href;
+
+  useEffect(() => {
+    console.log('link : ', linkName, asPath, href)
+  }, [linkName, asPath, href])
 
   return (
     <Link href={href}
@@ -42,7 +47,7 @@ export function SidebarLink({
             className={cn(
               'h-7 w-7',
               isActive &&
-                ['Explore', 'Lists'].includes(linkName) &&
+                ['홈', '챗봇', '북마크', '검색'].includes(linkName) &&
                 'stroke-white'
             )}
             iconName={iconName}

@@ -27,7 +27,7 @@ export function SignInModal(): JSX.Element {
     return (
         <div className='flex h-full flex-col justify-between'>
             <div className='flex flex-col gap-6'>
-                <div className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-4'>`
                     <i className='mx-auto'>
                         <CustomIcon className='h-10 w-10' iconName='TwitterIcon'/>
                     </i>

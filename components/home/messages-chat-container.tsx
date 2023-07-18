@@ -1,5 +1,6 @@
 import cn from 'clsx';
 import type { ReactNode } from 'react';
+import {useWindow} from "@lib/context/window-context";
 
 type MessagesChatContainerProps = {
     children: ReactNode;
@@ -9,7 +10,8 @@ type MessagesChatContainerProps = {
 export function MessagesChatContainer({
                                   children,
                                   className
-                              }: MessagesChatContainerProps): JSX.Element {
+                              }: MessagesChatContainerProps): JSX.Element | null {
+
     return (
         <main
             className={cn(
