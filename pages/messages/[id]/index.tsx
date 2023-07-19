@@ -14,7 +14,7 @@ import {
 import {doc, getDoc, orderBy, query, setDoc, where, WithFieldValue} from "firebase/firestore";
 import {Loading} from "@components/ui/loading";
 import {Error} from "@components/ui/error";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {variants} from "@components/aside/aside-trends";
 import {MessageCard} from "@components/messages/message-card";
 import {User} from "@lib/types/user";
@@ -26,6 +26,8 @@ import {MessageSelect} from "@components/messages/message-select";
 import {MessagesChatContainer} from "@components/home/messages-chat-container";
 import {Messages, RoomMessage} from "@lib/types/messages";
 import {RoomMessages} from "@components/messages/messages";
+import {onValue, ref} from "@firebase/database";
+import {rdb} from "@lib/firebase/app";
 
 export default function Messages(): JSX.Element {
     const {user} = useAuth();
@@ -35,38 +37,31 @@ export default function Messages(): JSX.Element {
     const [cardUser, setCardUser] = useState<User>()
     const {isMobile} = useWindow();
     const [myChatList, setMyChatList] = useState<UserWithChatRooms[]>([])
-    const {data, loading, LoadMore} = useInfiniteScroll(
-        chatRoomsCollection,
-        [where('participants', 'array-contains', user?.id)],
-        {allowNull: true, preserve: true},
-        {marginBottom: 500}
-    );
     const [selectedData, setSelectedData] = useState<UserWithChatRooms | null>(null)
     const [selected, setSelected] = useState<number>(-1);
-
-
     const [showList, setShowList] = useState<boolean>(false)
-    const [chatList, setChatList] = useState<RoomMessage[]>([]);
 
-    useEffect(() => {
-        createUserList()
-    }, [data])
 
-    const createUserList = useCallback(async () => {
-        let myData = [];
-        if (data && userId) {
-            for (const item of data) {
-                const chatUserId = item.participants.find((item) => item !== userId);
-                const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
-                const result = {
-                    user: newUser as User,
-                    chatRoom: item
+    const rdbRef = ref(rdb, 'chatRooms');
+    onValue(rdbRef, async (snapshot) => {
+        const data = snapshot.val()
+        let list = [];
+        for (const key in data) {
+            if (data.hasOwnProperty(key)) {
+                const chatRoom = data[key];
+                if (chatRoom.participants.find(id => id === userId) !== undefined) {
+                    const chatUserId = chatRoom.participants.find(id => id !== userId)
+                    const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
+                    const result = {
+                        user: newUser as User,
+                        chatRoom: chatRoom
+                    }
+                    list.push(result)
                 }
-                myData.push(result);
             }
-            setMyChatList(myData)
         }
-    }, [data, userId])
+        setMyChatList(list)
+    })
 
 
     return (
@@ -74,39 +69,31 @@ export default function Messages(): JSX.Element {
             <MessagesContainer showList={showList} className="max-h-full">
                 <MainHeader title='메세지'/>
                 <section>
-                    {loading ? (
-                        <Loading className='mt-5'/>
-                    ) : !data ? (
-                        <Error message='정보를 불러 올 수 없습니다. 다시 시도해주세요.'/>
-                    ) : (
-                        <>
-                            <motion.div className='mt-0.5' {...variants}>
-                                {myChatList.length > 0 ?
-                                    myChatList.map((data, idx) => (
-                                        data &&
-                                        <>
-                                            <MessageCard key={data.user.id}
-                                                         idx={idx}
-                                                         data={data}
-                                                         setSelected={setSelected}
-                                                         selected={selected}
-                                                         setSelectedData={setSelectedData}
-                                                         selectedData={selectedData}
-                                                         cardUser={cardUser}
-                                                         setCardUser={setCardUser}
-                                                         setShowList={setShowList}
-                                            />
-                                        </>
-                                    ))
-                                    : <Loading
-                                        iconClassName='h-5 w-5'
-                                        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+
+                    <motion.div className='mt-0.5' {...variants}>
+                        {myChatList.length > 0 ?
+                            myChatList.map((data, idx) => (
+                                <>
+                                    <MessageCard key={data.user.id}
+                                                 idx={idx}
+                                                 data={data}
+                                                 setSelected={setSelected}
+                                                 selected={selected}
+                                                 setSelectedData={setSelectedData}
+                                                 selectedData={selectedData}
+                                                 cardUser={cardUser}
+                                                 setCardUser={setCardUser}
+                                                 setShowList={setShowList}
                                     />
-                                }
-                            </motion.div>
-                            <LoadMore/>
-                        </>
-                    )}
+                                </>
+                            ))
+                            : <Loading
+                                iconClassName='h-5 w-5'
+                                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                            />
+                        }
+                    </motion.div>
+
                 </section>
             </MessagesContainer>
 
@@ -116,39 +103,31 @@ export default function Messages(): JSX.Element {
                         <>
                             <MainHeader title='메세지'/>
                             <section>
-                                {loading ? (
-                                    <Loading className='mt-5'/>
-                                ) : !data ? (
-                                    <Error message='정보를 불러 올 수 없습니다. 다시 시도해주세요.'/>
-                                ) : (
-                                    <>
-                                        <motion.div className='mt-0.5' {...variants}>
-                                            {myChatList.length > 0 ?
-                                                myChatList.map((data, idx) => (
-                                                    data &&
-                                                    <>
-                                                        <MessageCard key={data.user.id}
-                                                                     idx={idx}
-                                                                     data={data}
-                                                                     setSelected={setSelected}
-                                                                     selected={selected}
-                                                                     setSelectedData={setSelectedData}
-                                                                     selectedData={selectedData}
-                                                                     cardUser={cardUser}
-                                                                     setCardUser={setCardUser}
-                                                                     setShowList={setShowList}
-                                                        />
-                                                    </>
-                                                ))
-                                                : <Loading
-                                                    iconClassName='h-5 w-5'
-                                                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                                                />
-                                            }
-                                        </motion.div>
-                                        <LoadMore/>
-                                    </>
-                                )}
+                                <AnimatePresence>
+                                    <motion.div className='mt-0.5' {...variants}>
+                                        {myChatList.length > 0 ?
+                                            myChatList.map((data, idx) => (
+                                                <>
+                                                    <MessageCard key={data.user.id}
+                                                                 idx={idx}
+                                                                 data={data}
+                                                                 setSelected={setSelected}
+                                                                 selected={selected}
+                                                                 setSelectedData={setSelectedData}
+                                                                 selectedData={selectedData}
+                                                                 cardUser={cardUser}
+                                                                 setCardUser={setCardUser}
+                                                                 setShowList={setShowList}
+                                                    />
+                                                </>
+                                            ))
+                                            : <Loading
+                                                iconClassName='h-5 w-5'
+                                                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                                            />
+                                        }
+                                    </motion.div>
+                                </AnimatePresence>
                             </section>
                         </>
                         :

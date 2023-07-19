@@ -8,6 +8,7 @@ import {doc, orderBy, query, where} from "firebase/firestore";
 import {chatRoomMessagesCollection, tweetsCollection, usersCollection} from "@lib/firebase/collections";
 import {useDocument} from "@lib/hooks/useDocument";
 import {useArrayDocument} from "@lib/hooks/useArrayDocument";
+import firebase from "firebase/compat";
 
 interface MessagesProps {
     selectedData: UserWithChatRooms
@@ -21,16 +22,11 @@ export function RoomMessages({
     const [autoScrollEnabled, setAutoScrollEnabled] = useState<boolean>(true);
     const [showScrollDownButton, setShowScrollDownButton] = useState<boolean>(false);
     const chatContainerRef = useRef<HTMLDivElement | null>(null);
-
     const {data: chatRooms, loading: loading} = useDocument(
         doc(chatRoomMessagesCollection(selectedData.chatRoom.id), 'messages'),
         {allowNull: true}
     );
 
-
-    useEffect(() => {
-        console.log('id : ', selectedData.chatRoom.id)
-    }, [selectedData.chatRoom.id])
 
     const handleScrollDown = () => {
         chatContainerRef.current?.scrollTo({
@@ -80,14 +76,6 @@ export function RoomMessages({
         };
     }, [messagesEndRef]);
 
-
-    useEffect(() => {
-        console.log('chatRooms : ', chatRooms)
-    }, [chatRooms])
-
-    const handleSend = useCallback(() => {
-
-    }, [])
 
     return (
         <>

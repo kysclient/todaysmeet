@@ -25,13 +25,7 @@ import {
     where
 } from "firebase/firestore";
 import {trendsCollection, tweetsCollection, usersCollection} from "../../lib/firebase/collections";
-import {useEffect} from "react";
-import {manageReply, manageTotalPhotos, manageTotalTweets} from "../../lib/firebase/utils";
-import {db} from "../../lib/firebase/app";
-import {Trends} from "../../lib/types/trends";
 import {uuidv4} from "@firebase/util";
-import FlameIcon from "../../public/assets/flame.png";
-import Image, {StaticImageData} from "next/image";
 
 export const variants: MotionProps = {
     initial: {opacity: 0},

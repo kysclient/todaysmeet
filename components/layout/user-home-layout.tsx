@@ -19,11 +19,14 @@ import type {LayoutProps} from './common-layout';
 import {manageChatRooms} from "../../lib/firebase/utils";
 import {toast} from "react-hot-toast";
 import Link from "next/link";
-import {doc, documentId, getDoc, getDocs, limit, orderBy, query} from "firebase/firestore";
+import {doc, documentId, getDoc, getDocs, limit, orderBy, query, serverTimestamp} from "firebase/firestore";
 import {chatRoomsCollection, trendsCollection, usersCollection} from "../../lib/firebase/collections";
 import {useCollection} from "../../lib/hooks/useCollection";
-import {chatRoomConverter} from "../../lib/types/chatRooms";
 import {uuidv4} from "@firebase/util";
+import {rdb} from "@lib/firebase/app";
+import {get, ref, set, query as rdbQuery, child, push} from "@firebase/database";
+import {RoomMessage} from "@lib/types/messages";
+import {RoomMessages} from "@components/messages/messages";
 
 export function UserHomeLayout({children}: LayoutProps): JSX.Element {
     const {user, isAdmin} = useAuth();
@@ -48,33 +51,55 @@ export function UserHomeLayout({children}: LayoutProps): JSX.Element {
     const isOwner = userData?.id === userId;
     const {data: chatRooms} = useCollection(query(chatRoomsCollection));
 
-    const handleMessage = async (): Promise<void> => {
-
-        const findData = chatRooms?.find(item => item.type === 'normal' && item.participants.sort().join('') === [myId, participateUserId].sort().join(''))
-        const uuid = uuidv4();
-        if (findData === undefined) {
-            await manageChatRooms(
-                'create',
-                [myId, participateUserId],
-                uuid
+    const handleMessage = async () => {
+        const rdbRef = ref(rdb);
+        let flag = true;
+        await get(child(rdbRef, 'chatRooms')).then((snapshot) => {
+            if (snapshot.exists()) {
+                for (const key in snapshot.val()) {
+                    if (snapshot.val().hasOwnProperty(key)) {
+                        const chatRoom = snapshot.val()![key];
+                        if (JSON.stringify([myId, participateUserId]) === JSON.stringify(chatRoom.participants)) {
+                            flag = false
+                        }
+                    }
+                }
+            } else {
+                console.log('nodata')
+            }
+        }).catch((error) => {
+            console.log('error :', error)
+        })
+        if (flag) {
+            push(child(ref(rdb), 'chatRooms'),
+                {
+                    id: uuidv4(),
+                    name: '새 대화방이 생성되었습니다.',
+                    participants: [myId, participateUserId],
+                    lastRead: null,
+                    type: 'normal',
+                    createdAt: serverTimestamp(),
+                    messages: []
+                }
             )
-            const data = (await getDoc(doc(chatRoomsCollection, uuid))).data();
-
-            toast.success((): JSX.Element => (
-                    <span className='flex gap-2'>
-               메세지목록에 추가되었습니다.
-                <Link href={`/messages/${uuid}`}  className='custom-underline font-bold' >
-                  보기
-                </Link>
-              </span>
-                )
-            );
+                .then(() => {
+                    toast.success((): JSX.Element => (
+                            <span className='flex gap-2'>
+                                  메세지목록에 추가되었습니다.
+                                <Link href={`/messages/${uuidv4()}`} className='custom-underline font-bold'>
+                                  보기
+                                </Link>
+                            </span>
+                        )
+                    );
+                })
+                .catch((error) => {
+                    console.log('error : ', error)
+                })
         } else {
-            await router.push(`/messages/${findData.id}`)
+            router.push(`/messages/${uuidv4()}`)
         }
-
-
-    }
+    };
 
     return (
         <>

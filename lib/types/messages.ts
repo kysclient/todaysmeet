@@ -7,7 +7,7 @@ export type Messages = {
 export type RoomMessage = {
     sender: string;
     text: string;
-    photoUrl: string;
+    photoUrl: string[];
     timestamp: Timestamp | null;
 }
 

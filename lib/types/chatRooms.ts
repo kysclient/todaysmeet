@@ -1,6 +1,7 @@
 import {FirestoreDataConverter, Timestamp} from "firebase/firestore";
 import {Trends} from "./trends";
 import {User} from "./user";
+import {RoomMessage} from "@lib/types/messages";
 
 
 export type ChatRooms = {
@@ -9,7 +10,8 @@ export type ChatRooms = {
     participants: string[],
     type: 'normal' | 'group'
     lastRead: Timestamp | null,
-    createdAt: Timestamp | null
+    createdAt: Timestamp | null,
+    messages: RoomMessage[] | undefined | null,
 }
 
 export type UserWithChatRooms = {
