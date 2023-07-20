@@ -77,9 +77,15 @@ export function RoomMessages({
     }, [messagesEndRef]);
 
 
+    useEffect(() => {
+        handleScrollDown()
+    }, [])
+
+
     return (
         <>
             <div
+                ref={chatContainerRef}
                 className="custom-scrollbar flex-grow space-y-4 p-4 overflow-y-auto scrollbar-thumb-main-sidebar-background scrollbar-track-main-background scrollbar-thin"
             >
                 <style>
@@ -104,7 +110,7 @@ export function RoomMessages({
                     ))
                 }
                 <div
-                    className="h-[100px] bg-main-background"
+                    className="h-[20px] bg-main-background"
                     ref={messagesEndRef}
                 />
             </div>

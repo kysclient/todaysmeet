@@ -63,6 +63,10 @@ export default function Messages(): JSX.Element {
         setMyChatList(list)
     })
 
+    useEffect(() => {
+
+    }, [])
+
 
     return (
         <>
