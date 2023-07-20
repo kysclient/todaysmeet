@@ -296,29 +296,29 @@ export async function manageChatRooms(
     participants: string[],
     uuid: string
 ): Promise<void> {
-    if (type === 'create') {
-        const chatRoomRef = doc(chatRoomsCollection, uuid)
-        const chatRoomData: WithFieldValue<ChatRooms> = {
-            id: uuid,
-            name: '새 대화방이 생성되었습니다.',
-            participants: participants,
-            lastRead: null,
-            type: 'normal',
-            createdAt: serverTimestamp()
-        }
-        const messagesData: WithFieldValue<Messages> = {
-            messages: []
-        };
-        try {
-            await Promise.all([
-                await setDoc(chatRoomRef, chatRoomData),
-                await setDoc(doc(chatRoomMessagesCollection(uuid), 'messages'), messagesData)
-            ])
-
-        } catch (error) {
-            console.log('apis error')
-        }
-    }
+    // if (type === 'create') {
+    //     const chatRoomRef = doc(chatRoomsCollection, uuid)
+    //     const chatRoomData: WithFieldValue<ChatRooms> = {
+    //         id: uuid,
+    //         name: '새 대화방이 생성되었습니다.',
+    //         participants: participants,
+    //         lastRead: null,
+    //         type: 'normal',
+    //         createdAt: serverTimestamp()
+    //     }
+    //     const messagesData: WithFieldValue<Messages> = {
+    //         messages: []
+    //     };
+    //     try {
+    //         await Promise.all([
+    //             await setDoc(chatRoomRef, chatRoomData),
+    //             await setDoc(doc(chatRoomMessagesCollection(uuid), 'messages'), messagesData)
+    //         ])
+    //
+    //     } catch (error) {
+    //         console.log('apis error')
+    //     }
+    // }
 }
 
 export async function updateChatRooms(
