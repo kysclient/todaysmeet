@@ -14,15 +14,15 @@ type UsernameModalProps = {
 
 const usernameModalData = [
   {
-    title: 'What should we call you?',
-    description: 'Your @username is unique. You can always change it later.',
-    cancelLabel: 'Skip'
+    title: '당신을 뭐라고 불러야 할까요?',
+    description: '귀하의 @username은 고유합니다. 여기에서 언제든지 다시 변경할 수 있습니다.',
+    cancelLabel: '건너뛰기'
   },
   {
-    title: 'Change your username?',
+    title: '사용자 이름을 변경하시겠습니까?',
     description:
-      'Your @username is unique. You can always change it here again.',
-    cancelLabel: 'Cancel'
+      '귀하의 @username은 고유합니다. 여기에서 언제든지 다시 변경할 수 있습니다.',
+    cancelLabel: '취소'
   }
 ] as const;
 
@@ -67,7 +67,7 @@ export function UsernameModal({
           loading={loading}
           disabled={!available}
         >
-          Set username
+          사용자명 변경
         </Button>
         <Button
           className='border border-light-line-reply hover:bg-light-primary/10 focus-visible:bg-light-primary/10

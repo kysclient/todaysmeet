@@ -41,8 +41,8 @@ export default function UserMedia(): JSX.Element {
         <Loading className='mt-5' />
       ) : !sortedTweets ? (
         <StatsEmpty
-          title={`@${username as string} hasn't Tweeted Media`}
-          description='Once they do, those Tweets will show up here.'
+          title={`@${username as string} 미디어 피드를 올린적이 없어요.`}
+          description='피드를 올린다면 여기에 표시됩니다.'
           imageData={{ src: '/assets/no-media.png', alt: 'No media' }}
         />
       ) : (

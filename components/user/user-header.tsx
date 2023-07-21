@@ -59,7 +59,7 @@ export function UserHeader(): JSX.Element {
         </motion.div>
       ) : !user ? (
         <motion.h2 className='text-xl font-bold' {...variants} key='not-found'>
-          {isInFollowPage ? `@${id as string}` : 'User'}
+          {isInFollowPage ? `@${id as string}` : '사용자'}
         </motion.h2>
       ) : (
         <motion.div className='-mb-1 truncate' {...variants} key='found'>
@@ -75,17 +75,17 @@ export function UserHeader(): JSX.Element {
               ? `@${user.username}`
               : isInTweetPage
               ? totalTweets
-                ? `${totalTweets} ${`Tweet${isPlural(totalTweets)}`}`
-                : 'No Tweet'
+                ? `${totalTweets} ${`피드수 ${isPlural(totalTweets)}`}`
+                : '피드가 없어요'
               : currentPage === 'media'
               ? totalPhotos
-                ? `${totalPhotos} Photo${isPlural(totalPhotos)} & GIF${isPlural(
+                ? `${totalPhotos} 사진 ${isPlural(totalPhotos)} & 미디어 ${isPlural(
                     totalPhotos
                   )}`
-                : 'No Photo & GIF'
+                : '사진이 없어요'
               : totalLikes
-              ? `${totalLikes} Like${isPlural(totalLikes)}`
-              : 'No Like'}
+              ? `${totalLikes} 좋아요수 ${isPlural(totalLikes)}`
+              : '좋아하는 사람이 없어요 😂'}
           </p>
         </motion.div>
       )}

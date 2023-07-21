@@ -6,10 +6,12 @@ import {InputField} from "../input/input-field";
 import React, {useState} from "react";
 import {useModal} from "../../lib/hooks/useModal";
 
+interface Prop {
+    closeModal: () => void;
+}
 
-export function SignInModal(): JSX.Element {
+export function SignInModal({closeModal}: Prop): JSX.Element {
     const {signInWithEmailPassword, loading} = useAuth()
-    const {closeModal} = useModal();
 
     const [email, setEmail] = useState("");
     const [errorMessage, setErrorMessage] = useState('');
@@ -27,7 +29,7 @@ export function SignInModal(): JSX.Element {
     return (
         <div className='flex h-full flex-col justify-between'>
             <div className='flex flex-col gap-6'>
-                <div className='flex flex-col gap-4'>`
+                <div className='flex flex-col gap-4'>
                     <i className='mx-auto'>
                         <CustomIcon className='h-10 w-10' iconName='TwitterIcon'/>
                     </i>

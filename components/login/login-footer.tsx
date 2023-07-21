@@ -26,18 +26,18 @@ export function LoginFooter(): JSX.Element {
   return (
     <footer className='hidden justify-center p-4 text-sm text-light-secondary dark:text-dark-secondary lg:flex'>
       <nav className='flex flex-wrap justify-center gap-4 gap-y-2'>
-        {footerLinks.map(([linkName, href]) => (
-          <Link
-            className='custom-underline'
-            target='_blank'
-            rel='noreferrer'
-            href={href}
-            key={linkName}
-          >
-            {linkName}
-          </Link>
-        ))}
-        <p>© 2022 Twitter, Inc.</p>
+        {/*{footerLinks.map(([linkName, href]) => (*/}
+        {/*  <Link*/}
+        {/*    className='custom-underline'*/}
+        {/*    target='_blank'*/}
+        {/*    rel='noreferrer'*/}
+        {/*    href={href}*/}
+        {/*    key={linkName}*/}
+        {/*  >*/}
+        {/*    {linkName}*/}
+        {/*  </Link>*/}
+        {/*))}*/}
+        <p>© 2023 kysclient</p>
       </nav>
     </footer>
   );

@@ -38,8 +38,8 @@ export default function UserLikes(): JSX.Element {
         <Loading className='mt-5' />
       ) : !data ? (
         <StatsEmpty
-          title={`@${username as string} hasn't liked any Tweets`}
-          description='When they do, those Tweets will show up here.'
+          title={`@${username as string} 좋아하는 피드가 없어요.`}
+          description='좋아요를 누른다면 여기에 표시됩니다.'
         />
       ) : (
         <AnimatePresence mode='popLayout'>

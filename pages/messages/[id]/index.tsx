@@ -40,34 +40,37 @@ export default function Messages(): JSX.Element {
     const [selectedData, setSelectedData] = useState<UserWithChatRooms | null>(null)
     const [selected, setSelected] = useState<number>(-1);
     const [showList, setShowList] = useState<boolean>(false)
-
-
     const rdbRef = ref(rdb, 'chatRooms');
-    onValue(rdbRef, async (snapshot) => {
-        const data = snapshot.val()
-        let list: UserWithChatRooms[] = [];
-        for (const key in data) {
-            if (data.hasOwnProperty(key)) {
-                const chatRoom = data[key];
-                if (chatRoom.participants.find((id: string) => id === userId) !== undefined) {
-                    const chatUserId = chatRoom.participants.find((id: string) => id !== userId);
-                    if (chatUserId) {
-                        const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
-                        if (newUser) {
-                            const result = {
-                                user: newUser as User,
-                                chatRoom: chatRoom,
-                                roomKey: key
-                            };
-                            list.push(result);
+
+    useEffect(() => {
+        onValue(rdbRef, async (snapshot) => {
+            const data = snapshot.val()
+            for (const key in data) {
+                if (data.hasOwnProperty(key)) {
+                    const chatRoom = data[key];
+                    if (chatRoom.participants.find((id: string) => id === userId) !== undefined) {
+                        let list: UserWithChatRooms[] = [];
+                        const chatUserId = chatRoom.participants.find((id: string) => id !== userId);
+                        if (chatUserId) {
+                            const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
+                            if (newUser) {
+                                const result = {
+                                    user: newUser as User,
+                                    chatRoom: chatRoom,
+                                    roomKey: key
+                                };
+                                list.push(result);
+                            }
                         }
+                        setMyChatList(list)
+                    } else {
+                        setMyChatList([])
                     }
                 }
             }
-        }
-        setMyChatList(list)
-    })
+        })
 
+    }, [])
 
 
     return (

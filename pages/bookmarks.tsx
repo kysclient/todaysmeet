@@ -98,8 +98,8 @@ export default function Bookmarks(): JSX.Element {
           <Loading className='mt-5' />
         ) : !bookmarksRef ? (
           <StatsEmpty
-            title='Save Tweets for later'
-            description='Don’t let the good ones fly away! Bookmark Tweets to easily find them again in the future.'
+            title='피드를 저장해보세요'
+            description='좋은 인연이 날아가게 하지 마세요! 나중에 쉽게 다시 찾을 수 있도록 즐겨찾기에 추가하세요.'
             imageData={{ src: '/assets/no-bookmarks.png', alt: 'No bookmarks' }}
           />
         ) : (

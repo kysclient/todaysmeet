@@ -49,8 +49,8 @@ export default function UserWithReplies(): JSX.Element {
         <Loading className='mt-5' />
       ) : !data ? (
         <StatsEmpty
-          title={`@${username as string} hasn't tweeted`}
-          description='When they do, their Tweets will show up here.'
+          title={`@${username as string} 고정시켜둔 피드가 없어요.`}
+          description='피드나 댓글을 고정시키면 여기에 표시됩니다.'
         />
       ) : (
         <AnimatePresence mode='popLayout'>

@@ -17,7 +17,7 @@ export function LoginMain(): JSX.Element {
                 open={open}
                 closeModal={closeModal}
             >
-                <SignInModal/>
+                <SignInModal closeModal={closeModal}/>
             </Modal>
             <main className='grid lg:grid-cols-[1fr,45vw]'>
                 <div className='relative hidden items-center justify-center  lg:flex'>
@@ -42,8 +42,8 @@ export function LoginMain(): JSX.Element {
                     </i>
                     <div className='flex max-w-xs flex-col gap-4 font-twitter-chirp-extended lg:max-w-none lg:gap-16'>
                         <h1
-                            className='text-3xl before:content-["See_what’s_happening_in_the_world_right_now."]
-                       lg:text-6xl lg:before:content-["Happening_now"]'
+                            className='text-3xl before:content-["See_what’s_happening_in_the_meeting_now."]
+                       lg:text-6xl lg:before:content-["Let’s_Meet_Today"]'
                         />
                         <h2 className='hidden text-xl lg:block lg:text-3xl'>
                             Join Twitter today.
@@ -91,44 +91,44 @@ export function LoginMain(): JSX.Element {
                                 className='inner:custom-underline inner:custom-underline text-center text-xs
                          text-light-secondary inner:text-accent-blue dark:text-dark-secondary'
                             >
-                                By signing up, you agree to the{' '}
-                                <Link
-                                    href='https://twitter.com/tos'
-                                    target='_blank'
-                                    rel='noreferrer'
-                                >
-                                    Terms of Service
-                                </Link>{' '}
-                                and{' '}
-                                <Link
-                                    href='https://twitter.com/privacy'
-                                    target='_blank'
-                                    rel='noreferrer'
-                                >
-                                    Privacy Policy
-                                </Link>
-                                , including{' '}
+                                회원가입시,{' '}
                                 <Link
                                     href='https://help.twitter.com/rules-and-policies/twitter-cookies'
                                     target='_blank'
                                     rel='noreferrer'
                                 >
-                                    Cookie Use
+                                    쿠키 사용
                                 </Link>
-                                .
+                                을 포함한
+                                <Link
+                                    href='https://twitter.com/tos'
+                                    target='_blank'
+                                    rel='noreferrer'
+                                >
+                                    서비스 약관
+                                </Link>{' '}
+                                및{' '}
+                                <Link
+                                    href='https://twitter.com/privacy'
+                                    target='_blank'
+                                    rel='noreferrer'
+                                >
+                                    개인정보 보호정책
+                                </Link>
+                                에 동의하는것 입니다.
                             </p>
                         </div>
-                        <div className='flex flex-col gap-3'>
-                            <p className='font-bold'>Already have an account? </p>
-                            <Button
-                                className='border border-light-line-reply font-bold text-accent-blue hover:bg-accent-blue/10
-                         focus-visible:bg-accent-blue/10 focus-visible:!ring-accent-blue/80 active:bg-accent-blue/20
-                         dark:border-light-secondary'
-                                onClick={signInWithGoogle}
-                            >
-                                Sign in
-                            </Button>
-                        </div>
+                        {/*<div className='flex flex-col gap-3'>*/}
+                        {/*    <p className='font-bold'>Already have an account? </p>*/}
+                        {/*    <Button*/}
+                        {/*        className='border border-light-line-reply font-bold text-accent-blue hover:bg-accent-blue/10*/}
+                        {/* focus-visible:bg-accent-blue/10 focus-visible:!ring-accent-blue/80 active:bg-accent-blue/20*/}
+                        {/* dark:border-light-secondary'*/}
+                        {/*        onClick={signInWithGoogle}*/}
+                        {/*    >*/}
+                        {/*        Sign in*/}
+                        {/*    </Button>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </main>

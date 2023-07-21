@@ -34,13 +34,13 @@ export function isValidUsername(
   value: string
 ): string | null {
   if (value.length < 4)
-    return 'Your username must be longer than 4 characters.';
+    return '사용자 이름은 4자 이상이어야 합니다.';
   if (value.length > 15)
-    return 'Your username must be shorter than 15 characters.';
+    return '사용자 이름은 15자 미만이어야 합니다.';
   if (!/^\w+$/i.test(value))
-    return "Your username can only contain letters, numbers and '_'.";
-  if (!/[a-z]/i.test(value)) return 'Include a non-number character.';
-  if (value === username) return 'This is your current username.';
+    return "사용자 이름은 문자, 숫자 및 '_' 만 포함할 수 있습니다.";
+  if (!/[a-z]/i.test(value)) return '숫자가 아닌 문자를 포함합니다.';
+  if (value === username) return '현재 사용자 이름입니다.';
 
   return null;
 }

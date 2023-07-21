@@ -105,8 +105,8 @@ export function UpdateUsername(): JSX.Element {
           cancelUpdateUsername={cancelUpdateUsername}
         >
           <InputField
-            label='Username'
-            inputId='username'
+            label='사용자명'
+            inputId='사용자명'
             inputValue={inputValue}
             errorMessage={errorMessage}
             handleChange={handleChange}

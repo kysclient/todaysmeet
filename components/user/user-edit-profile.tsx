@@ -262,7 +262,7 @@ export function UserEditProfile({ hide }: UserEditProfileProps): JSX.Element {
                    dark:hover:bg-dark-primary/10 dark:active:bg-dark-primary/20'
         onClick={openModal}
       >
-        Edit profile
+        프로필 수정
       </Button>
     </form>
   );

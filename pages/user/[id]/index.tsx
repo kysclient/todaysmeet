@@ -54,8 +54,8 @@ export default function UserTweets(): JSX.Element {
         <Loading className='mt-5' />
       ) : !mergedTweets ? (
         <StatsEmpty
-          title={`@${username as string} hasn't tweeted`}
-          description='When they do, their Tweets will show up here.'
+          title={`@${username as string} 피드를 올린적이 없어요.`}
+          description='피드를 올린다면 여기에 표시됩니다.'
         />
       ) : (
         <AnimatePresence mode='popLayout'>

@@ -31,7 +31,7 @@ export function SidebarProfile(): JSX.Element {
           useIcon
           focusOnMainBtn
           title='로그아웃 하시겠습니까?'
-          description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
+          description='언제든지 다시 로그인할 수 있습니다. 계정을 전환하려는 경우 기존 계정을 추가하여 전환(베타 이후)할 수 있습니다.'
           mainBtnLabel='로그아웃'
           action={signOut}
           closeModal={closeModal}
