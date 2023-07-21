@@ -49,8 +49,8 @@ export default function Messages(): JSX.Element {
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const chatRoom = data[key];
-                if (chatRoom.participants.find(id => id === userId) !== undefined) {
-                    const chatUserId = chatRoom.participants.find(id => id !== userId)
+                if (chatRoom.participants.find((id): any => id === userId) !== undefined) {
+                    const chatUserId = chatRoom.participants.find((id): any => id !== userId)
                     const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
                     const result = {
                         user: newUser as User,
