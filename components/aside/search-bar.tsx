@@ -11,6 +11,7 @@ import {db} from "@lib/firebase/app";
 import {getDoc, getDocs, limit, query, where} from "firebase/firestore";
 import {trendsCollection, usersCollection} from "@lib/firebase/collections";
 import {UserCard} from "@components/user/user-card";
+import {User} from "@lib/types/user";
 
 export function SearchBar(): JSX.Element {
     const [inputValue, setInputValue] = useState('');
@@ -41,7 +42,7 @@ export function SearchBar(): JSX.Element {
         if (key === 'Escape') clearInputValue()();
     };
     const [openPanel, setOpenPanel] = useState(true)
-    const [searchData, setSearchData] = useState([]);
+    const [searchData, setSearchData] = useState<User[]>([]);
 
     useEffect(() => {
 
@@ -66,7 +67,7 @@ export function SearchBar(): JSX.Element {
         clearTimeout(timer);
         timer = setTimeout(async () => {
             const querySnapshot = await getDocs(query(usersCollection, where('username', '>=', inputValue), where('username', '<=', inputValue + '\uf8ff'), limit(20)))
-            let data: any = []
+            let data: User[] = []
             querySnapshot.docs.forEach(snapShot => {
                 data.push(snapShot.data())
             })
@@ -78,10 +79,6 @@ export function SearchBar(): JSX.Element {
         };
 
     }, [inputValue])
-
-    useEffect(() => {
-        console.log('searchData : ', searchData)
-    }, [searchData])
 
     return (
         <>
