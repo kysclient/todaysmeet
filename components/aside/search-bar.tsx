@@ -14,7 +14,7 @@ import {UserCard} from "@components/user/user-card";
 
 export function SearchBar(): JSX.Element {
     const [inputValue, setInputValue] = useState('');
-    const specificDivRef = useRef(null);
+    const specificDivRef = useRef<Element | null>(null);
     const [clickedOutside, setClickedOutside] = useState(false);
 
     const {push} = useRouter();
@@ -47,7 +47,9 @@ export function SearchBar(): JSX.Element {
 
         const handleClickOutside = (event: any) => {
             const clickedElement = event.target;
-            if (specificDivRef.current && !specificDivRef.current.contains(clickedElement)) {
+            const containsFunction: (other: Node | null) => boolean = specificDivRef.current?.contains as any;
+
+            if (specificDivRef.current && containsFunction(clickedElement as Node)) {
                 setOpenPanel(true);
             } else {
                 setOpenPanel(false);
