@@ -14,7 +14,7 @@ import {UserCard} from "@components/user/user-card";
 
 export function SearchBar(): JSX.Element {
     const [inputValue, setInputValue] = useState('');
-    const specificDivRef = useRef<Element | null>(null);
+    const specificDivRef = useRef<HTMLDivElement | null>(null);
     const [clickedOutside, setClickedOutside] = useState(false);
 
     const {push} = useRouter();
@@ -45,26 +45,24 @@ export function SearchBar(): JSX.Element {
 
     useEffect(() => {
 
-        const handleClickOutside = (event: any) => {
-            const clickedElement = event.target;
-            const containsFunction: (other: Node | null) => boolean = specificDivRef.current?.contains as any;
-
-            if (specificDivRef.current && containsFunction(clickedElement as Node)) {
-                setOpenPanel(true);
-            } else {
-                setOpenPanel(false);
-            }
-        };
         document.addEventListener('click', handleClickOutside);
-
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
 
+    const handleClickOutside = (event: MouseEvent) => {
+        const clickedElement = event.target as Node;
+        if (specificDivRef.current && !specificDivRef.current.contains(clickedElement)) {
+            setOpenPanel(true);
+        } else {
+            setOpenPanel(false);
+        }
+    };
+
 
     useEffect(() => {
-        let timer;
+        let timer: any;
         clearTimeout(timer);
         timer = setTimeout(async () => {
             const querySnapshot = await getDocs(query(usersCollection, where('username', '>=', inputValue), where('username', '<=', inputValue + '\uf8ff'), limit(20)))
