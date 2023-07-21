@@ -39,6 +39,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.3.0",
     "react-i18next": "^12.2.0",
+    "react-kakao-login": "^2.1.1",
     "react-markdown": "^8.0.5",
     "react-spreadsheet": "^0.8.3",
     "react-syntax-highlighter": "^15.5.0",

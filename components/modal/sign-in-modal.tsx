@@ -80,7 +80,7 @@ export function SignInModal({closeModal}: Prop): JSX.Element {
                 </Button>
 
                 <Dialog.Description className='text-light-secondary dark:text-dark-secondary'>
-                    가입하면 <span className="text-main-accent">이용약관</span> 및 <span className="text-main-accent">개인정보 처리방침</span>에 동의하게 됩니다. 벙신은 계정을 안전하게 보호하고 광고를 포함한 맞춤 서비스를 제공하는 등 벙신 개인정보 처리방침에 명시된 목적을 위해 이메일 주소 및 전화번호 등의 내 연락처 정보를 사용할 수 있습니다. <span className="text-main-accent">자세히 알아보기</span>. 이메일 또는 전화번호를 제공하시면 다른 사람들이 이 정보로 내 계정을 찾을 수 있게 됩니다.
+                    가입하면 <span className="text-main-accent">이용약관</span> 및 <span className="text-main-accent">개인정보 처리방침</span>에 동의하게 됩니다. 투밋은 계정을 안전하게 보호하고 광고를 포함한 맞춤 서비스를 제공하는 등 투밋 개인정보 처리방침에 명시된 목적을 위해 이메일 주소 및 전화번호 등의 내 연락처 정보를 사용할 수 있습니다. <span className="text-main-accent">자세히 알아보기</span>. 이메일 또는 전화번호를 제공하시면 다른 사람들이 이 정보로 내 계정을 찾을 수 있게 됩니다.
                 </Dialog.Description>
             </div>
         </div>
