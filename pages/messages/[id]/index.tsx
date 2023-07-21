@@ -21,7 +21,7 @@ import {User} from "@lib/types/user";
 import {Button} from "@components/ui/button";
 import {HeroIcon} from "@components/ui/hero-icon";
 import {ToolTip} from "@components/ui/tooltip";
-import {UserWithChatRooms} from "@lib/types/chatRooms";
+import {ChatRooms, UserWithChatRooms} from "@lib/types/chatRooms";
 import {MessageSelect} from "@components/messages/message-select";
 import {MessagesChatContainer} from "@components/home/messages-chat-container";
 import {Messages, RoomMessage} from "@lib/types/messages";
@@ -45,19 +45,23 @@ export default function Messages(): JSX.Element {
     const rdbRef = ref(rdb, 'chatRooms');
     onValue(rdbRef, async (snapshot) => {
         const data = snapshot.val()
-        let list = [];
+        let list: UserWithChatRooms[] = [];
         for (const key in data) {
             if (data.hasOwnProperty(key)) {
                 const chatRoom = data[key];
-                if (chatRoom.participants.find((id): any => id === userId) !== undefined) {
-                    const chatUserId = chatRoom.participants.find((id): any => id !== userId)
-                    const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
-                    const result = {
-                        user: newUser as User,
-                        chatRoom: chatRoom,
-                        roomKey: key
+                if (chatRoom.participants.find((id: string) => id === userId) !== undefined) {
+                    const chatUserId = chatRoom.participants.find((id: string) => id !== userId);
+                    if (chatUserId) {
+                        const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
+                        if (newUser) {
+                            const result = {
+                                user: newUser as User,
+                                chatRoom: chatRoom,
+                                roomKey: key
+                            };
+                            list.push(result);
+                        }
                     }
-                    list.push(result)
                 }
             }
         }
