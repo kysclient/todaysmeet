@@ -66,7 +66,7 @@ export function SearchBar(): JSX.Element {
         clearTimeout(timer);
         timer = setTimeout(async () => {
             const querySnapshot = await getDocs(query(usersCollection, where('username', '>=', inputValue), where('username', '<=', inputValue + '\uf8ff'), limit(20)))
-            let data = []
+            let data: any = []
             querySnapshot.docs.forEach(snapShot => {
                 data.push(snapShot.data())
             })
