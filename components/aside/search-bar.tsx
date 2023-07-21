@@ -45,7 +45,7 @@ export function SearchBar(): JSX.Element {
 
     useEffect(() => {
 
-        const handleClickOutside = (event) => {
+        const handleClickOutside = (event: any) => {
             const clickedElement = event.target;
             if (specificDivRef.current && !specificDivRef.current.contains(clickedElement)) {
                 setOpenPanel(true);
