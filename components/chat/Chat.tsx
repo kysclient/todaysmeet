@@ -19,6 +19,7 @@ import {ChatInput} from "./ChatInput";
 import ChatContext from "../../lib/context/chat-context";
 import {Modal} from "../modal/modal";
 import {ActionModal} from "../modal/action-modal";
+import {HeroIcon} from "@components/ui/hero-icon";
 
 interface Props {
     stopConversationRef: MutableRefObject<boolean>
@@ -129,7 +130,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                 messages: baseMessages,
                 key: process.env.OPEN_AI_API_KEY as string,
                 prompt: message.content,
-                temperature: 1.0,
+                temperature: 0.1,
             };
 
             const endpoint = `/api/chat`
@@ -181,6 +182,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                     ];
                     baseMessages = updatedMessages;
                     chatDispatch({field: 'messages', value: updatedMessages});
+                    handleScrollToEnd()
                 } else {
                     const updatedMessages: Message[] = baseMessages.map((message, index) => {
                         if (index === baseMessages.length - 1) {
@@ -203,12 +205,12 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                         }
                     });
                     chatDispatch({field: 'messages', value: updatedMessages});
+                    handleScrollToEnd()
                 }
             }
             chatDispatch({field: 'loading', value: false});
             chatDispatch({field: 'messageIsStreaming', value: false});
 
-            handleScrollToEnd()
 
         }, [messages, stopConversationRef, chatDispatch])
 
@@ -239,12 +241,25 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                             <>
                                 <div
                                     className="mx-auto flex flex-col space-y-4 px-3 pt-5 md:pt-12 sm:max-w-[600px]">
-                                    <div
-                                        className="text-center mb-2 text-2xl font-semibold text-gray-800 dark:text-gray-100">
-                                        ChatGPT
+                                    <div className="flex justify-end">
+                                        <div className={`flex items-center bg-main-background rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px]`}>
+                                            <HeroIcon iconName={'ChatBubbleOvalLeftEllipsisIcon'} className="w-7 h-7 text-white mr-2" />
+                                            이런걸 물어볼 수 있어요
+                                        </div>
                                     </div>
 
+                                    <div className="flex justify-end">
+                                        <div className={`flex items-center bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px]`}>
+                                            지금부터 너는 나의 친구야. 나의 얘기를 듣고 대화 해줘.
+                                        </div>
 
+                                    </div>
+
+                                    <div className="flex justify-end">
+                                        <div className={`flex items-center bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px]`}>
+                                            강남구 논현동 맛집 알려줘.
+                                        </div>
+                                    </div>
 
                                 </div>
                             </>
@@ -271,7 +286,7 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
                     }
                     {loading && <ChatLoader/>}
                     <div
-                        className="h-[162px] bg-main-background"
+                        className="h-[182px] bg-main-background"
                         ref={messagesEndRef}
                     />
                 </>

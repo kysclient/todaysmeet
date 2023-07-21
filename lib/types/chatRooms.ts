@@ -16,7 +16,8 @@ export type ChatRooms = {
 
 export type UserWithChatRooms = {
     user: User,
-    chatRoom: ChatRooms
+    chatRoom: ChatRooms,
+    roomKey: string
 }
 
 

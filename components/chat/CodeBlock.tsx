@@ -55,8 +55,10 @@ export const CodeBlock: FC<Props> = memo(({ language, value }) => {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     };
+
+
     return (
-        <div className="codeblock relative font-sans text-[16px]">
+        <div className="codeblock relative font-sans text-[14px] max-w-md custom-scrollbar scrollbar-thumb-main-sidebar-background scrollbar-track-main-background scrollbar-thin">
             <div className="flex items-center justify-between py-1.5 px-4">
                 <span className="text-xs lowercase text-white">{language}</span>
 

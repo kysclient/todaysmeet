@@ -107,12 +107,12 @@ export function Sidebar(): JSX.Element {
                         {navLinks.map(({...linkData}) => (
                             <SidebarLink {...linkData} key={linkData.href}/>
                         ))}
-                        <SidebarLink
-                            href={`/search`}
-                            username={'search'}
-                            linkName='검색'
-                            iconName='MagnifyingGlassIcon'
-                        />
+                        {/*<SidebarLink*/}
+                        {/*    href={`/search`}*/}
+                        {/*    username={'search'}*/}
+                        {/*    linkName='검색'*/}
+                        {/*    iconName='MagnifyingGlassIcon'*/}
+                        {/*/>*/}
                         <SidebarLink
                             href={`/messages/${userId}`}
                             username={'messages'}
@@ -127,7 +127,7 @@ export function Sidebar(): JSX.Element {
                         />
                         {!isMobile && <MoreSettings/>}
                     </nav>
-                    {pathname !== '/explore' &&
+                    {pathname !== '/explore' && !pathname.includes('/messages') &&
                         <Button
                             className='accent-tab absolute right-4 -translate-y-[72px] bg-main-accent text-lg font-bold text-white
                        outline-none transition hover:brightness-90 active:brightness-75 xs:static xs:translate-y-0

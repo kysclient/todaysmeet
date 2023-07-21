@@ -22,6 +22,8 @@ export function RoomMessages({
     const [autoScrollEnabled, setAutoScrollEnabled] = useState<boolean>(true);
     const [showScrollDownButton, setShowScrollDownButton] = useState<boolean>(false);
     const chatContainerRef = useRef<HTMLDivElement | null>(null);
+
+
     const {data: chatRooms, loading: loading} = useDocument(
         doc(chatRoomMessagesCollection(selectedData.chatRoom.id), 'messages'),
         {allowNull: true}
@@ -82,6 +84,7 @@ export function RoomMessages({
     }, [])
 
 
+
     return (
         <>
             <div
@@ -103,9 +106,10 @@ export function RoomMessages({
                     />
                 </div>
                 {
-                    [1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 23, 4, 23, 6, 6,].map((item, idx) => (
+                    selectedData.chatRoom.messages?.map((item, idx) => (
                         <MessageBox
-                            key={item * idx}
+                            message={item}
+                            key={item.timestamp}
                         />
                     ))
                 }
@@ -118,7 +122,10 @@ export function RoomMessages({
                 <MessageInput
                     onScrollDownClick={handleScrollDown}
                     textareaRef={textareaRef}
-                    showScrollDownButton={showScrollDownButton}/>
+                    showScrollDownButton={showScrollDownButton}
+                    selectedData={selectedData}
+                />
+
             </div>
         </>
     )

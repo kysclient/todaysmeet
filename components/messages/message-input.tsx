@@ -9,17 +9,26 @@ import {toast} from "react-hot-toast";
 import TextArea from "react-textarea-autosize";
 import {ImagePreview} from "@components/input/image-preview";
 import {AnimatePresence} from "framer-motion";
+import {RoomMessage} from "@lib/types/messages";
+import {UserWithChatRooms} from "@lib/types/chatRooms";
+import {uploadImages} from "@lib/firebase/utils";
+import {ref, update} from "@firebase/database";
+import {useAuth} from "@lib/context/auth-context";
+import {rdb} from "@lib/firebase/app";
+import {serverTimestamp, Timestamp} from "firebase/firestore";
 
 interface Props {
     onScrollDownClick: () => void;
     textareaRef: MutableRefObject<HTMLTextAreaElement | null>;
     showScrollDownButton: boolean;
+    selectedData: UserWithChatRooms
 }
 
 export const MessageInput = ({
                                  onScrollDownClick,
                                  textareaRef,
-                                 showScrollDownButton
+                                 showScrollDownButton,
+                                 selectedData
                              }: Props) => {
     const {isMobile} = useWindow();
     const [inputValue, setInputValue] = useState('');
@@ -30,6 +39,8 @@ export const MessageInput = ({
     const isUploadingImages = !!previewCount;
     const [visited, setVisited] = useState(false);
     const [loading, setLoading] = useState(false);
+    const {user} = useAuth();
+    const userId = user?.id as string;
 
     useEffect(
         () => {
@@ -63,7 +74,7 @@ export const MessageInput = ({
         const imagesData = getImagesData(files, previewCount);
 
         if (!imagesData) {
-            toast.error('이미지를 선택해 주세요');
+            toast.error('이미지를 업로드 해주세요. 이미지는 최대 4장까지 업로드 가능합니다.');
             return;
         }
 
@@ -113,60 +124,74 @@ export const MessageInput = ({
     const isCharLimitExceeded = inputLength > inputLimit;
 
     const sendMessage = async (): Promise<void> => {
+        setLoading(true)
         inputRef.current?.blur();
-        setLoading(true);
+        const messageData: RoomMessage = {
+            sender: userId,
+            text: inputValue,
+            images: await uploadImages(userId, selectedImages) as ImagesPreview,
+            timestamp: serverTimestamp() as Timestamp
+        }
+        const updateMessages = selectedData.chatRoom.messages ? [...selectedData.chatRoom.messages, messageData] : [messageData]
+        let updateData = selectedData.chatRoom
+        updateData.messages = updateMessages;
 
-        // api call
+        await update(ref(rdb, `chatRooms/${selectedData.roomKey}`), updateData)
+
+        setInputValue("")
+        cleanImage()
+        setLoading(false)
+        onScrollDownClick()
     }
-
-
-    useEffect(() => {
-        console.log('imagesPre : ', imagesPreview, previewCount, isUploadingImages)
-    }, [imagesPreview, previewCount, isUploadingImages])
 
     return (
         <>
-            <div
-                className="w-full md:w-[calc(100%-.5rem)]">
-                <div
-                    className="stretch flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
-                    <div
-                        style={{marginBottom: `${isMobile ? 60 : 0}px`,}}
-                        className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10  dark:border-gray-900/50 dark:text-white  sm:mx-4 bg-main-sidebar-background">
-                        <TextArea
-                            id={formId}
-                            ref={inputRef}
-                            className="m-0 w-full  resize-none border-0 p-0 py-2 pr-8 pl-5 dark:bg-transparent dark:text-white md:py-3 md:pl-5 bg-main-sidebar-background focus:outline-none focus:ring-0"
-                            placeholder="메세지를 입력하세요."
-                            value={inputValue}
-                            minRows={1}
-                            maxRows={isUploadingImages ? 5 : 15}
-                            onChange={handleChange}
-                            onPaste={handleImageUpload}
-                        >
-                        </TextArea>
-                        {isUploadingImages && (
-                            <ImagePreview
-                                imagesPreview={imagesPreview}
-                                previewCount={previewCount}
-                                removeImage={!loading ? removeImage : undefined}
-                            />
-                        )}
+            <form onSubmit={handleSubmit}>
 
-                        <div className="p-2">
-                            <AnimatePresence initial={false}>
-                                <MessageInputOptions
-                                    inputLimit={280}
-                                    inputLength={280}
-                                    isValidTweet={true}
-                                    isCharLimitExceeded={false}
-                                    handleImageUpload={handleImageUpload}
+                <div
+                    className="w-full md:w-[calc(100%-.5rem)]">
+                    <div
+                        className="stretch flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
+                        <div
+                            style={{marginBottom: `${isMobile ? 60 : 0}px`,}}
+                            className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10  dark:border-gray-900/50 dark:text-white  sm:mx-4 bg-main-sidebar-background">
+                            <TextArea
+                                id={formId}
+                                ref={inputRef}
+                                className="m-0 w-full  resize-none border-0 p-0 py-2 pr-8 pl-5 dark:bg-transparent dark:text-white md:py-3 md:pl-5 bg-main-sidebar-background focus:outline-none focus:ring-0"
+                                placeholder="메세지를 입력하세요."
+                                value={inputValue}
+                                minRows={1}
+                                maxRows={5}
+                                onChange={handleChange}
+                                onPaste={handleImageUpload}
+                            >
+                            </TextArea>
+                            {isUploadingImages && (
+                                <ImagePreview
+                                    imagesPreview={imagesPreview}
+                                    previewCount={previewCount}
+                                    removeImage={!loading ? removeImage : undefined}
                                 />
-                            </AnimatePresence>
+                            )}
+
+                            <div className="p-2">
+                                <AnimatePresence initial={false}>
+                                    <MessageInputOptions
+                                        inputLimit={280}
+                                        inputLength={inputValue.length}
+                                        isValidTweet={true}
+                                        isCharLimitExceeded={false}
+                                        handleImageUpload={handleImageUpload}
+                                        handleSend={sendMessage}
+                                        loading={loading}
+                                    />
+                                </AnimatePresence>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </>
     )
 

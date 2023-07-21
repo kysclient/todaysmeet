@@ -153,12 +153,12 @@ export const ChatInput = ({
 
     return (
         <div
-            className="absolute bottom-0 left-0 w-full border-t md:border-t-0 dark:border-white/20 md:border-transparent md:dark:border-transparent pt-2 md:pl-2 md:w-[calc(100%-.5rem)]">
+            className="absolute bottom-0 left-0 w-full border-t md:border-t-0 dark:border-white/20 md:border-transparent md:dark:border-transparent pt-12 md:pl-2 md:w-[calc(100%-.5rem)]">
             <div
                 className="stretch mx-2 mt-4 flex flex-row gap-3 last:mb-2 md:mx-4 md:mt-[52px] md:last:mb-6 lg:mx-auto lg:max-w-3xl">
                 {messageIsStreaming && (
                     <button
-                        className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 dark:bg-[#343541] dark:text-white md:mb-0 md:mt-2"
+                        className="absolute top-3 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 dark:bg-[#343541] dark:text-white md:mb-0 md:mt-2"
                         onClick={handleStopConversation}
                     >
                         <IconPlayerStop size={16}/> {t('멈추기')}
@@ -168,7 +168,7 @@ export const ChatInput = ({
                 {!messageIsStreaming &&
                     messages.length > 0 && (
                         <button
-                            className="absolute top-0 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 bg-main-sidebar-background dark:text-white md:mb-0 md:mt-2"
+                            className="absolute top-3 left-0 right-0 mx-auto mb-3 flex w-fit items-center gap-3 rounded border border-neutral-200 py-2 px-4 text-black hover:opacity-50 dark:border-neutral-600 bg-main-sidebar-background dark:text-white md:mb-0 md:mt-2"
                             onClick={onRegenerate}
                         >
                             <IconRepeat size={16}/> {t('응답 재생성')}

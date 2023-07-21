@@ -10,6 +10,7 @@ import {variants} from "@components/tweet/tweet-actions";
 import {db} from "@lib/firebase/app";
 import {getDoc, getDocs, limit, query, where} from "firebase/firestore";
 import {trendsCollection, usersCollection} from "@lib/firebase/collections";
+import {UserCard} from "@components/user/user-card";
 
 export function SearchBar(): JSX.Element {
     const [inputValue, setInputValue] = useState('');
@@ -40,7 +41,7 @@ export function SearchBar(): JSX.Element {
         if (key === 'Escape') clearInputValue()();
     };
     const [openPanel, setOpenPanel] = useState(true)
-
+    const [searchData, setSearchData] = useState([]);
 
     useEffect(() => {
 
@@ -64,9 +65,12 @@ export function SearchBar(): JSX.Element {
         let timer;
         clearTimeout(timer);
         timer = setTimeout(async () => {
-            const querySnapshot = await getDocs(query(trendsCollection, where('location', '<=', inputValue), where('location', '>=', inputValue)))
-
-            console.log('querySnapshot ', querySnapshot)
+            const querySnapshot = await getDocs(query(usersCollection, where('username', '>=', inputValue), where('username', '<=', inputValue + '\uf8ff'), limit(20)))
+            let data = []
+            querySnapshot.docs.forEach(snapShot => {
+                data.push(snapShot.data())
+            })
+            setSearchData(data)
         }, 1000);
 
         return () => {
@@ -74,6 +78,10 @@ export function SearchBar(): JSX.Element {
         };
 
     }, [inputValue])
+
+    useEffect(() => {
+        console.log('searchData : ', searchData)
+    }, [searchData])
 
     return (
         <>
@@ -128,7 +136,11 @@ export function SearchBar(): JSX.Element {
                                 <p className="text-dark-secondary text-center pb-10 text-sm">인물, 장소 또는 키워드로 검색해 보세요.</p>
                                 : <>
                                     <p className="text-left pb-10 text-sm">"{inputValue}" 검색</p>
-
+                                    {
+                                        searchData.map((data, idx) => (
+                                            <UserCard {...data} key={data.id}/>
+                                        ))
+                                    }
                                 </>
                         }
                     </motion.div>

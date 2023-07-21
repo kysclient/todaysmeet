@@ -19,3 +19,17 @@ export function Loading({
     </i>
   );
 }
+
+export function MessageLoading({
+                            className,
+                            iconClassName
+                        }: LoadingProps): JSX.Element {
+    return (
+        <i className={cn('flex justify-center', className ?? 'p-4')}>
+            <CustomIcon
+                className={cn('text-white', iconClassName ?? 'h-18 w-18')}
+                iconName='SpinnerIcon'
+            />
+        </i>
+    );
+}

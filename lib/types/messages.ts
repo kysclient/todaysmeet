@@ -1,4 +1,5 @@
 import {FirestoreDataConverter, Timestamp} from "firebase/firestore";
+import {ImagesPreview} from "@lib/types/file";
 
 export type Messages = {
     messages: RoomMessage[]
@@ -7,7 +8,7 @@ export type Messages = {
 export type RoomMessage = {
     sender: string;
     text: string;
-    photoUrl: string[];
+    images: ImagesPreview | null;
     timestamp: Timestamp | null;
 }
 

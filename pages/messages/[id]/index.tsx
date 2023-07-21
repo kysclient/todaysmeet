@@ -54,7 +54,8 @@ export default function Messages(): JSX.Element {
                     const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
                     const result = {
                         user: newUser as User,
-                        chatRoom: chatRoom
+                        chatRoom: chatRoom,
+                        roomKey: key
                     }
                     list.push(result)
                 }
@@ -63,9 +64,6 @@ export default function Messages(): JSX.Element {
         setMyChatList(list)
     })
 
-    useEffect(() => {
-
-    }, [])
 
 
     return (

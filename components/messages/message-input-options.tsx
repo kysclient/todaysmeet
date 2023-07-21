@@ -1,4 +1,4 @@
-import {useRef} from 'react';
+import {FormEvent, useRef} from 'react';
 import {motion} from 'framer-motion';
 import {Button} from '../ui/button';
 import {HeroIcon} from '../ui/hero-icon';
@@ -8,6 +8,8 @@ import type {IconName} from '../ui/hero-icon';
 import {IconSend} from "@tabler/icons-react";
 import {variants} from "../input/input";
 import {ProgressBar} from "../input/progress-bar";
+import {Loading, MessageLoading} from "@components/ui/loading";
+import {ChatLoader} from "@components/chat/ChatLoader";
 
 type Options = {
     name: string;
@@ -42,15 +44,19 @@ type MessageInputOptionsProps = {
     handleImageUpload: (
         e: ChangeEvent<HTMLInputElement> | ClipboardEvent<HTMLTextAreaElement>
     ) => void;
+    handleSend: () => void;
+    loading: boolean;
 };
 
 export function MessageInputOptions({
-                                 inputLimit,
-                                 inputLength,
-                                 isValidTweet,
-                                 isCharLimitExceeded,
-                                 handleImageUpload,
-                             }: MessageInputOptionsProps): JSX.Element {
+                                        inputLimit,
+                                        inputLength,
+                                        isValidTweet,
+                                        isCharLimitExceeded,
+                                        handleImageUpload,
+                                        handleSend,
+                                        loading
+                                    }: MessageInputOptionsProps): JSX.Element {
     const inputFileRef = useRef<HTMLInputElement>(null);
     const onClick = (): void => inputFileRef.current?.click();
     let filteredOptions = options;
@@ -70,8 +76,6 @@ export function MessageInputOptions({
                     ref={inputFileRef}
                     multiple
                 />
-
-
                 {filteredOptions.map(({name, iconName, disabled}, index) => (
                     <Button
                         className='accent-tab accent-bg-tab group relative rounded-full p-2
@@ -108,15 +112,25 @@ export function MessageInputOptions({
                         <ToolTip tip='Add' modal={false}/>
                     </Button>
                 </motion.div>
+
                 <Button
                     type='submit'
-                    className='accent-tab bg-main-accent px-4 py-1.5 font-bold text-white
+                    className={`accent-tab ${loading ? 'bg-main-sidebar-background' : 'bg-main-accent'} px-4 py-1.5 font-bold text-white
                      enabled:hover:bg-main-accent/90
-                     enabled:active:bg-main-accent/75'
-                    disabled={!isValidTweet}
+                     enabled:active:bg-main-accent/75
+                     ${loading && 'relative !text-transparent disabled:cursor-wait'}
+                     `
+                    }
+                    disabled={loading}
                 >
-                    <IconSend size={18}/>
+                    {
+                        loading ? <Loading
+                            iconClassName='h-5 w-5'
+                            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                        /> : <IconSend size={18}/>
+                    }
                 </Button>
+
             </div>
         </motion.div>
     );
