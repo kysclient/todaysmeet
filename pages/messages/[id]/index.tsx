@@ -82,15 +82,19 @@ export default function Messages(): JSX.Element {
             const lastMessageB = hasMessagesB ? b.chatRoom.messages![b.chatRoom.messages!.length - 1] : null;
 
             if (lastMessageA !== null && lastMessageB !== null) {
+                // @ts-ignore
                 if (lastMessageA.timestamp > lastMessageB.timestamp) {
                     return -1;
+                    // @ts-ignore
                 } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
                     return 1;
                 } else {
                     return 0;
                 }
+                // @ts-ignore
             } else if (lastMessageA !== null && lastMessageB === null) {
                 return -1;
+                // @ts-ignore
             } else if (lastMessageA === null && lastMessageB !== null) {
                 return 1;
             } else {
@@ -196,7 +200,7 @@ export default function Messages(): JSX.Element {
                            active:bg-light-primary/20 dark:hover:bg-dark-primary/10
                            dark:active:bg-dark-primary/20'
                                 >
-                                    <HeroIcon className='h-5 w-5' iconName='SparklesIcon'/>
+                                    <HeroIcon className='h-5 w-5' iconName='InformationCircleIcon'/>
                                     <ToolTip tip='대화 정보'/>
                                 </Button>
                             </MainHeader>

@@ -30,22 +30,26 @@ export function UserMessageProfile(props: UserMessageProfileProps): JSX.Element 
                 <div className="flex mt-2 space-x-3 md:mt-2 mb-2">
                     <p className='text-sm text-light-secondary dark:text-dark-secondary'>
                         Joined {props.user ? formatDate(props.user?.createdAt, 'full') : ""}</p>
+                </div>
+
+                <div className="flex mt-2 space-x-3 md:mt-2 mb-2">
+                    <p className='text-sm text-light-secondary dark:text-dark-secondary'>
+                        {
+                            props.user?.following.find(follow => follow === userId) !== undefined &&
+                            props.user?.followers.find(follow => follow === userId) !== undefined ?
+                                "서로 팔로우" : props.user?.following.find(follow => follow === userId) !== undefined ?
+                                    "상대방이 나를 팔로우" :
+                                    props.user?.followers.find(follow => follow === userId) !== undefined ?
+                                        "내가 팔로우하는 사람이 팔로우하지 않음" : "서로 팔로우가 아님"
+                        }
+                    </p>
+
+
                     <p className='text-sm text-light-secondary dark:text-dark-secondary'>
                         {props.user?.followers.length} followers
                     </p>
-
                 </div>
 
-                <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                    {
-                        props.user?.following.find(follow => follow === userId) !== undefined &&
-                        props.user?.followers.find(follow => follow === userId) !== undefined ?
-                            "서로 팔로우" : props.user?.following.find(follow => follow === userId) !== undefined ?
-                                "상대방이 나를 팔로우" :
-                                props.user?.followers.find(follow => follow === userId) !== undefined ?
-                                    "내가 팔로우하는 사람이 팔로우하지 않음" : "서로 팔로우가 아님"
-                    }
-                </p>
             </div>
         </>
     )
