@@ -12,6 +12,7 @@ import NProgress from "nprogress";
 import {useEffect} from "react";
 import { Analytics } from '@vercel/analytics/react';
 import Script from "next/script";
+import Kakao from 'kakao-js-sdk';
 
 
 Router.events.on('routeChangeStart', (url) => {
