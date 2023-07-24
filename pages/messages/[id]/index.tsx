@@ -81,12 +81,14 @@ export default function Messages(): JSX.Element {
                 const lastMessageA = a.chatRoom.messages![a.chatRoom.messages!.length - 1];
                 const lastMessageB = b.chatRoom.messages![b.chatRoom.messages!.length - 1];
 
-                if (lastMessageA.timestamp > lastMessageB.timestamp) {
-                    return -1;
-                } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
-                    return 1;
-                } else {
-                    return 0;
+                if (lastMessageA && lastMessageB) {
+                    if (lastMessageA.timestamp > lastMessageB.timestamp) {
+                        return -1;
+                    } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
                 }
             } else if (hasMessagesA && !hasMessagesB) {
                 return -1;
