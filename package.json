@@ -29,6 +29,7 @@
     "firebase-tools": "^12.4.2",
     "framer-motion": "^7.2.1",
     "i18next": "^22.4.13",
+    "kakao-js-sdk": "^1.2.3",
     "next": "latest",
     "next-auth": "^4.22.1",
     "next-i18next": "^13.2.2",
