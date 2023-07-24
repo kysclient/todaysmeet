@@ -52,7 +52,7 @@ export default function Bookmarks(): JSX.Element {
   const handleClear = async (): Promise<void> => {
     await clearAllBookmarks(userId);
     closeModal();
-    toast.success('Successfully cleared all bookmarks');
+    toast.success('북마크가 전체 삭제되었습니다.');
   };
 
   return (

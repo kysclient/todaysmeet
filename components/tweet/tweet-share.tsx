@@ -50,7 +50,7 @@ export function TweetShare({
   const handleCopy = (closeMenu: () => void) => async (): Promise<void> => {
     closeMenu();
     await navigator.clipboard.writeText(`${siteURL}/tweet/${tweetId}`);
-    toast.success('Copied to clipboard');
+    toast.success('클립보드에 복사되었습니다.');
   };
 
   const tweetIsBookmarked = !!userBookmarks?.some(({ id }) => id === tweetId);

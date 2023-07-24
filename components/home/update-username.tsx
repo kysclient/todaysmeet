@@ -77,7 +77,7 @@ export function UpdateUsername(): JSX.Element {
     setVisited(false);
     setAvailable(false);
 
-    toast.success('Username updated successfully');
+    toast.success('사용자명이 변경되었습니다.');
   };
 
   const cancelUpdateUsername = (): void => {

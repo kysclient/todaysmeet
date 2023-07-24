@@ -111,7 +111,7 @@ export function UserEditProfile({ hide }: UserEditProfileProps): JSX.Element {
     setLoading(false);
     setEditUserData(newUserData);
 
-    toast.success('Profile updated successfully');
+    toast.success('프로필이 업데이트되었습니다.');
   };
 
   const editImage =
