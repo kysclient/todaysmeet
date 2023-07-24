@@ -77,24 +77,20 @@ export default function Messages(): JSX.Element {
             const hasMessagesA = a.chatRoom.messages !== undefined && a.chatRoom.messages !== null;
             const hasMessagesB = b.chatRoom.messages !== undefined && b.chatRoom.messages !== null;
 
-            if (hasMessagesA && hasMessagesB) {
-                const lastMessageA = a.chatRoom.messages![a.chatRoom.messages!.length - 1];
-                const lastMessageB = b.chatRoom.messages![b.chatRoom.messages!.length - 1];
+            const lastMessageA = hasMessagesA ? a.chatRoom.messages![a.chatRoom.messages!.length - 1] : null;
+            const lastMessageB = hasMessagesB ? b.chatRoom.messages![b.chatRoom.messages!.length - 1] : null;
 
-                if (lastMessageA && lastMessageB) {
-                    if (lastMessageA.timestamp > lastMessageB.timestamp) {
-                        return -1;
-                    } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
+            if (lastMessageA && lastMessageB) {
+                if (lastMessageA.timestamp > lastMessageB.timestamp) {
+                    return -1;
+                } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
+                    return 1;
                 } else {
                     return 0;
                 }
-            } else if (hasMessagesA && !hasMessagesB) {
+            } else if (lastMessageA && !lastMessageB) {
                 return -1;
-            } else if (!hasMessagesA && hasMessagesB) {
+            } else if (!lastMessageA && lastMessageB) {
                 return 1;
             } else {
                 return 0;
