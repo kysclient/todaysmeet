@@ -121,7 +121,7 @@ export function MobileSidebarModal({
           useIcon
           focusOnMainBtn
           title='정말로 로그아웃 하시겠습니까?'
-          description='You can always log back in at any time. If you just want to switch accounts, you can do that by adding an existing account.'
+          description='언제든지 다시 로그인할 수 있습니다. 계정을 전환하려는 경우 기존 계정을 추가(베타 이후)하여 전환할 수 있습니다.'
           mainBtnLabel='로그 아웃'
           action={signOut}
           closeModal={logOutCloseModal}
@@ -131,8 +131,8 @@ export function MobileSidebarModal({
         useActionButton
         className='flex flex-row-reverse items-center justify-between'
         iconName='XMarkIcon'
-        title='Account info'
-        tip='Close'
+        title='계정 정보'
+        tip='닫기'
         action={closeModal}
       />
       <section className='mt-0.5 flex flex-col gap-2 px-4'>
@@ -189,7 +189,7 @@ export function MobileSidebarModal({
             <MobileSidebarLink
               href={`/user/${username}`}
               iconName='UserIcon'
-              linkName='Profile'
+              linkName='프로필'
             />
             {topNavLinks.map((linkData) => (
               <MobileSidebarLink {...linkData} key={linkData.href} />

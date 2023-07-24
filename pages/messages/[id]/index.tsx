@@ -28,6 +28,7 @@ import {Messages, RoomMessage} from "@lib/types/messages";
 import {RoomMessages} from "@components/messages/messages";
 import {onValue, ref} from "@firebase/database";
 import {rdb} from "@lib/firebase/app";
+import {unsubscribe} from "diagnostics_channel";
 
 export default function Messages(): JSX.Element {
     const {user} = useAuth();
@@ -45,11 +46,12 @@ export default function Messages(): JSX.Element {
     useEffect(() => {
         onValue(rdbRef, async (snapshot) => {
             const data = snapshot.val()
+            let list: UserWithChatRooms[] = [];
+
             for (const key in data) {
                 if (data.hasOwnProperty(key)) {
                     const chatRoom = data[key];
                     if (chatRoom.participants.find((id: string) => id === userId) !== undefined) {
-                        let list: UserWithChatRooms[] = [];
                         const chatUserId = chatRoom.participants.find((id: string) => id !== userId);
                         if (chatUserId) {
                             const newUser = (await getDoc(doc(usersCollection, chatUserId))).data();
@@ -62,47 +64,82 @@ export default function Messages(): JSX.Element {
                                 list.push(result);
                             }
                         }
-                        setMyChatList(list)
-                    } else {
-                        setMyChatList([])
                     }
                 }
             }
-        })
+            setMyChatList(list)
 
+        })
     }, [])
 
+    const sortRooms = (list: UserWithChatRooms[]): UserWithChatRooms[] => {
+        return list.sort((a, b) => {
+            const hasMessagesA = a.chatRoom.messages !== undefined;
+            const hasMessagesB = b.chatRoom.messages !== undefined;
+
+            if (hasMessagesA && hasMessagesB) {
+                const lastMessageA = a.chatRoom.messages![a.chatRoom.messages!.length - 1];
+                const lastMessageB = b.chatRoom.messages![b.chatRoom.messages!.length - 1];
+
+                if (lastMessageA.timestamp > lastMessageB.timestamp) {
+                    return -1;
+                } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else if (hasMessagesA && !hasMessagesB) {
+                return -1;
+            } else if (!hasMessagesA && hasMessagesB) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    }
+
+    function getTimestamp(message: RoomMessage | undefined): any {
+        return message ? message.timestamp : {seconds: Number.MAX_SAFE_INTEGER, nanoseconds: 0};
+    }
 
     return (
         <>
             <MessagesContainer showList={showList} className="max-h-full">
                 <MainHeader title='메세지'/>
                 <section>
-
-                    <motion.div className='mt-0.5' {...variants}>
-                        {myChatList.length > 0 ?
-                            myChatList.map((data, idx) => (
-                                <>
-                                    <MessageCard key={data.user.id}
-                                                 idx={idx}
-                                                 data={data}
-                                                 setSelected={setSelected}
-                                                 selected={selected}
-                                                 setSelectedData={setSelectedData}
-                                                 selectedData={selectedData}
-                                                 cardUser={cardUser}
-                                                 setCardUser={setCardUser}
-                                                 setShowList={setShowList}
+                    <AnimatePresence>
+                        <motion.div
+                            className="mt-0.5"
+                            initial={{opacity: 0, y: 50}}
+                            animate={{opacity: 1, y: 0}}
+                            exit={{opacity: 0, y: 50}}
+                        >
+                            {
+                                myChatList.length > 0 ?
+                                    sortRooms(myChatList)
+                                        // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
+                                        .map((data, idx) => (
+                                            <>
+                                                <MessageCard key={data.user.id}
+                                                             idx={idx}
+                                                             data={data}
+                                                             setSelected={setSelected}
+                                                             selected={selected}
+                                                             setSelectedData={setSelectedData}
+                                                             selectedData={selectedData}
+                                                             cardUser={cardUser}
+                                                             setCardUser={setCardUser}
+                                                             setShowList={setShowList}
+                                                />
+                                            </>
+                                        ))
+                                    : <Loading
+                                        iconClassName='h-5 w-5'
+                                        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
                                     />
-                                </>
-                            ))
-                            : <Loading
-                                iconClassName='h-5 w-5'
-                                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                            />
-                        }
-                    </motion.div>
-
+                            }
+                        </motion.div>
+                    </AnimatePresence>
                 </section>
             </MessagesContainer>
 
@@ -113,23 +150,30 @@ export default function Messages(): JSX.Element {
                             <MainHeader title='메세지'/>
                             <section>
                                 <AnimatePresence>
-                                    <motion.div className='mt-0.5' {...variants}>
+                                    <motion.div
+                                        className="mt-0.5"
+                                        initial={{opacity: 0, y: 50}}
+                                        animate={{opacity: 1, y: 0}}
+                                        exit={{opacity: 0, y: 50}}
+                                    >
                                         {myChatList.length > 0 ?
-                                            myChatList.map((data, idx) => (
-                                                <>
-                                                    <MessageCard key={data.user.id}
-                                                                 idx={idx}
-                                                                 data={data}
-                                                                 setSelected={setSelected}
-                                                                 selected={selected}
-                                                                 setSelectedData={setSelectedData}
-                                                                 selectedData={selectedData}
-                                                                 cardUser={cardUser}
-                                                                 setCardUser={setCardUser}
-                                                                 setShowList={setShowList}
-                                                    />
-                                                </>
-                                            ))
+                                            sortRooms(myChatList)
+                                                // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
+                                                .map((data, idx) => (
+                                                    <>
+                                                        <MessageCard key={data.user.id}
+                                                                     idx={idx}
+                                                                     data={data}
+                                                                     setSelected={setSelected}
+                                                                     selected={selected}
+                                                                     setSelectedData={setSelectedData}
+                                                                     selectedData={selectedData}
+                                                                     cardUser={cardUser}
+                                                                     setCardUser={setCardUser}
+                                                                     setShowList={setShowList}
+                                                        />
+                                                    </>
+                                                ))
                                             : <Loading
                                                 iconClassName='h-5 w-5'
                                                 className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'

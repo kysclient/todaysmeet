@@ -12,10 +12,10 @@ import {AnimatePresence} from "framer-motion";
 import {RoomMessage} from "@lib/types/messages";
 import {UserWithChatRooms} from "@lib/types/chatRooms";
 import {uploadImages} from "@lib/firebase/utils";
-import {ref, update} from "@firebase/database";
+import {ref, serverTimestamp, update} from "@firebase/database";
 import {useAuth} from "@lib/context/auth-context";
 import {rdb} from "@lib/firebase/app";
-import {serverTimestamp, Timestamp} from "firebase/firestore";
+import {Timestamp} from "firebase/firestore";
 
 interface Props {
     onScrollDownClick: () => void;
@@ -126,6 +126,8 @@ export const MessageInput = ({
     const sendMessage = async (): Promise<void> => {
         setLoading(true)
         inputRef.current?.blur();
+        const currentDate = new Date();
+
         const messageData: RoomMessage = {
             sender: userId,
             text: inputValue,
@@ -165,6 +167,7 @@ export const MessageInput = ({
                                 maxRows={5}
                                 onChange={handleChange}
                                 onPaste={handleImageUpload}
+                                onFocus={() => {onScrollDownClick()}}
                             >
                             </TextArea>
                             {isUploadingImages && (

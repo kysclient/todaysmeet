@@ -6,10 +6,19 @@ import {useModal} from "../../lib/hooks/useModal";
 import {Modal} from "../modal/modal";
 import {SignInModal} from "../modal/sign-in-modal";
 import Link from "next/link";
-
+import Image from "next/image";
+import kakao_btn from "/public/assets/pngegg.png"
 export function LoginMain(): JSX.Element {
     const {signInWithGoogle} = useAuth();
     const {open, openModal, closeModal} = useModal();
+
+    function kakaoLogin() {
+        window.Kakao.Auth.authorize({
+            redirectUri: `${process.env.NEXT_PUBLIC_URL}/kakao`
+        });
+    }
+
+
     return (
         <>
             <Modal
@@ -80,13 +89,26 @@ export function LoginMain(): JSX.Element {
                                 <p>or</p>
                                 <i className='border-b border-light-border dark:border-dark-border'/>
                             </div>
+                         {/*   <Button*/}
+                         {/*       className='bg-accent-blue text-white transition hover:brightness-90*/}
+                         {/*focus-visible:!ring-accent-blue/80 focus-visible:brightness-90 active:brightness-75'*/}
+                         {/*   onClick={openModal}*/}
+                         {/*   >*/}
+                         {/*       이메일 계정으로 로그인*/}
+                         {/*   </Button>*/}
+
                             <Button
-                                className='bg-accent-blue text-white transition hover:brightness-90
-                         focus-visible:!ring-accent-blue/80 focus-visible:brightness-90 active:brightness-75'
-                            onClick={openModal}
+                                className='flex items-center bg-[#FEE500] text-[#000000]  justify-center gap-2 border border-light-line-reply font-bold transition
+                             dark:border-0
+                         dark:hover:brightness-90 dark:focus-visible:brightness-90 dark:active:brightness-75'
+                                onClick={kakaoLogin}
                             >
-                                이메일 계정으로 로그인
+                                <Image src={kakao_btn} alt={'kakao_btn'} width={25} height={25}  />
+                                {/*<CustomIcon iconName='KakaoIcon'/>*/}
+                                카카오 계정으로 로그인
                             </Button>
+
+
                             <p
                                 className='inner:custom-underline inner:custom-underline text-center text-xs
                          text-light-secondary inner:text-accent-blue dark:text-dark-secondary'

@@ -21,9 +21,6 @@ export function SidebarLink({
   const { asPath } = useRouter();
   const isActive = username ? asPath.includes(username) : asPath === href;
 
-  useEffect(() => {
-    console.log('link : ', linkName, asPath, href)
-  }, [linkName, asPath, href])
 
   return (
     <Link href={href}

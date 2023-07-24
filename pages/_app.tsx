@@ -11,6 +11,7 @@ import Router, {useRouter} from "next/router";
 import NProgress from "nprogress";
 import {useEffect} from "react";
 import { Analytics } from '@vercel/analytics/react';
+import Script from "next/script";
 
 
 Router.events.on('routeChangeStart', (url) => {
@@ -39,6 +40,9 @@ export default function App({
         document.scrollingElement!.scrollTop = 0;
     }, [useRoute.pathname]);
 
+    function kakaoInit() {
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
+    }
 
   return (
     <>
@@ -46,6 +50,10 @@ export default function App({
             <AuthContextProvider>
                 <ThemeContextProvider>
                     {getLayout(<Component {...pageProps} />)}
+                    <Script
+                        src='https://developers.kakao.com/sdk/js/kakao.js'
+                        onLoad={kakaoInit}
+                    />
                     <Analytics />
                 </ThemeContextProvider>
             </AuthContextProvider>

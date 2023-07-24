@@ -40,12 +40,12 @@ export function MessageCard(props: MessageCardProps): JSX.Element {
             {
                 props.data.user &&
                 <>
-                    <Link href={`/user/${props.data.user.username}`}>
+                    {/*<Link href={`/user/${props.data.user.username}`}>*/}
                         <UserTooltip avatar {...props.data?.user} modal={false}>
                             <UserAvatar src={props.data.user.photoURL || ""} alt={props.data.user.photoURL || ""}
                                         username={props.data.user.username || ""}/>
                         </UserTooltip>
-                    </Link>
+                    {/*</Link>*/}
                     <div className='flex flex-col gap-1 truncate xs:overflow-visible '>
                         <div className='flex items-center  gap-2 truncate xs:overflow-visible'>
                             <div

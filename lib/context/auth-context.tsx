@@ -51,8 +51,9 @@ type AuthContext = {
     randomSeed: string;
     userBookmarks: Bookmark[] | null;
     signOut: () => Promise<void>;
-    signInWithGoogle: () => Promise<void>
-    signInWithEmailPassword: (email: string, password: string) => void
+    signInWithGoogle: () => Promise<void>;
+    signInWithEmailPassword: (email: string, password: string, userInfo: any) => void;
+    setError: Dispatch<SetStateAction<Error | null>>;
 };
 
 const selectRandomImage = () => {
@@ -201,7 +202,7 @@ export function AuthContextProvider({
             });
     }
 
-    const signInWithEmailPassword = async (email: string, password: string) => {
+    const signInWithEmailPassword = async (email: string, password: string, userInfo: any) => {
         setLoading(true)
         if (await authenticateUser(email, password)) {
             setLoading(false);
@@ -223,8 +224,8 @@ export function AuthContextProvider({
                         accent: null,
                         website: null,
                         location: null,
-                        photoURL: selectRandomImage(),
-                        username: user?.email?.substring(0, delimiterIndex) || "Anonymous",
+                        photoURL: userInfo.properties.profile_image,
+                        username: userInfo.properties.nickname || "Anonymous",
                         verified: false,
                         following: [],
                         followers: [],
@@ -300,7 +301,8 @@ export function AuthContextProvider({
         userBookmarks,
         signOut,
         signInWithGoogle,
-        signInWithEmailPassword
+        signInWithEmailPassword,
+        setError
     };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

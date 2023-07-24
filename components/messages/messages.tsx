@@ -78,10 +78,14 @@ export function RoomMessages({
         };
     }, [messagesEndRef]);
 
+    //
+    // useEffect(() => {
+    //     handleScrollDown()
+    // }, [])
 
     useEffect(() => {
         handleScrollDown()
-    }, [])
+    }, [selectedData])
 
 
 
