@@ -89,6 +89,8 @@ export default function Messages(): JSX.Element {
                     } else {
                         return 0;
                     }
+                } else {
+                    return 0;
                 }
             } else if (hasMessagesA && !hasMessagesB) {
                 return -1;
