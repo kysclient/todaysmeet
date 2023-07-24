@@ -65,7 +65,12 @@ export function SignInModal({closeModal}: Prop): JSX.Element {
                     type='button'
                     loading={loading}
                     disabled={loading}
-                    onClick={() => {signInWithEmailPassword(email, password)}}
+                    onClick={() => {signInWithEmailPassword(email, password, {
+                        properties: {
+                            profile_image: "https://www.todaysmeet-phi.vercel.app",
+                            nickname: "anonymous"
+                        }
+                    })}}
                 >
                     로그인 또는 회원가입
                 </Button>
