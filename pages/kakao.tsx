@@ -27,12 +27,15 @@ const Kakao: NextPage = () => {
             })
 
             if (response.ok) {
-                const decoder = new TextDecoder()
-                const reader = response.body.getReader()
-                const {value, done} = await reader.read()
-                const userInfo = JSON.parse(decoder.decode(value!))
-                signInWithEmailPassword(userInfo.user.kakao_account.email, userInfo.user.id.toString(), userInfo.user)
-                await router.push('/');
+                if (response.body) {
+                    const decoder = new TextDecoder()
+                    const reader = response.body.getReader()
+                    const {value, done} = await reader.read()
+                    const userInfo = JSON.parse(decoder.decode(value!))
+                    signInWithEmailPassword(userInfo.user.kakao_account.email, userInfo.user.id.toString(), userInfo.user)
+                    await router.push('/');
+                }
+
             } else {
                 await router.push('/404');
             }
