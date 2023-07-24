@@ -42,7 +42,7 @@ export default function App({
     }, [useRoute.pathname]);
 
     function kakaoInit() {
-        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY)
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY as string)
     }
 
   return (
