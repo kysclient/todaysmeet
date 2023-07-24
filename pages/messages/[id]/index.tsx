@@ -39,7 +39,7 @@ export default function Messages(): JSX.Element {
     const {isMobile} = useWindow();
     const [myChatList, setMyChatList] = useState<UserWithChatRooms[]>([])
     const [selectedData, setSelectedData] = useState<UserWithChatRooms | null>(null)
-    const [selected, setSelected] = useState<number>(-1);
+    const [selected, setSelected] = useState<string>("");
     const [showList, setShowList] = useState<boolean>(false)
     const rdbRef = ref(rdb, 'chatRooms');
 
@@ -80,7 +80,7 @@ export default function Messages(): JSX.Element {
             const lastMessageA = hasMessagesA ? a.chatRoom.messages![a.chatRoom.messages!.length - 1] : null;
             const lastMessageB = hasMessagesB ? b.chatRoom.messages![b.chatRoom.messages!.length - 1] : null;
 
-            if (lastMessageA && lastMessageB) {
+            if (lastMessageA !== null && lastMessageB !== null) {
                 if (lastMessageA.timestamp > lastMessageB.timestamp) {
                     return -1;
                 } else if (lastMessageA.timestamp < lastMessageB.timestamp) {
@@ -88,15 +88,15 @@ export default function Messages(): JSX.Element {
                 } else {
                     return 0;
                 }
-            } else if (lastMessageA && !lastMessageB) {
+            } else if (lastMessageA !== null && lastMessageB === null) {
                 return -1;
-            } else if (!lastMessageA && lastMessageB) {
+            } else if (lastMessageA === null && lastMessageB !== null) {
                 return 1;
             } else {
                 return 0;
             }
         });
-    }
+    };
 
     function getTimestamp(message: RoomMessage | undefined): any {
         return message ? message.timestamp : {seconds: Number.MAX_SAFE_INTEGER, nanoseconds: 0};
@@ -187,7 +187,7 @@ export default function Messages(): JSX.Element {
                         <section className="h-screen flex flex-col">
                             <MainHeader useActionButton={width < 1024} action={() => {
                                 setSelectedData(null)
-                                setSelected(-1);
+                                setSelected("");
                             }}
                                         className={`flex items-center ${width < 1024 ? "justify-between" : "justify-end"}`}>
                                 <Button

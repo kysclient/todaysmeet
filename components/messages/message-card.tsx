@@ -19,8 +19,8 @@ type MessageCardProps = {
     setSelectedData: Dispatch<SetStateAction<UserWithChatRooms | null>>,
     selectedData: UserWithChatRooms | null,
     idx: number,
-    selected: number,
-    setSelected: Dispatch<SetStateAction<number>>,
+    selected: string,
+    setSelected: Dispatch<SetStateAction<string>>,
     cardUser: User | undefined,
     setCardUser: Dispatch<SetStateAction<User | undefined>>
     setShowList: Dispatch<SetStateAction<boolean>>
@@ -32,11 +32,11 @@ export function MessageCard(props: MessageCardProps): JSX.Element {
         <div
             onClick={() => {
                 props.setSelectedData(props.data);
-                props.setSelected(props.idx);
+                props.setSelected(props.data.chatRoom.id);
                 props.setShowList(false);
             }}
             className={`accent-tab hover-animation grid grid-cols-[auto,1fr] gap-3 px-4
-                   py-3 hover:bg-light-primary/5 dark:hover:bg-dark-primary/5 cursor-pointer ${props.selected === props.idx ? "border-r-2 border-r-main-accent bg-light-primary/5 dark:bg-dark-primary/5" : ""}`}>
+                   py-3 hover:bg-light-primary/5 dark:hover:bg-dark-primary/5 cursor-pointer ${props.data.chatRoom.id === props.selected ? "border-r-2 border-r-main-accent bg-light-primary/5 dark:bg-dark-primary/5" : ""}`}>
             {
                 props.data.user &&
                 <>
