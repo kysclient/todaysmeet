@@ -74,8 +74,8 @@ export default function Messages(): JSX.Element {
 
     const sortRooms = (list: UserWithChatRooms[]): UserWithChatRooms[] => {
         return list.sort((a, b) => {
-            const hasMessagesA = a.chatRoom.messages !== undefined;
-            const hasMessagesB = b.chatRoom.messages !== undefined;
+            const hasMessagesA = a.chatRoom.messages !== undefined && a.chatRoom.messages !== null;
+            const hasMessagesB = b.chatRoom.messages !== undefined && b.chatRoom.messages !== null;
 
             if (hasMessagesA && hasMessagesB) {
                 const lastMessageA = a.chatRoom.messages![a.chatRoom.messages!.length - 1];
