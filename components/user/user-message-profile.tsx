@@ -29,7 +29,11 @@ export function UserMessageProfile(props: UserMessageProfileProps): JSX.Element 
 
                 <div className="flex mt-2 space-x-3 md:mt-2 mb-2">
                     <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                        Joined {props.user ? formatDate(props.user?.createdAt, 'full') : ""}</p>
+                         {props.user ? formatDate(props.user?.createdAt, 'joined') : ""}에 가입</p>
+
+                    <p className='text-sm text-light-secondary dark:text-dark-secondary'>
+                        {props.user?.followers.length} followers
+                    </p>
                 </div>
 
                 <div className="flex mt-2 space-x-3 md:mt-2 mb-2">
@@ -44,10 +48,6 @@ export function UserMessageProfile(props: UserMessageProfileProps): JSX.Element 
                         }
                     </p>
 
-
-                    <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                        {props.user?.followers.length} followers
-                    </p>
                 </div>
 
             </div>
