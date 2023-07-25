@@ -28,7 +28,6 @@ import {Messages, RoomMessage} from "@lib/types/messages";
 import {RoomMessages} from "@components/messages/messages";
 import {onValue, ref} from "@firebase/database";
 import {rdb} from "@lib/firebase/app";
-import {unsubscribe} from "diagnostics_channel";
 
 export default function Messages(): JSX.Element {
     const {user} = useAuth();
@@ -113,18 +112,19 @@ export default function Messages(): JSX.Element {
                 <MainHeader title='메세지'/>
                 <section>
                     <AnimatePresence>
-                        <motion.div
-                            className="mt-0.5"
-                            initial={{opacity: 0, y: 50}}
-                            animate={{opacity: 1, y: 0}}
-                            exit={{opacity: 0, y: 50}}
-                        >
-                            {
-                                myChatList.length > 0 ?
-                                    sortRooms(myChatList)
-                                        // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
-                                        .map((data, idx) => (
-                                            <>
+                        {
+                            myChatList.length > 0 ?
+                                sortRooms(myChatList)
+                                    // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
+                                    .map((data, idx) => (
+                                        <>
+                                            <motion.div
+                                                className="mt-0.5"
+                                                initial={{opacity: 0, y: 20}}
+                                                animate={{opacity: 1, y: 0}}
+                                                exit={{opacity: 0, y: -20}}
+                                                transition={{duration: 0.5}}
+                                            >
                                                 <MessageCard key={data.user.id}
                                                              idx={idx}
                                                              data={data}
@@ -136,14 +136,14 @@ export default function Messages(): JSX.Element {
                                                              setCardUser={setCardUser}
                                                              setShowList={setShowList}
                                                 />
-                                            </>
-                                        ))
-                                    : <Loading
-                                        iconClassName='h-5 w-5'
-                                        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                                    />
-                            }
-                        </motion.div>
+                                            </motion.div>
+                                        </>
+                                    ))
+                                : <Loading
+                                    iconClassName='h-5 w-5'
+                                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                                />
+                        }
                     </AnimatePresence>
                 </section>
             </MessagesContainer>
@@ -155,17 +155,19 @@ export default function Messages(): JSX.Element {
                             <MainHeader title='메세지'/>
                             <section>
                                 <AnimatePresence>
-                                    <motion.div
-                                        className="mt-0.5"
-                                        initial={{opacity: 0, y: 50}}
-                                        animate={{opacity: 1, y: 0}}
-                                        exit={{opacity: 0, y: 50}}
-                                    >
-                                        {myChatList.length > 0 ?
-                                            sortRooms(myChatList)
-                                                // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
-                                                .map((data, idx) => (
-                                                    <>
+
+                                    {myChatList.length > 0 ?
+                                        sortRooms(myChatList)
+                                            // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
+                                            .map((data, idx) => (
+                                                <>
+                                                    <motion.div
+                                                        className="mt-0.5"
+                                                        initial={{opacity: 0, y: 20}}
+                                                        animate={{opacity: 1, y: 0}}
+                                                        exit={{opacity: 0, y: -20}}
+                                                        transition={{duration: 0.5}}
+                                                    >
                                                         <MessageCard key={data.user.id}
                                                                      idx={idx}
                                                                      data={data}
@@ -177,16 +179,17 @@ export default function Messages(): JSX.Element {
                                                                      setCardUser={setCardUser}
                                                                      setShowList={setShowList}
                                                         />
-                                                    </>
-                                                ))
-                                            : <Loading
-                                                iconClassName='h-5 w-5'
-                                                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                                            />
-                                        }
-                                    </motion.div>
+                                                    </motion.div>
+                                                </>
+                                            ))
+                                        : <Loading
+                                            iconClassName='h-5 w-5'
+                                            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                                        />
+                                    }
                                 </AnimatePresence>
                             </section>
+
                         </>
                         :
                         <section className="h-screen flex flex-col">

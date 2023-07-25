@@ -12,6 +12,7 @@ import {useDocument} from "../../lib/hooks/useDocument";
 import {Messages as MessagesType, Messages} from "../../lib/types/messages";
 import {UserWithChatRooms} from "../../lib/types/chatRooms";
 import {Loading} from "../ui/loading";
+import {AnimatePresence, motion} from "framer-motion";
 
 
 type MessageCardProps = {
