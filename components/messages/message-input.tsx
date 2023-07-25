@@ -149,7 +149,7 @@ export const MessageInput = ({
         cleanImage()
         setLoading(false)
         // onScrollDownClick()
-        inputRef.current.focus()
+        inputRef.current?.focus()
         handleScrollDown()
     }
 
