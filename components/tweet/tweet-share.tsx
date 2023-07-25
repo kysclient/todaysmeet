@@ -92,7 +92,7 @@ export function TweetShare({
                   onClick={preventBubbling(handleCopy(close))}
                 >
                   <HeroIcon iconName='LinkIcon' />
-                  Copy link to Tweet
+                  피드링크복사
                 </Popover.Button>
                 {!tweetIsBookmarked ? (
                   <Popover.Button
@@ -103,7 +103,7 @@ export function TweetShare({
                     )}
                   >
                     <HeroIcon iconName='BookmarkIcon' />
-                    Bookmark
+                    북마크추가
                   </Popover.Button>
                 ) : (
                   <Popover.Button
@@ -114,7 +114,7 @@ export function TweetShare({
                     )}
                   >
                     <HeroIcon iconName='BookmarkSlashIcon' />
-                    Remove Tweet from Bookmarks
+                    북마크에서 피드 제거
                   </Popover.Button>
                 )}
               </Popover.Panel>

@@ -30,17 +30,6 @@ export const MessageBox = ({message}: Props) => {
         return `${month}월 ${day}일 ${period} ${formattedHours}:${formattedMinutes}`;
     };
 
-    const formatDate = (timestamp: any): string => {
-        return new Date(timestamp).toLocaleString('ko-KR', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-        })
-    }
-
 
     return (
         <AnimatePresence>
@@ -54,7 +43,7 @@ export const MessageBox = ({message}: Props) => {
                         <>
                             <div className="flex justify-end">
                                 <div
-                                    className={`bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px] ${message.images && 'w-[60%]'}`}>
+                                    className={`text-white bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px] ${message.images && 'w-[60%]'}`}>
                                     {message.text}
 
                                     {message.images && (
@@ -86,7 +75,7 @@ export const MessageBox = ({message}: Props) => {
                                     )}
                                 </div>
                             </div>
-                            <div className="flex justify-end">
+                            <div className="flex justify-start">
                                 <p className="text-xs mt-2 text-light-secondary dark:text-dark-secondary">{message.timestamp && formatMessageTime(message.timestamp)}</p>
                             </div>
                         </>

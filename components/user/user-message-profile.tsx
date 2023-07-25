@@ -4,6 +4,7 @@ import {useEffect} from "react";
 import {formatDate} from "../../lib/date";
 import {serverTimestamp} from "firebase/firestore";
 import {useAuth} from "../../lib/context/auth-context";
+import {useRouter} from "next/router";
 
 type UserMessageProfileProps = {
     user: User | undefined
@@ -13,9 +14,11 @@ type UserMessageProfileProps = {
 export function UserMessageProfile(props: UserMessageProfileProps): JSX.Element {
     const {user} = useAuth();
     const userId = user?.id as string;
+    const router = useRouter()
     return (
         <>
             <div
+                onClick={() => {router.push(`/user/${props.user?.username}`)}}
                 className="border-b border-light-border dark:border-dark-border xs:border-b
                 accent-tab hover-animation flex flex-col items-center pb-10 hover:bg-light-primary/5 dark:hover:bg-dark-primary/5 cursor-pointer">
                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg"

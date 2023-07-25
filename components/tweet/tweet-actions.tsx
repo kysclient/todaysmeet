@@ -156,15 +156,16 @@ export function TweetActions({
         closeModal={removeCloseModal}
       >
         <ActionModal
-          title='Delete Tweet?'
-          description={`This can’t be undone and it will be removed from ${
-            isInAdminControl ? `@${username}'s` : 'your'
-          } profile, the timeline of any accounts that follow ${
-            isInAdminControl ? `@${username}` : 'you'
-          }, and from Twitter search results.`}
+          title='피드를 삭제하시겠습니까?'
+          description={`이 작업은 취소할 수 없으며 ${
+            isInAdminControl ? `@${username}의 ` : '당신의'
+          } 프로필과, ${
+              isInAdminControl ? `@${username}` : '당신'
+          }을 팔로우하는 모든 계정의 타임라인 및,
+           투밋 검색 결과에서 제거됩니다.`}
           mainBtnClassName='bg-accent-red hover:bg-accent-red/90 active:bg-accent-red/75 accent-tab
                             focus-visible:bg-accent-red/90'
-          mainBtnLabel='Delete'
+          mainBtnLabel='삭제'
           focusOnMainBtn
           action={handleRemove}
           closeModal={removeCloseModal}
