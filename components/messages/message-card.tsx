@@ -28,6 +28,45 @@ type MessageCardProps = {
 
 export function MessageCard(props: MessageCardProps): JSX.Element {
 
+    const formatMessageTime = (timestamp: any): string => {
+
+        if(typeof timestamp === "object") {
+            return ""
+        }
+        const date = new Date(timestamp);
+        const currentDate = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+
+        if (
+            currentDate.getFullYear() === year &&
+            currentDate.getMonth() === date.getMonth() &&
+            currentDate.getDate() === date.getDate()
+        ) {
+            // 오늘인 경우
+            const period = hours >= 12 ? '오후' : '오전';
+            const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            return `${period} ${formattedHours}:${formattedMinutes}`;
+        } else if (
+            currentDate.getFullYear() === year &&
+            currentDate.getMonth() === date.getMonth() &&
+            currentDate.getDate() === date.getDate() + 1
+        ) {
+            // 어제인 경우
+            const period = hours >= 12 ? '오후' : '오전';
+            const formattedHours = (hours % 12 || 12).toString().padStart(2, '0');
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            return `어제 ${period} ${formattedHours}:${formattedMinutes}`;
+        } else {
+            // 그 외의 경우
+            return `${month}월 ${day}일`;
+        }
+    };
+
     return (
         <div
             onClick={() => {
@@ -65,12 +104,18 @@ export function MessageCard(props: MessageCardProps): JSX.Element {
                                 </UserTooltip>
                             </div>
                         </div>
-                        <p className='whitespace-normal'>
-                            {props.data.chatRoom.messages ?
-                                props.data.chatRoom.messages[props.data.chatRoom.messages.length - 1].text
-                                : '대화 내용이 없습니다.'
+                        <div className="flex justify-between items-center">
+                            <p className='whitespace-normal'>
+                                {props.data.chatRoom.messages ?
+                                    props.data.chatRoom.messages[props.data.chatRoom.messages.length - 1].text
+                                    : '대화 내용이 없습니다.'
+                                }
+                            </p>
+                            {
+                                props.data.chatRoom.messages &&
+                                    <p className="text-xs text-light-secondary dark:text-dark-secondary">{formatMessageTime(props.data.chatRoom.messages[props.data.chatRoom.messages.length - 1].timestamp)}</p>
                             }
-                        </p>
+                        </div>
                     </div>
                 </>
             }

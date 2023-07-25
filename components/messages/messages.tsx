@@ -107,7 +107,7 @@ export function RoomMessages({
                     selectedData.chatRoom.messages?.map((item, idx) => (
                         <MessageBox
                             message={item}
-                            key={item.text + item.sender}
+                            key={item.text + item.sender + item.timestamp}
                         />
                     ))
                 }

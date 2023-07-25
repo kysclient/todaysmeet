@@ -123,6 +123,11 @@ export const MessageInput = ({
     const isValidInput = !!inputValue.trim().length;
     const isCharLimitExceeded = inputLength > inputLimit;
 
+    const handleScrollDown = () => {
+        window.scrollTo(0, document.body.scrollHeight);
+
+    };
+
     const sendMessage = async (): Promise<void> => {
         setLoading(true)
         inputRef.current?.blur();
@@ -143,7 +148,9 @@ export const MessageInput = ({
         setInputValue("")
         cleanImage()
         setLoading(false)
-        onScrollDownClick()
+        // onScrollDownClick()
+        inputRef.current.focus()
+        handleScrollDown()
     }
 
     return (

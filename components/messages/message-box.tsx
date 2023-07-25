@@ -1,10 +1,7 @@
-import {variants} from "../aside/aside-trends";
 import {AnimatePresence, motion} from 'framer-motion';
 import {RoomMessage} from "@lib/types/messages";
 import {useAuth} from "@lib/context/auth-context";
 import {ImagePreview} from "@components/input/image-preview";
-import {formatDate} from "@lib/date";
-import {useEffect} from "react";
 
 interface Props {
     message: RoomMessage
@@ -16,6 +13,9 @@ export const MessageBox = ({message}: Props) => {
 
     const formatMessageTime = (timestamp: any): string => {
 
+        if(typeof timestamp === "object") {
+            return ""
+        }
         const date = new Date(timestamp);
         const year = date.getFullYear();
         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -29,6 +29,17 @@ export const MessageBox = ({message}: Props) => {
 
         return `${month}월 ${day}일 ${period} ${formattedHours}:${formattedMinutes}`;
     };
+
+    const formatDate = (timestamp: any): string => {
+        return new Date(timestamp).toLocaleString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+        })
+    }
 
 
     return (
