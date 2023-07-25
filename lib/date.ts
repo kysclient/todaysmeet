@@ -1,6 +1,6 @@
 import type { Timestamp } from 'firebase/firestore';
 
-const RELATIVE_TIME_FORMATTER = new Intl.RelativeTimeFormat('en-gb', {
+const RELATIVE_TIME_FORMATTER = new Intl.RelativeTimeFormat('ko-KR', {
   style: 'short',
   numeric: 'auto'
 });
@@ -34,12 +34,13 @@ export function formatNumber(number: number): string {
 }
 
 function getFullTime(date: Date): string {
-  const fullDate = new Intl.DateTimeFormat('en-gb', {
+  const fullDate = new Intl.DateTimeFormat('ko-KR', {
     hour: 'numeric',
     minute: 'numeric',
     day: 'numeric',
     month: 'short',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: "Asia/Seoul"
   }).format(date);
 
   const splittedDate = fullDate.split(', ');
@@ -57,22 +58,26 @@ function getFullTime(date: Date): string {
 function getPostTime(date: Date): string {
   if (isToday(date)) return getRelativeTime(date);
   if (isYesterday(date))
-    return new Intl.DateTimeFormat('en-gb', {
+    return new Intl.DateTimeFormat('ko-KR', {
       day: 'numeric',
-      month: 'short'
+      month: 'short',
+      timeZone: "Asia/Seoul"
     }).format(date);
 
-  return new Intl.DateTimeFormat('en-gb', {
+  return new Intl.DateTimeFormat('ko-KR', {
     day: 'numeric',
     month: 'short',
-    year: isCurrentYear(date) ? undefined : 'numeric'
+    year: isCurrentYear(date) ? undefined : 'numeric',
+    timeZone: "Asia/Seoul"
   }).format(date);
+
 }
 
 function getJoinedTime(date: Date): string {
-  return new Intl.DateTimeFormat('en-gb', {
+  return new Intl.DateTimeFormat('ko-KR', {
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
+    timeZone: "Asia/Seoul"
   }).format(date);
 }
 
@@ -85,7 +90,7 @@ function getShortTime(date: Date): string {
 
   return isNear
     ? `${isNear === 'today' ? 'Today' : 'Yesterday'} at ${date
-        .toLocaleTimeString('en-gb')
+        .toLocaleTimeString('ko-KR')
         .slice(0, -3)}`
     : getFullTime(date);
 }
