@@ -53,12 +53,13 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
             },
         })
         if(response.ok) {
-            const decoder = new TextDecoder()
-            const reader = response.body.getReader()
-            const {value, done} = await reader.read()
-            const data = JSON.parse(decoder.decode(value!))
-            console.log('value : ', data)
-            !inTrendsPage ? setTrend(data[0].trends.slice(0, 10)) : setTrend(data[0].trends)
+            if(response.body) {
+                const decoder = new TextDecoder()
+                const reader = response.body.getReader()
+                const {value, done} = await reader.read()
+                const data = JSON.parse(decoder.decode(value!))
+                !inTrendsPage ? setTrend(data[0].trends.slice(0, 10)) : setTrend(data[0].trends)
+            }
             setLoading(false)
         }else {
             setLoading(true)

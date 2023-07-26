@@ -24,7 +24,7 @@ export function UserDataLayout({ children }: LayoutProps): JSX.Element {
 
   return (
     <UserContextProvider value={{ user, loading }}>
-      {!user && !loading && <SEO title='User not found / Twitter' />}
+      {!user && !loading && <SEO title='사용자를 찾을 수 없습니다. - 투밋' />}
       <MainContainer>
         <MainHeader useActionButton action={back}>
           <UserHeader />

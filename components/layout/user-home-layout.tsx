@@ -90,8 +90,8 @@ export function UserHomeLayout({children}: LayoutProps): JSX.Element {
                                   보기
                                 </Link>
                             </span>
-                        )
-                    );
+                        ));
+                    router.push(`/messages/${uuidv4()}`)
                 })
                 .catch((error) => {
                     console.log('error : ', error)
@@ -105,7 +105,7 @@ export function UserHomeLayout({children}: LayoutProps): JSX.Element {
         <>
             {userData && (
                 <SEO
-                    title={`${`${userData.name} (@${userData.username})`} / Twitter`}
+                    title={`${`${userData.name} (@${userData.username})`} - 투밋`}
                 />
             )}
             <motion.section {...variants} exit={undefined}>

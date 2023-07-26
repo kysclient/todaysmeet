@@ -16,9 +16,9 @@ export function UserFollowLayout({ children }: LayoutProps): JSX.Element {
             <Loading className='mt-5 w-full' />
           ) : (
             <div className='w-full p-8 text-center'>
-              <p className='text-3xl font-bold'>This account doesn’t exist</p>
+              <p className='text-3xl font-bold'>유저 정보를 찾을 수 없습니다.</p>
               <p className='text-light-secondary dark:text-dark-secondary'>
-                Try searching for another.
+                다시 검색해주세요.
               </p>
             </div>
           )}
