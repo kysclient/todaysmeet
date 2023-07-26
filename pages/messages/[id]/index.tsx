@@ -28,6 +28,7 @@ import {Messages, RoomMessage} from "@lib/types/messages";
 import {RoomMessages} from "@components/messages/messages";
 import {onValue, ref} from "@firebase/database";
 import {rdb} from "@lib/firebase/app";
+import {MessageStart} from "@components/messages/message-start";
 
 export default function Messages(): JSX.Element {
     const {user} = useAuth();
@@ -139,10 +140,7 @@ export default function Messages(): JSX.Element {
                                             </motion.div>
                                         </>
                                     ))
-                                : <Loading
-                                    iconClassName='h-5 w-5'
-                                    className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                                />
+                                : <MessageStart />
                         }
                     </AnimatePresence>
                 </section>
@@ -182,10 +180,7 @@ export default function Messages(): JSX.Element {
                                                     </motion.div>
                                                 </>
                                             ))
-                                        : <Loading
-                                            iconClassName='h-5 w-5'
-                                            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-                                        />
+                                        : <MessageStart />
                                     }
                                 </AnimatePresence>
                             </section>
