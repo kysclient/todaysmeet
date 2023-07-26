@@ -161,10 +161,11 @@ export function Tweet(tweet: TweetProps): JSX.Element {
                     modal && 'order-1 my-2'
                   )}
                 >
-                  Replying to{' '}
+
                   <Link className='custom-underline text-main-accent' href={`/user/${parentUsername}`} >
-                      @{parentUsername}
+                      @{parentUsername}{' '}
                   </Link>
+                  에게 답장
                 </p>
               )}
               {text && (

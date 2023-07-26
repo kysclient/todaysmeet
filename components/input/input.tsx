@@ -230,7 +230,7 @@ export function Input({
           <Link href={`/user/${parent?.username as string}`} className='custom-underline text-main-accent'>
               {parent?.username as string}{' '}
           </Link>
-          에게 답장하기
+          에게 답장
         </motion.p>
       )}
       <label
