@@ -5,11 +5,9 @@ export type Trends = {
     location: string | null;
 }
 
-type Trend = {
+export type Trend = {
     name: string;
     url: string;
-    // promoted_content: null;
-    // query: string;
     tweet_volume: number | null;
 };
 

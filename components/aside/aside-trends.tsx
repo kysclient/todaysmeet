@@ -27,6 +27,7 @@ import {
 import {trendsCollection, tweetsCollection, usersCollection} from "../../lib/firebase/collections";
 import {uuidv4} from "@firebase/util";
 import {useEffect, useState} from "react";
+import {Trend} from "@lib/types/trends";
 
 export const variants: MotionProps = {
     initial: {opacity: 0},
@@ -43,7 +44,7 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
     const { data: trends, loading: trendsLoading}  = useCollection(
         query(trendsCollection, orderBy(documentId()), limit(10))
     );
-    const [trend, setTrend] = useState([]);
+    const [trend, setTrend] = useState<Trend[]>([]);
     const [loading, setLoading] = useState(false)
     const fetchTrends = async () => {
         setLoading(true)

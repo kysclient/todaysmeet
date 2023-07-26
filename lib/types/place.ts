@@ -35,7 +35,7 @@ export type Location = [
   }
 ];
 
-export type Trend = {
+type Trend = {
   name: string;
   url: string;
   promoted_content: null;
