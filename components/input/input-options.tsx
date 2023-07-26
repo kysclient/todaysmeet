@@ -108,7 +108,6 @@ export function InputOptions({
                     ref={inputVideoRef}
                     multiple={false}
                 />
-
                 {filteredOptions.map(({name, iconName, disabled}, index) => (
                     <Button
                         className='accent-tab accent-bg-tab group relative rounded-full p-2

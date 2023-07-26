@@ -16,6 +16,11 @@ import {ref, serverTimestamp, update} from "@firebase/database";
 import {useAuth} from "@lib/context/auth-context";
 import {rdb} from "@lib/firebase/app";
 import {Timestamp} from "firebase/firestore";
+import {Button} from "@components/ui/button";
+import {HeroIcon} from "@components/ui/hero-icon";
+import {ToolTip} from "@components/ui/tooltip";
+import {Loading} from "@components/ui/loading";
+import {IconSend} from "@tabler/icons-react";
 
 interface Props {
     onScrollDownClick: () => void;
@@ -113,7 +118,12 @@ export const MessageInput = ({
         void sendMessage();
     };
 
+    const [isFocus, setIsFocus] = useState(false);
     const handleFocus = (): void => setVisited(!loading);
+
+    const inputFocus = () => {
+        setIsFocus(true)
+    }
 
     const formId = useId();
 
@@ -156,6 +166,7 @@ export const MessageInput = ({
 
     const handleInputFocus = () => {
         // 인풋 요소가 포커스되었을 때, 해당 위치로 스크롤을 내립니다.
+        setIsFocus(true)
         if (inputRef.current) {
             inputRef.current.scrollIntoView({
                 behavior: 'smooth',
@@ -176,11 +187,11 @@ export const MessageInput = ({
                         className="stretch flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-3xl">
                         <div
                             style={{marginBottom: `${isMobile ? 60 : 0}px`,}}
-                            className="relative mx-2 flex w-full flex-grow flex-col rounded-md border border-black/10  dark:border-gray-900/50 dark:text-white  sm:mx-4 bg-main-sidebar-background">
+                            className="relative mx-2 flex w-full flex-grow flex-col rounded-3xl border border-black/10  dark:border-gray-900/50 dark:text-white  sm:mx-4 bg-main-sidebar-background">
                             <TextArea
                                 id={formId}
                                 ref={inputRef}
-                                className="m-0 w-full  resize-none border-0 p-0 py-2 pr-8 pl-5 dark:bg-transparent dark:text-white md:py-3 md:pl-5 bg-main-sidebar-background focus:outline-none focus:ring-0"
+                                className={`m-0 w-full relative resize-none border-0 p-0 py-2 pr-8 dark:bg-transparent dark:text-white md:py-3  ${!isFocus ? "pl-12 md:pl-12" : "pl-5 md:pl-5"} bg-main-sidebar-background focus:outline-none focus:ring-0`}
                                 placeholder="메세지를 입력하세요."
                                 value={inputValue}
                                 minRows={1}
@@ -190,6 +201,31 @@ export const MessageInput = ({
                                 onFocus={handleInputFocus}
                             >
                             </TextArea>
+
+                            {
+                                !isFocus &&
+                                <>
+                                    <div
+                                        className='flex text-main-accent absolute left-2 top-0 md:top-1'
+                                    >
+                                        <Button
+                                            className='accent-tab accent-bg-tab group relative rounded-full p-2
+                                                        hover:bg-main-accent/10 active:bg-main-accent/20'
+                                        >
+                                            <HeroIcon className='h-5 w-5' iconName={'PhotoIcon'}/>
+                                            <ToolTip tip={'미디어'} modal={false}/>
+                                        </Button>
+                                    </div>
+
+                                    <Button
+                                        className={`absolute right-2 top-0 md:top-1 accent-tab text-main-accent`}
+                                    >
+                                        <IconSend size={18}/>
+                                    </Button>
+
+                                </>
+                            }
+
                             {isUploadingImages && (
                                 <ImagePreview
                                     imagesPreview={imagesPreview}
@@ -198,19 +234,22 @@ export const MessageInput = ({
                                 />
                             )}
 
-                            <div className="p-2">
-                                <AnimatePresence initial={false}>
-                                    <MessageInputOptions
-                                        inputLimit={280}
-                                        inputLength={inputValue.length}
-                                        isValidTweet={true}
-                                        isCharLimitExceeded={false}
-                                        handleImageUpload={handleImageUpload}
-                                        handleSend={sendMessage}
-                                        loading={loading}
-                                    />
-                                </AnimatePresence>
-                            </div>
+                            {
+                                isFocus &&
+                                <div className="p-2">
+                                    <AnimatePresence initial={false}>
+                                        <MessageInputOptions
+                                            inputLimit={280}
+                                            inputLength={inputValue.length}
+                                            isValidTweet={true}
+                                            isCharLimitExceeded={false}
+                                            handleImageUpload={handleImageUpload}
+                                            handleSend={sendMessage}
+                                            loading={loading}
+                                        />
+                                    </AnimatePresence>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

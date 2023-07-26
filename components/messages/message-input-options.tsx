@@ -20,17 +20,17 @@ type Options = {
 
 const options: Readonly<Options> = [
     {
-        name: 'Media',
+        name: '미디어',
         iconName: 'PhotoIcon',
         disabled: false
     },
     {
-        name: 'Gif',
+        name: 'GIF',
         iconName: 'GifIcon',
         disabled: false
     },
     {
-        name: 'Emoji',
+        name: '이모지',
         iconName: 'FaceSmileIcon',
         disabled: true
     },
@@ -63,7 +63,10 @@ export function MessageInputOptions({
 
 
     return (
-        <motion.div className='flex justify-between' {...variants}>
+        <motion.div className='flex justify-between'
+                    initial={{opacity: 0, y: 50}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: 50}}>
             <div
                 className='flex text-main-accent xs:[&>button:nth-child(n+6)]:hidden
                    md:[&>button]:!block [&>button:nth-child(n+4)]:hidden'
@@ -130,7 +133,6 @@ export function MessageInputOptions({
                         /> : <IconSend size={18}/>
                     }
                 </Button>
-
             </div>
         </motion.div>
     );
