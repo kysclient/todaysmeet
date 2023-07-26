@@ -149,9 +149,22 @@ export const MessageInput = ({
         cleanImage()
         setLoading(false)
         // onScrollDownClick()
-        inputRef.current?.focus()
+        handleInputFocus()
         handleScrollDown()
     }
+
+
+    const handleInputFocus = () => {
+        // 인풋 요소가 포커스되었을 때, 해당 위치로 스크롤을 내립니다.
+        if (inputRef.current) {
+            inputRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center',
+            });
+        }
+    };
+
 
     return (
         <>
@@ -174,7 +187,7 @@ export const MessageInput = ({
                                 maxRows={5}
                                 onChange={handleChange}
                                 onPaste={handleImageUpload}
-                                onFocus={() => {onScrollDownClick()}}
+                                onFocus={handleInputFocus}
                             >
                             </TextArea>
                             {isUploadingImages && (

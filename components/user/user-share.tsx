@@ -51,7 +51,7 @@ export function UserShare({ username }: UserShareProps): JSX.Element {
                   onClick={preventBubbling(handleCopy(close))}
                 >
                   <HeroIcon iconName='LinkIcon' />
-                  Copy link to Profile
+                  프로필 링크 복사
                 </Popover.Button>
               </Popover.Panel>
             )}
