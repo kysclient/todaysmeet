@@ -203,7 +203,7 @@ export function TweetActions({
                              group-focus-visible:text-accent-blue dark:text-dark-secondary/80'
                   iconName='EllipsisHorizontalIcon'
                 />
-                {!open && <ToolTip tip='More' />}
+                {!open && <ToolTip tip='더보기' />}
               </div>
             </Popover.Button>
             <AnimatePresence>

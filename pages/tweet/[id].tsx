@@ -46,16 +46,16 @@ export default function TweetId(): JSX.Element {
   const parentId = tweetData?.parent?.id;
 
   const pageTitle = tweetData
-    ? `${tweetData.user.name} on Twitter: "${text ?? ''}${
+    ? `${tweetData.user.name} - 투밋: "${text ?? ''}${
         images ? ` (${imagesLength} image${isPlural(imagesLength)})` : ''
-      }" / Twitter`
+      }" - 투밋`
     : null;
 
   return (
     <MainContainer className='!pb-[1280px]'>
       <MainHeader
         useActionButton
-        title={parentId ? 'Thread' : 'Tweet'}
+        title={parentId ? '스레드' : '피드'}
         action={back}
       />
       <section>
@@ -63,8 +63,8 @@ export default function TweetId(): JSX.Element {
           <Loading className='mt-5' />
         ) : !tweetData ? (
           <>
-            <SEO title='Tweet not found / Twitter' />
-            <Error message='Tweet not found' />
+            <SEO title='피드를 찾을 수 없습니다 - 투밋' />
+            <Error message='피드를 찾을 수 없습니다' />
           </>
         ) : (
           <>

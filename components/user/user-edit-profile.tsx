@@ -60,7 +60,7 @@ export function UserEditProfile({ hide }: UserEditProfileProps): JSX.Element {
   useEffect(() => cleanImage, []);
 
   const inputNameError = !editUserData.name?.trim()
-    ? "Name can't be blank"
+    ? "이름은 필수 입력사항입니다."
     : '';
 
   const updateData = async (): Promise<void> => {
@@ -200,27 +200,27 @@ export function UserEditProfile({ hide }: UserEditProfileProps): JSX.Element {
 
   const inputFields: Readonly<RequiredInputFieldProps[]> = [
     {
-      label: 'Name',
+      label: '이름',
       inputId: 'name',
       inputValue: editUserData.name,
       inputLimit: 50,
       errorMessage: inputNameError
     },
     {
-      label: 'Bio',
+      label: '소개',
       inputId: 'bio',
       inputValue: editUserData.bio,
       inputLimit: 160,
       useTextArea: true
     },
     {
-      label: 'Location',
+      label: '지역',
       inputId: 'location',
       inputValue: editUserData.location,
       inputLimit: 30
     },
     {
-      label: 'Website',
+      label: '웹',
       inputId: 'website',
       inputValue: editUserData.website,
       inputLimit: 100

@@ -75,7 +75,7 @@ export function TweetShare({
                 className={viewTweet ? 'h-6 w-6' : 'h-5 w-5'}
                 iconName='ArrowUpTrayIcon'
               />
-              {!open && <ToolTip tip='Share' />}
+              {!open && <ToolTip tip='공유' />}
             </i>
           </Popover.Button>
           <AnimatePresence>

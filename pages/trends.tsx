@@ -18,14 +18,14 @@ export default function Bookmarks(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='Trends / Twitter' />
-      <MainHeader useActionButton title='이달의 장소' action={back}>
+      <SEO title='트렌드 - 투밋' />
+      <MainHeader useActionButton title='트렌드' action={back}>
         <Button
           className='dark-bg-tab group relative ml-auto cursor-not-allowed p-2 hover:bg-light-primary/10
                      active:bg-light-primary/20 dark:hover:bg-dark-primary/10 dark:active:bg-dark-primary/20'
         >
           <HeroIcon className='h-5 w-5' iconName='Cog8ToothIcon' />
-          <ToolTip tip='Settings' />
+          <ToolTip tip='설정' />
         </Button>
       </MainHeader>
       <AsideTrends inTrendsPage />

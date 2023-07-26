@@ -34,7 +34,7 @@ export function UserShare({ username }: UserShareProps): JSX.Element {
             )}
           >
             <HeroIcon className='h-5 w-5' iconName='EllipsisHorizontalIcon' />
-            {!open && <ToolTip tip='More' />}
+            {!open && <ToolTip tip='더보기' />}
           </Popover.Button>
           <AnimatePresence>
             {open && (

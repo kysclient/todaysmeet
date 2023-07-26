@@ -1,7 +1,7 @@
 import {SEO} from "../components/common/seo";
 import {MainHeader} from "../components/home/main-header";
 import {useAuth} from "../lib/context/auth-context";
-import {HomeLayout, ProtectedLayout} from "../components/layout/common-layout";
+import {HomeLayout, ProtectedLayout, TrendsLayout} from "../components/layout/common-layout";
 import {MainLayout} from "../components/layout/main-layout";
 import {ChatBody, Conversation, Message} from "../lib/types/chat";
 import {Modal} from "../components/modal/modal";
@@ -82,7 +82,7 @@ export default function Explore(): JSX.Element {
 Explore.getLayout = (page: ReactElement): ReactNode => (
     <ProtectedLayout>
         <MainLayout>
-            <HomeLayout>{page}</HomeLayout>
+            <TrendsLayout>{page}</TrendsLayout>
         </MainLayout>
     </ProtectedLayout>
 );

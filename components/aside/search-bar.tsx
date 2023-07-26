@@ -84,7 +84,6 @@ export function SearchBar(): JSX.Element {
         <>
             <div
                 className='hover-animation sticky relative top-0 z-10 -my-2 bg-main-background py-2 outline-none'
-                // onSubmit={handleSubmit}
                 ref={specificDivRef}
             >
                 <label
@@ -126,7 +125,7 @@ export function SearchBar(): JSX.Element {
                 !openPanel &&
                 <AnimatePresence>
                     <motion.div {...variants}
-                                className="w-full top-10 left-2 menu-container p-4 whitespace-nowrap text-light-primary dark:text-dark-primary"
+                                className="w-full  top-10 left-2 menu-container p-4 whitespace-nowrap text-light-primary dark:text-dark-primary"
                     >
                         {
                             inputValue === "" ?

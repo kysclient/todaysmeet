@@ -94,7 +94,7 @@ export function TweetStats({
           className='hover:text-accent-blue focus-visible:text-accent-blue'
           iconClassName='group-hover:bg-accent-blue/10 group-active:bg-accent-blue/20
                          group-focus-visible:bg-accent-blue/10 group-focus-visible:ring-accent-blue/80'
-          tip='Reply'
+          tip='댓글'
           move={replyMove}
           stats={currentReplies}
           iconName='ChatBubbleOvalLeftIcon'
@@ -109,7 +109,7 @@ export function TweetStats({
           )}
           iconClassName='group-hover:bg-accent-green/10 group-active:bg-accent-green/20
                          group-focus-visible:bg-accent-green/10 group-focus-visible:ring-accent-green/80'
-          tip={tweetIsRetweeted ? 'Undo Retweet' : 'Retweet'}
+          tip={tweetIsRetweeted ? '공유 취소' : '공유'}
           move={tweetMove}
           stats={currentTweets}
           iconName='ArrowPathRoundedSquareIcon'
@@ -127,7 +127,7 @@ export function TweetStats({
           )}
           iconClassName='group-hover:bg-accent-pink/10 group-active:bg-accent-pink/20
                          group-focus-visible:bg-accent-pink/10 group-focus-visible:ring-accent-pink/80'
-          tip={tweetIsLiked ? 'Unlike' : 'Like'}
+          tip={tweetIsLiked ? '좋아요 취소' : '좋아요'}
           move={likeMove}
           stats={currentLikes}
           iconName='HeartIcon'
@@ -139,16 +139,16 @@ export function TweetStats({
           )}
         />
         <TweetShare userId={userId} tweetId={tweetId} viewTweet={viewTweet} />
-        {isOwner && (
-          <TweetOption
-            className='hover:text-accent-blue focus-visible:text-accent-blue'
-            iconClassName='group-hover:bg-accent-blue/10 group-active:bg-accent-blue/20
-                           group-focus-visible:bg-accent-blue/10 group-focus-visible:ring-accent-blue/80'
-            tip='Analytics'
-            iconName='ChartPieIcon'
-            disabled
-          />
-        )}
+        {/*{isOwner && (*/}
+        {/*  <TweetOption*/}
+        {/*    className='hover:text-accent-blue focus-visible:text-accent-blue'*/}
+        {/*    iconClassName='group-hover:bg-accent-blue/10 group-active:bg-accent-blue/20*/}
+        {/*                   group-focus-visible:bg-accent-blue/10 group-focus-visible:ring-accent-blue/80'*/}
+        {/*    tip='Analytics'*/}
+        {/*    iconName='ChartPieIcon'*/}
+        {/*    disabled*/}
+        {/*  />*/}
+        {/*)}*/}
       </div>
     </>
   );

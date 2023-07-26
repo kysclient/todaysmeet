@@ -102,15 +102,15 @@ export function MessageInputOptions({
                         inputLength={inputLength}
                         isCharLimitExceeded={isCharLimitExceeded}
                     />
-                    <i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>
-                    <Button
-                        className='group relative hidden rounded-full border border-light-line-reply p-[1px]
-                           text-main-accent dark:border-light-secondary xs:block'
-                        disabled
-                    >
-                        <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>
-                        <ToolTip tip='Add' modal={false}/>
-                    </Button>
+                    {/*<i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>*/}
+                    {/*<Button*/}
+                    {/*    className='group relative hidden rounded-full border border-light-line-reply p-[1px]*/}
+                    {/*       text-main-accent dark:border-light-secondary xs:block'*/}
+                    {/*    disabled*/}
+                    {/*>*/}
+                    {/*    <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>*/}
+                    {/*    <ToolTip tip='Add' modal={false}/>*/}
+                    {/*</Button>*/}
                 </motion.div>
 
                 <Button

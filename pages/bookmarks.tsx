@@ -57,7 +57,7 @@ export default function Bookmarks(): JSX.Element {
 
   return (
     <MainContainer>
-      <SEO title='Bookmarks / Twitter' />
+      <SEO title='북마크 - 투밋' />
       <Modal
         modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
         open={open}

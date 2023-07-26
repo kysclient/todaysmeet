@@ -18,32 +18,32 @@ type Options = {
 
 const options: Readonly<Options> = [
     {
-        name: 'Media',
+        name: '미디어',
         iconName: 'PhotoIcon',
         disabled: false
     },
     {
-        name: 'Video',
+        name: '비디오',
         iconName: 'VideoCameraIcon',
         disabled: true
     },
+    // {
+    //     name: 'Poll',
+    //     iconName: 'ChartBarIcon',
+    //     disabled: true
+    // },
     {
-        name: 'Poll',
-        iconName: 'ChartBarIcon',
-        disabled: true
-    },
-    {
-        name: 'Emoji',
+        name: '이모지',
         iconName: 'FaceSmileIcon',
         disabled: true
     },
     {
-        name: 'Schedule',
+        name: '스케줄',
         iconName: 'CalendarDaysIcon',
         disabled: true
     },
     {
-        name: 'Location',
+        name: '위치',
         iconName: 'MapPinIcon',
         disabled: true
     }
@@ -135,19 +135,19 @@ export function InputOptions({
                         inputLength={inputLength}
                         isCharLimitExceeded={isCharLimitExceeded}
                     />
-                    {!reply && (
-                        <>
-                            <i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>
-                            <Button
-                                className='group relative hidden rounded-full border border-light-line-reply p-[1px]
-                           text-main-accent dark:border-light-secondary xs:block'
-                                disabled
-                            >
-                                <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>
-                                <ToolTip tip='Add' modal={modal}/>
-                            </Button>
-                        </>
-                    )}
+                    {/*{!reply && (*/}
+                    {/*    <>*/}
+                    {/*        <i className='hidden h-8 w-[1px] bg-[#B9CAD3] dark:bg-[#3E4144] xs:block'/>*/}
+                    {/*        <Button*/}
+                    {/*            className='group relative hidden rounded-full border border-light-line-reply p-[1px]*/}
+                    {/*       text-main-accent dark:border-light-secondary xs:block'*/}
+                    {/*            disabled*/}
+                    {/*        >*/}
+                    {/*            <HeroIcon className='h-5 w-5' iconName='PlusIcon'/>*/}
+                    {/*            <ToolTip tip='Add' modal={modal}/>*/}
+                    {/*        </Button>*/}
+                    {/*    </>*/}
+                    {/*)}*/}
                 </motion.div>
                 <Button
                     type='submit'

@@ -75,16 +75,14 @@ export function UserHeader(): JSX.Element {
               ? `@${user.username}`
               : isInTweetPage
               ? totalTweets
-                ? `${totalTweets} ${`피드수 ${isPlural(totalTweets)}`}`
+                ? `총 피드수 ${totalTweets}`
                 : '피드가 없어요'
               : currentPage === 'media'
               ? totalPhotos
-                ? `${totalPhotos} 사진 ${isPlural(totalPhotos)} & 미디어 ${isPlural(
-                    totalPhotos
-                  )}`
+                ? `사진 & 미디어 ${totalPhotos}`
                 : '사진이 없어요'
               : totalLikes
-              ? `${totalLikes} 좋아요수 ${isPlural(totalLikes)}`
+              ? `좋아요수 ${totalLikes}`
               : '좋아하는 사람이 없어요 😂'}
           </p>
         </motion.div>

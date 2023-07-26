@@ -65,7 +65,7 @@ export function EditProfileModal({
             disabled={loading}
           >
             <HeroIcon className='h-5 w-5' iconName={'ArrowPathIcon'} />
-            <ToolTip tip='Reset' />
+            <ToolTip tip='초기화' />
           </Button>
           <Button
             className='bg-light-primary py-1 px-4 font-bold text-white focus-visible:bg-light-primary/90
@@ -76,7 +76,7 @@ export function EditProfileModal({
             disabled={!!inputNameError}
             loading={loading}
           >
-            Save
+            저장
           </Button>
         </div>
       </MainHeader>
@@ -117,7 +117,7 @@ export function EditProfileModal({
                 className='hover-animation h-6 w-6 text-dark-primary group-hover:text-white'
                 iconName='CameraIcon'
               />
-              <ToolTip groupInner tip='Add photo' />
+              <ToolTip groupInner tip='사진 추가' />
             </Button>
             {coverPhotoURL && (
               <Button
@@ -129,7 +129,7 @@ export function EditProfileModal({
                   className='hover-animation h-6 w-6 text-dark-primary group-hover:text-white'
                   iconName='XMarkIcon'
                 />
-                <ToolTip groupInner tip='Remove photo' />
+                <ToolTip groupInner tip='사진 삭제' />
               </Button>
             )}
           </div>
@@ -166,24 +166,25 @@ export function EditProfileModal({
                   className='hover-animation h-6 w-6 text-dark-primary group-hover:text-white'
                   iconName='CameraIcon'
                 />
-                <ToolTip groupInner tip='Add photo' />
+                <ToolTip groupInner tip='사진 추가' />
               </Button>
             </div>
           </div>
           {children}
-          <Button
-            className='accent-tab -mx-4 mb-4 flex cursor-not-allowed items-center justify-between rounded-none
-                       py-2 hover:bg-light-primary/10 active:bg-light-primary/20 disabled:brightness-100
-                       dark:hover:bg-dark-primary/10 dark:active:bg-dark-primary/20'
-          >
-            <span className='mx-2 text-xl'>Switch to professional</span>
-            <i>
-              <HeroIcon
-                className='h-6 w-6 text-light-secondary dark:text-dark-secondary'
-                iconName='ChevronRightIcon'
-              />
-            </i>
-          </Button>
+          <div className="p-2" />
+          {/*<Button*/}
+          {/*  className='accent-tab -mx-4 mb-4 flex cursor-not-allowed items-center justify-between rounded-none*/}
+          {/*             py-2 hover:bg-light-primary/10 active:bg-light-primary/20 disabled:brightness-100*/}
+          {/*             dark:hover:bg-dark-primary/10 dark:active:bg-dark-primary/20'*/}
+          {/*>*/}
+          {/*  <span className='mx-2 text-xl'>Switch to professional</span>*/}
+          {/*  <i>*/}
+          {/*    <HeroIcon*/}
+          {/*      className='h-6 w-6 text-light-secondary dark:text-dark-secondary'*/}
+          {/*      iconName='ChevronRightIcon'*/}
+          {/*    />*/}
+          {/*  </i>*/}
+          {/*</Button>*/}
         </div>
       </section>
     </>

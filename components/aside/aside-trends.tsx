@@ -26,6 +26,7 @@ import {
 } from "firebase/firestore";
 import {trendsCollection, tweetsCollection, usersCollection} from "../../lib/firebase/collections";
 import {uuidv4} from "@firebase/util";
+import {useEffect, useState} from "react";
 
 export const variants: MotionProps = {
     initial: {opacity: 0},
@@ -42,7 +43,31 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
     const { data: trends, loading: trendsLoading}  = useCollection(
         query(trendsCollection, orderBy(documentId()), limit(10))
     );
+    const [trend, setTrend] = useState([]);
+    const [loading, setLoading] = useState(false)
+    const fetchTrends = async () => {
+        setLoading(true)
+        const response = await fetch('/api/trends/available', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        if(response.ok) {
+            const decoder = new TextDecoder()
+            const reader = response.body.getReader()
+            const {value, done} = await reader.read()
+            const data = JSON.parse(decoder.decode(value!))
+            console.log('value : ', data)
+            !inTrendsPage ? setTrend(data[0].trends.slice(0, 10)) : setTrend(data[0].trends)
+            setLoading(false)
+        }else {
+            setLoading(true)
+        }
+    }
 
+    useEffect(() => {
+        fetchTrends()
+    }, [])
 
 
     return (
@@ -52,20 +77,20 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                 'hover-animation rounded-2xl bg-main-sidebar-background'
             )}
         >
-            {trendsLoading ? (
+            {loading ? (
                 <Loading/>
-            ) : trends ? (
+            ) : trend ? (
                 <motion.div
                     className={cn('inner:px-4 inner:py-3', inTrendsPage && 'mt-0.5')}
                     {...variants}
                 >
                     {!inTrendsPage && (
                         <>
-                        <h2 className='text-xl font-extrabold'>이달의 장소 🔥</h2>
+                        <h2 className='text-xl font-extrabold'>당신을 위한 트렌드</h2>
                         </>
                     )}
-                    {trends.map((trend, idx) => (
-                        <Link href={trend.trend.url} key={`${uuidv4() + idx}`} passHref
+                    {trend.map((trend, idx) => (
+                        <Link href={trend.url} key={`${uuidv4() + idx}`} passHref
                               target={'_blank'}
                               className='hover-animation accent-tab hover-card relative
                            flex  flex-col gap-0.5 p-5'
@@ -82,18 +107,18 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                                  group-focus-visible:text-accent-blue dark:text-dark-secondary'
                                             iconName='EllipsisHorizontalIcon'
                                         />
-                                        <ToolTip tip='More'/>
+                                        <ToolTip tip='더보기'/>
                                     </Button>
                                 </div>
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-
-                                    {trend.location === 'Worldwide'
-                                        ? 'Worldwide'
-                                        : ` ${trend.location as string}`}
+                                    Trending in Korea
+                                    {/*{trend.location === 'Worldwide'*/}
+                                    {/*    ? 'Worldwide'*/}
+                                    {/*    : ` ${trend.location as string}`}*/}
                                 </p>
-                                <p className='font-bold'>{trend.trend.name}</p>
+                                <p className='font-bold'>{trend.name}</p>
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                                    {formatNumber(trend.trend.tweet_volume!)} tweets
+                                    댓글 수 {formatNumber(trend.tweet_volume!)}
                                 </p>
                         </Link>
                     ))}

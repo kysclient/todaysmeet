@@ -39,7 +39,7 @@ export function UserDetails({
   const detailIcons: Readonly<DetailIcon[]> = [
     [location, 'MapPinIcon'],
     [website, 'LinkIcon'],
-    [`Joined ${formatDate(createdAt, 'joined')}`, 'CalendarDaysIcon']
+    [`${formatDate(createdAt, 'joined')}에 가입`, 'CalendarDaysIcon']
   ];
 
   return (

@@ -257,6 +257,12 @@ export const Chat = memo(({stopConversationRef, closeModal, open, openModal}: Pr
 
                                     <div className="flex justify-end">
                                         <div className={`text-white flex items-center bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px]`}>
+                                            요즘 한국 트렌드 알려줘.
+                                        </div>
+                                    </div>
+
+                                    <div className="flex justify-end">
+                                        <div className={`text-white flex items-center bg-main-accent rounded-br rounded-xl max-w-[60%] py-[12px] px-[16px]`}>
                                             강남구 논현동 맛집 알려줘.
                                         </div>
                                     </div>

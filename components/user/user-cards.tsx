@@ -23,26 +23,25 @@ type NoStatsData = Record<CombinedTypes, StatsEmptyProps>;
 
 const allNoStatsData: Readonly<NoStatsData> = {
   retweets: {
-    title: 'Amplify Tweets you like',
+    title: '당신이 좋아하는 피드를 다시 공유해보세요.',
     imageData: { src: '/assets/no-retweets.png', alt: 'No retweets' },
-    description:
-      'Share someone else’s Tweet on your timeline by Retweeting it. When you do, it’ll show up here.'
+    description: '공유하여 내 타임라인에서 다른 사람의 피드를 공유하세요. 실행하면 여기에 표시됩니다.'
   },
   likes: {
-    title: 'No Tweet Likes yet',
+    title: '좋아하는 피드가 없습니다.',
     imageData: { src: '/assets/no-likes.png', alt: 'No likes' },
-    description: 'When you like a Tweet, it’ll show up here.'
+    description: '피드에 좋아요를 누른다면, 여기에 표시됩니다.'
   },
   following: {
-    title: 'Be in the know',
+    title: '알아두세요.',
     description:
-      'Following accounts is an easy way to curate your timeline and know what’s happening with the topics and people you’re interested in.'
+      '계정을 팔로우하면 타임라인을 관리하고 관심 있는 주제와 사람들에게 무슨 일이 일어나고 있는지 알 수 있습니다.'
   },
   followers: {
-    title: 'Looking for followers?',
+    title: '팔로워를 찾고 계십니까?',
     imageData: { src: '/assets/no-followers.png', alt: 'No followers' },
     description:
-      'When someone follows this account, they’ll show up here. Tweeting and interacting with others helps boost followers.'
+      '누군가 이 계정을 팔로우하면 여기에 표시됩니다. 다른 사람과 공유하고 교류하면 팔로워를 늘리는 데 도움이 됩니다.'
   }
 };
 

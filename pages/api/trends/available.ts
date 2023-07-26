@@ -7,11 +7,11 @@ export default async function availableEndpoint(
   res: NextApiResponse<AvailablePlaces>
 ): Promise<void> {
   const response = await fetch(
-    'https://api.twitter.com/1.1/trends/available.json',
+    'https://api.twitter.com/1.1/trends/place.json?id=23424868',
     AUTH
   );
   const data = (await response.json()) as AvailablePlaces;
-
+      // https://api.twitter.com/1.1/trends/available.json
 
   res.status(response.status).json(data);
 }

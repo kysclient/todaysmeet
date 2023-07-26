@@ -3,6 +3,7 @@ import {useRouter} from 'next/router';
 import React, {useCallback, useEffect} from 'react';
 import {Loading} from "@components/ui/loading";
 import {useAuth} from "@lib/context/auth-context";
+import {SEO} from "@components/common/seo";
 
 interface ResponseType {
     ok: boolean;
@@ -53,10 +54,13 @@ const Kakao: NextPage = () => {
     }, [loginHandler, authCode, kakaoServerError, router]);
 
     return (
-        <Loading
-            iconClassName='h-5 w-5'
-            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
-        />
+        <>
+            <SEO title='카카오 로그인 - 투밋'/>
+            <Loading
+                iconClassName='h-5 w-5'
+                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+            />
+        </>
     );
 };
 

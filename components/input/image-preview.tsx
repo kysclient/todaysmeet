@@ -147,7 +147,7 @@ export function ImagePreview({
                 onClick={preventBubbling(removeImage(id))}
               >
                 <HeroIcon className='h-5 w-5 text-white' iconName='XMarkIcon' />
-                <ToolTip className='translate-y-2' tip='Remove' />
+                <ToolTip className='translate-y-2' tip='삭제' />
               </Button>
             )}
           </motion.button>

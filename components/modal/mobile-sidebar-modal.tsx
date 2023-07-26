@@ -20,7 +20,7 @@ export type MobileNavLink = Omit<NavLink, 'canBeHidden'>;
 const topNavLinks: Readonly<MobileNavLink[]> = [
   {
     href: '/trends',
-    linkName: '이달의 장소',
+    linkName: '트렌드',
     iconName: 'ChatBubbleBottomCenterTextIcon'
   },
   {

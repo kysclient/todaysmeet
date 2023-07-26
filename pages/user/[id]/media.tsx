@@ -33,9 +33,9 @@ export default function UserMedia(): JSX.Element {
   return (
     <section>
       <SEO
-        title={`Media Tweets by ${name as string} (@${
+        title={`미디어 피드 ${name as string} (@${
           username as string
-        }) / Twitter`}
+        }) - 투밋`}
       />
       {loading ? (
         <Loading className='mt-5' />
