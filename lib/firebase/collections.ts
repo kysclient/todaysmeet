@@ -11,6 +11,7 @@ import {trendConverter} from "../types/trends";
 import {Notis, notisConverter} from "../types/notis";
 import {chatRoomConverter} from "../types/chatRooms";
 import {Messages, messagesConverter} from "../types/messages";
+import {shortsConverter} from "@lib/types/shorts";
 
 export const usersCollection = collection(db, 'users').withConverter(
     userConverter
@@ -26,6 +27,10 @@ export const trendsCollection = collection(db, 'trends').withConverter(
 
 export const chatRoomsCollection = collection(db, 'chatRooms').withConverter(
     chatRoomConverter
+)
+
+export const shortsCollection = collection(db, 'shorts').withConverter(
+    shortsConverter
 )
 
 export function userBookmarksCollection(

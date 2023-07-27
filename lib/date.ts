@@ -100,9 +100,13 @@ function getRelativeTime(date: Date): string {
 
   if (relativeTime === 'now') return relativeTime;
 
-  const [number, unit] = relativeTime.split(' ');
 
-  return `${number}${unit[0]}`;
+  const [number, unit] = relativeTime.split(' ');
+  if(unit) {
+    return `${number}${unit[0]}`;
+  }else {
+    return `${number}`;
+  }
 }
 
 function calculateRelativeTime(date: Date): string {

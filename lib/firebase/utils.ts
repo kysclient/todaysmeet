@@ -24,7 +24,7 @@ import {
 } from './collections';
 import type {WithFieldValue, Query} from 'firebase/firestore';
 import type {EditableUserData} from '../types/user';
-import type {FilesWithId, ImagesPreview} from '../types/file';
+import type {FilesWithId, ImagesPreview, VideoPreview} from '../types/file';
 import type {Bookmark} from '../types/bookmark';
 import type {Theme, Accent} from '../types/theme';
 import {ChatRooms} from "../types/chatRooms";
@@ -128,6 +128,23 @@ export async function removeTweet(tweetId: string): Promise<void> {
     await deleteDoc(userRef);
 }
 
+export async function uploadVideo(
+    userId: string,
+    file: File
+): Promise<string | null> {
+    if(!file) return null;
+    const storageRef = ref(storage, `shorts/${userId}/${file.name}`)
+    let src: string;
+    try {
+        src = await getDownloadURL(storageRef);
+    }catch {
+        await uploadBytesResumable(storageRef, file)
+        src = await getDownloadURL(storageRef);
+    }
+    return src
+
+}
+
 export async function uploadImages(
     userId: string,
     files: FilesWithId
@@ -145,7 +162,7 @@ export async function uploadImages(
             try {
                 src = await getDownloadURL(storageRef);
             } catch {
-                await uploadBytesResumable(storageRef, file);
+                await uploadBytesResumable(storageRef, file)
                 src = await getDownloadURL(storageRef);
             }
 

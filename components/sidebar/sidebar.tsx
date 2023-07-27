@@ -13,6 +13,7 @@ import type {IconName} from '../ui/hero-icon';
 import {useRouter} from "next/router";
 import {useEffect} from "react";
 import {uuidv4} from "@firebase/util";
+import {VideoUploadModal} from "@components/modal/video-upload-modal";
 
 export type NavLink = {
     href: string;
@@ -37,11 +38,11 @@ const navLinks: Readonly<NavLink[]> = [
         iconName: 'ChatBubbleOvalLeftIcon',
         username: 'explore'
     },
-    // {
-    //     href: '/calc',
-    //     linkName: '정산하기',
-    //     iconName: 'CalculatorIcon',
-    // },
+    {
+        href: '/shorts',
+        linkName: '쇼츠',
+        iconName: 'PlayIcon',
+    },
     // {
     //   href: '/notifications',
     //   linkName: 'Notifications',
@@ -52,7 +53,7 @@ const navLinks: Readonly<NavLink[]> = [
         href: '/bookmarks',
         linkName: '북마크',
         iconName: 'BookmarkIcon',
-        username:'bookmarks',
+        username: 'bookmarks',
         canBeHidden: true
     },
     // {
@@ -86,7 +87,11 @@ export function Sidebar(): JSX.Element {
                 open={open}
                 closeModal={closeModal}
             >
-                <Input modal closeModal={closeModal}/>
+                {
+                    pathname === '/shorts' ?
+                        <VideoUploadModal closeModal={closeModal}/>
+                        : <Input modal closeModal={closeModal}/>
+                }
             </Modal>
             <div
                 className='fixed bottom-0 z-10 flex w-full flex-col justify-between border-t border-light-border
@@ -100,7 +105,7 @@ export function Sidebar(): JSX.Element {
                            focus-visible:bg-accent-blue/10 focus-visible:!ring-accent-blue/80
                            dark:text-twitter-icon dark:hover:bg-dark-primary/10'
                         >
-                                <CustomIcon className='h-7 w-7' iconName='TwitterIcon'/>
+                            <CustomIcon className='h-7 w-7' iconName='TwitterIcon'/>
                         </Link>
                     </h1>
                     <nav className='flex items-center justify-around xs:flex-col xs:justify-center xl:block'>
@@ -138,7 +143,12 @@ export function Sidebar(): JSX.Element {
                                 className='block h-6 w-6 xl:hidden'
                                 iconName='FeatherIcon'
                             />
-                            <p className='hidden xl:block'>글쓰기</p>
+                            <p className='hidden xl:block'>
+                                {
+                                    pathname === '/shorts' ? <>영상 업로드</>
+                                        : <>글쓰기</>
+                                }
+                            </p>
                         </Button>
                     }
 

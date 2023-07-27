@@ -25,7 +25,7 @@ const options: Readonly<Options> = [
     {
         name: '비디오',
         iconName: 'VideoCameraIcon',
-        disabled: true
+        disabled: false
     },
     // {
     //     name: 'Poll',
