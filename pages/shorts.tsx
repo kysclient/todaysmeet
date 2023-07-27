@@ -13,6 +13,7 @@ import {shortsCollection, trendsCollection, tweetsCollection} from "@lib/firebas
 import {documentId, limit, orderBy, query, where} from "firebase/firestore";
 import {Loading} from "@components/ui/loading";
 import {useCollection} from "@lib/hooks/useCollection";
+import {ShortsPlayer} from "@components/ui/shorts-player";
 
 
 export default function Shorts() {
@@ -20,7 +21,6 @@ export default function Shorts() {
     const {data, loading} = useCollection(
         query(shortsCollection, orderBy('createdAt', 'desc'), limit(10))
     );
-
     return (
 
         <ShortsContainer>
@@ -31,7 +31,7 @@ export default function Shorts() {
                         <Loading/>
                         :
                         <Swiper
-                            speed={1000}
+                            speed={100}
                             direction={'vertical'}
                             slidesPerView={1}
                             spaceBetween={30}
@@ -50,15 +50,7 @@ export default function Shorts() {
                                         className="w-full mb-4 bg-main-background min-h-[100%] rounded-xl"
                                     >
                                         <div className="w-full h-full">
-                                            <ReactPlayer
-                                                muted={true}
-                                                loop={true}
-                                                controls={true}
-                                                playing={true}
-                                                width='100%'
-                                                height='100%'
-                                                url={shorts.fileUrl!}
-                                            />
+                                            <ShortsPlayer url={shorts.fileUrl!} />
                                         </div>
                                     </SwiperSlide>
                                 </>
