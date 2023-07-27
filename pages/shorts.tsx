@@ -55,7 +55,7 @@ export default function Shorts() {
                             {data!.map((shorts, index) => (
                                 <>
                                     <SwiperSlide
-                                        key={shorts.createdAt}
+                                        key={shorts.createdAt.toString()}
                                         className="w-full mb-4 bg-main-background min-h-[100%] rounded-xl"
                                     >
                                         <div className="w-full h-full">
