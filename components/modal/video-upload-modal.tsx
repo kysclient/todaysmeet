@@ -17,9 +17,13 @@ import {sleep} from "@lib/utils";
 import {shortsCollection} from "@lib/firebase/collections";
 import {useWindow} from "@lib/context/window-context";
 
+interface VideoUploadModalProps {
+    closeModal: () => void
+}
+
 export function VideoUploadModal({
                                      closeModal
-                                 }): JSX.Element {
+                                 }: VideoUploadModalProps): JSX.Element {
     const formId = useId();
     const [loading, setLoading] = useState(false)
     const {user, isAdmin} = useAuth();
