@@ -14,6 +14,7 @@ import {useRouter} from "next/router";
 import {useEffect} from "react";
 import {uuidv4} from "@firebase/util";
 import {VideoUploadModal} from "@components/modal/video-upload-modal";
+import {HeroIcon} from "../ui/hero-icon";
 
 export type NavLink = {
     href: string;
@@ -139,10 +140,16 @@ export function Sidebar(): JSX.Element {
                        xs:hover:bg-main-accent/90 xs:active:bg-main-accent/75 xl:w-11/12'
                             onClick={openModal}
                         >
-                            <CustomIcon
-                                className='block h-6 w-6 xl:hidden'
-                                iconName='FeatherIcon'
-                            />
+                            {
+                                pathname === '/shorts' ?
+                                    <HeroIcon
+                                        iconName="ArrowUpTrayIcon"
+                                        className="block h-6 w-6 xl:hidden"/>
+                                    : <CustomIcon
+                                        className='block h-6 w-6 xl:hidden'
+                                        iconName="FeatherIcon"
+                                    />
+                            }
                             <p className='hidden xl:block'>
                                 {
                                     pathname === '/shorts' ? <>영상 업로드</>
