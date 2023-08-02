@@ -77,7 +77,6 @@ export function ThemeContextProvider({
         localStorage.setItem('theme', theme);
         return setTimeout(() => void updateUserTheme(user.id, { theme }), 500);
       }
-
       return undefined;
     };
 

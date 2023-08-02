@@ -154,13 +154,10 @@ export const MessageInput = ({
         updateData.messages = updateMessages;
 
         await update(ref(rdb, `chatRooms/${selectedData.roomKey}`), updateData)
-
         setInputValue("")
         cleanImage()
         setLoading(false)
-        // onScrollDownClick()
-        handleInputFocus()
-        handleScrollDown()
+        onScrollDownClick()
     }
 
 
