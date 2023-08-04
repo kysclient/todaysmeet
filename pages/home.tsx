@@ -14,6 +14,7 @@ import { Tweet } from '../components/tweet/tweet';
 import { Loading } from '../components/ui/loading';
 import { Error } from '../components/ui/error';
 import type { ReactElement, ReactNode } from 'react';
+import {useEffect} from "react";
 
 export default function Home(): JSX.Element {
   const { isMobile } = useWindow();
@@ -22,6 +23,11 @@ export default function Home(): JSX.Element {
     [where('parent', '==', null), orderBy('createdAt', 'desc')],
     { includeUser: true, allowNull: true, preserve: true }
   );
+
+
+  useEffect(() => {
+      console.log('data : ', data)
+  }, [data])
 
 
   return (

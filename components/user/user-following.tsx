@@ -16,7 +16,7 @@ export function UserFollowing({
 
   return (
     <p className='rounded bg-main-search-background px-1 text-xs'>
-      Follows you
+      나를 팔로우
     </p>
   );
 }

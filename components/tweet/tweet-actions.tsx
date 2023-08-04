@@ -136,7 +136,7 @@ export function TweetActions({
       await manageFollow(...args);
 
       toast.success(
-        `You ${type === 'follow' ? 'followed' : 'unfollowed'} @${username}`
+        ` @${username}을 ${type === 'follow' ? '팔로우' : '언팔로우'}`
       );
     };
 

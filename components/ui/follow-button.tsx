@@ -40,9 +40,9 @@ export function FollowButton({
         closeModal={closeModal}
       >
         <ActionModal
-          title={`Unfollow @${userTargetUsername}?`}
-          description='Their Tweets will no longer show up in your home timeline. You can still view their profile, unless their Tweets are protected.'
-          mainBtnLabel='Unfollow'
+          title={`@${userTargetUsername} 언팔로우 하시겠습니까?`}
+          description='그들의 게시물은 더 이상 홈 타임라인에 표시되지 않습니다. 프로필은 계속 볼 수 있습니다.'
+          mainBtnLabel='언팔로우'
           action={handleUnfollow}
           closeModal={closeModal}
         />
@@ -51,7 +51,7 @@ export function FollowButton({
         <Button
           className='dark-bg-tab min-w-[106px] self-start border border-light-line-reply px-4 py-1.5
                      font-bold hover:border-accent-red hover:bg-accent-red/10 hover:text-accent-red
-                     hover:before:content-["Unfollow"] inner:hover:hidden dark:border-light-secondary'
+                     hover:before:content-["언팔로우"] inner:hover:hidden dark:border-light-secondary'
           onClick={preventBubbling(openModal)}
         >
           <span>팔로잉</span>
