@@ -262,8 +262,6 @@ export function AuthContextProvider({
                     }
                 })
         }
-
-
     }
 
     const existsUser = (email: string, password: string) => {

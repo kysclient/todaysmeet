@@ -46,6 +46,7 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
     );
     const [trend, setTrend] = useState<Trend[]>([]);
     const [loading, setLoading] = useState(false)
+
     const fetchTrends = async () => {
         setLoading(true)
         const response = await fetch('/api/trends/available', {
@@ -68,7 +69,8 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
     }
 
     useEffect(() => {
-        fetchTrends()
+        console.log('trends : ', trends)
+        // fetchTrends()
     }, [])
 
 
@@ -79,9 +81,9 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                 'hover-animation rounded-2xl bg-main-sidebar-background'
             )}
         >
-            {loading ? (
+            {trendsLoading ? (
                 <Loading/>
-            ) : trend ? (
+            ) : trends ? (
                 <motion.div
                     className={cn('inner:px-4 inner:py-3', inTrendsPage && 'mt-0.5')}
                     {...variants}
@@ -91,8 +93,8 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                         <h2 className='text-xl font-extrabold'>당신을 위한 트렌드</h2>
                         </>
                     )}
-                    {trend.map((trend, idx) => (
-                        <Link href={trend.url} key={`${uuidv4() + idx}`} passHref
+                    {trends.map((trend, idx) => (
+                        <Link href={trend.trend.url} key={`${uuidv4() + idx}`} passHref
                               target={'_blank'}
                               className='hover-animation accent-tab hover-card relative
                            flex  flex-col gap-0.5 p-5'
@@ -118,9 +120,10 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
                                     {/*    ? 'Worldwide'*/}
                                     {/*    : ` ${trend.location as string}`}*/}
                                 </p>
-                                <p className='font-bold'>{trend.name}</p>
+                                <p className='font-bold'>{trend.trend.name}</p>
                                 <p className='text-sm text-light-secondary dark:text-dark-secondary'>
-                                    댓글 수 {formatNumber(trend.tweet_volume!)}
+                                    {/*댓글 수 {formatNumber(trend.tweet_volume!)}*/}
+                                    {trend.location}
                                 </p>
                         </Link>
                     ))}
