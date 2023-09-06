@@ -2,7 +2,7 @@ import {Button} from "@components/ui/button";
 import {useRouter} from "next/router";
 import {Loading} from "@components/ui/loading";
 
-export function MessageStart({loading}) {
+export function MessageStart({loading}: any) {
     const router = useRouter()
     return (
         <div className="w-full  flex items-center justify-center p-2 pl-4 mt-48">
