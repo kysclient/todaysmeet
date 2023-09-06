@@ -3,7 +3,6 @@ import {SEO} from "@components/common/seo";
 import {ReactElement, ReactNode, useEffect, useState} from "react";
 import {HomeLayout, PeopleLayout, ProtectedLayout, TrendsLayout} from "@components/layout/common-layout";
 import {MainLayout} from "@components/layout/main-layout";
-import {ShortsContainer} from "@components/layout/shorts-layout";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -14,6 +13,7 @@ import {documentId, limit, orderBy, query, where} from "firebase/firestore";
 import {Loading} from "@components/ui/loading";
 import {useCollection} from "@lib/hooks/useCollection";
 import {ShortsPlayer} from "@components/ui/shorts-player";
+import {ShortsContainer} from "@components/home/shorts-container";
 
 
 export default function Shorts() {
@@ -34,7 +34,7 @@ export default function Shorts() {
                             speed={100}
                             direction={'vertical'}
                             slidesPerView={1}
-                            spaceBetween={30}
+                            spaceBetween={0}
                             mousewheel={true}
                             pagination={{
                                 clickable: true,
@@ -45,7 +45,6 @@ export default function Shorts() {
                             {data!.map((shorts, index) => (
                                 <>
                                     <SwiperSlide
-
                                         key={shorts.createdAt.toString()}
                                         className="w-full mb-4 bg-main-background min-h-[100%] rounded-xl"
                                     >

@@ -115,7 +115,6 @@ export function TweetActions({
     toast.success(
       `${isInAdminControl ? `@${username}'s` : '당신의'} 게시글이 삭제되었습니다`
     );
-
     removeCloseModal();
   };
 

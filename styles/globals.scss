@@ -24,7 +24,7 @@
     --light-sidebar-background: 247 249 249;
 
     --accent-yellow: 255 213 0;
-    --accent-blue: 29 155 240;
+    --accent-blue: 0 100 255;
     --accent-pink: 249 26 130;
     --accent-purple: 120 87 255;
     --accent-orange: 255 122 0;
@@ -54,7 +54,7 @@
   }
 
   body {
-    @apply hover-animation bg-main-background font-twitter-chirp text-light-primary dark:text-dark-primary;
+    @apply hover-animation bg-main-background font-pretendard text-light-primary dark:text-dark-primary;
   }
 }
 

@@ -15,6 +15,7 @@ import {useEffect} from "react";
 import {uuidv4} from "@firebase/util";
 import {VideoUploadModal} from "@components/modal/video-upload-modal";
 import {HeroIcon} from "../ui/hero-icon";
+import {NextImage} from "@components/ui/next-image";
 
 export type NavLink = {
     href: string;
@@ -34,6 +35,12 @@ const navLinks: Readonly<NavLink[]> = [
         username: 'home'
     },
     {
+        href: '/calc',
+        linkName: '정산',
+        iconName: 'CurrencyDollarIcon',
+        username: 'calc'
+    },
+    {
         href: '/explore',
         linkName: '챗봇',
         iconName: 'ChatBubbleOvalLeftIcon',
@@ -43,6 +50,8 @@ const navLinks: Readonly<NavLink[]> = [
         href: '/shorts',
         linkName: '쇼츠',
         iconName: 'PlayIcon',
+        username: 'shorts'
+
     },
     // {
     //   href: '/notifications',
@@ -106,7 +115,14 @@ export function Sidebar(): JSX.Element {
                            focus-visible:bg-accent-blue/10 focus-visible:!ring-accent-blue/80
                            dark:text-twitter-icon dark:hover:bg-dark-primary/10'
                         >
-                            <CustomIcon className='h-7 w-7' iconName='TwitterIcon'/>
+                            <NextImage
+                                useSkeleton
+                                width={50}
+                                height={50}
+                                alt={'TossLogo'}
+                                src={'/logo/logo-toss-symbol-alpha.png'}
+                            />
+                            {/*<CustomIcon className='h-7 w-7' iconName='TwitterIcon'/>*/}
                         </Link>
                     </h1>
                     <nav className='flex items-center justify-around xs:flex-col xs:justify-center xl:block'>

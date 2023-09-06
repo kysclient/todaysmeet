@@ -42,8 +42,9 @@ export default function Messages(): JSX.Element {
     const [selected, setSelected] = useState<string>("");
     const [showList, setShowList] = useState<boolean>(false)
     const rdbRef = ref(rdb, 'chatRooms');
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
+        setLoading(true)
         onValue(rdbRef, async (snapshot) => {
             const data = snapshot.val()
             let list: UserWithChatRooms[] = [];
@@ -68,9 +69,11 @@ export default function Messages(): JSX.Element {
                 }
             }
             setMyChatList(list)
-
         })
+        setLoading(false)
     }, [])
+
+
 
     const sortRooms = (list: UserWithChatRooms[]): UserWithChatRooms[] => {
         return list.sort((a, b) => {
@@ -148,13 +151,13 @@ export default function Messages(): JSX.Element {
 
             <MessagesChatContainer className="border-none w-full">
                 {
-                    !selectedData && isMobile ?
+                    !selectedData && width < 768 ?
                         <>
                             <MainHeader title='메세지'/>
                             <section>
                                 <AnimatePresence>
 
-                                    {myChatList.length > 0 ?
+                                    {myChatList.length > 0 && !loading ?
                                         sortRooms(myChatList)
                                             // .sort((a, b) => a.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp! - b.chatRoom.messages![a.chatRoom.messages!.length - 1].timestamp!)
                                             .map((data, idx) => (
@@ -180,7 +183,7 @@ export default function Messages(): JSX.Element {
                                                     </motion.div>
                                                 </>
                                             ))
-                                        : <MessageStart />
+                                        : <MessageStart loading={loading} />
                                     }
                                 </AnimatePresence>
                             </section>

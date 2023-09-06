@@ -296,7 +296,7 @@ export default function Calc(): JSX.Element {
          border-light-border pb-96 dark:border-dark-border xs:border-l
         hover-animation flex min-h-screen w-full max-w-xl flex-col">
 
-                <SEO title='정산 / BungSin'/>
+                <SEO title='정산 - 투밋'/>
                 <Modal
                     modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
                     open={open}
@@ -435,6 +435,63 @@ export default function Calc(): JSX.Element {
                                     rowLabels={rowLabels}
                                     data={data}
                                     onChange={sheetOnChange}/>
+
+                                <div className='mt-0.5 p-5 flex'>
+                                    <motion.div {...variants}>
+                                        <div
+                                            className='flex text-main-accent'
+                                        >
+                                            <div
+                                                className={cn(
+                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
+                                                     duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
+                                                     group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
+                                                     dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
+                                                       hover:bg-main-accent/10 active:bg-main-accent/20`,
+                                                )}
+                                                onClick={shareOpenModal}
+                                            >
+                                                <p className='xl:block'>공유하기</p>
+
+                                                <HeroIcon
+                                                    className={cn(
+                                                        'h-5 w-5')}
+                                                    iconName={'ShareIcon'}
+                                                />
+                                                <ToolTip tip={'공유하기'} modal={false}/>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
+
+                                <div className='mt-0.5 p-5 flex'>
+                                    <motion.div {...variants}>
+                                        <div
+                                            className='flex text-main-accent'
+                                        >
+                                            <div
+                                                className={cn(
+                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
+                                                     duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
+                                                     group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
+                                                     dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
+                                                       hover:bg-main-accent/10 active:bg-main-accent/20`,
+                                                )}
+                                                onClick={shareOpenModal}
+                                            >
+                                                <p className='xl:block'>엑셀 다운로드</p>
+
+                                                <HeroIcon
+                                                    className={cn(
+                                                        'h-5 w-5')}
+                                                    iconName={'FolderArrowDownIcon'}
+                                                />
+                                                <ToolTip tip={'엑셀 다운로드'} modal={false}/>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
+
                                 <div className='mt-0.5 p-5 flex'>
                                     <motion.div {...variants}>
                                         <div
@@ -496,34 +553,6 @@ export default function Calc(): JSX.Element {
                                         </>
                                     )
                                 }
-
-                                <div className='mt-0.5 p-5 flex'>
-                                    <motion.div {...variants}>
-                                        <div
-                                            className='flex text-main-accent'
-                                        >
-                                            <div
-                                                className={cn(
-                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
-                                                     duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
-                                                     group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
-                                                     dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
-                                                       hover:bg-main-accent/10 active:bg-main-accent/20`,
-                                                )}
-                                                onClick={shareOpenModal}
-                                            >
-                                                <p className='xl:block'>공유하기</p>
-
-                                                <HeroIcon
-                                                    className={cn(
-                                                        'h-5 w-5')}
-                                                    iconName={'PaperAirplaneIcon'}
-                                                />
-                                                <ToolTip tip={'이미지'} modal={false}/>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
 
                             </section>
                         </>

@@ -30,23 +30,46 @@ export function LoginMain(): JSX.Element {
             </Modal>
             <main className='grid lg:grid-cols-[1fr,45vw]'>
                 <div className='relative hidden items-center justify-center  lg:flex'>
+                    {/*<NextImage*/}
+                    {/*    imgClassName='object-cover'*/}
+                    {/*    blurClassName='bg-accent-blue'*/}
+                    {/*    src='/assets/twitter-banner.png'*/}
+                    {/*    alt='Twitter banner'*/}
+                    {/*    layout='fill'*/}
+                    {/*    useSkeleton*/}
+                    {/*/>*/}
                     <NextImage
                         imgClassName='object-cover'
                         blurClassName='bg-accent-blue'
-                        src='/assets/twitter-banner.png'
+                        src='https://static.toss.im/assets/homepage/newtossim/new_main.png'
                         alt='Twitter banner'
                         layout='fill'
                         useSkeleton
                     />
+
                     <i className='absolute'>
-                        <CustomIcon className='h-96 w-96 text-white' iconName='TwitterIcon'/>
+                        <NextImage
+                            useSkeleton
+                            width={100}
+                            height={100}
+                            alt={'TossLogo'}
+                            src={'/logo/logo-toss-symbol-alpha.png'}
+                        />
+                        {/*<CustomIcon className='h-96 w-96 text-white' iconName='TwitterIcon'/>*/}
                     </i>
                 </div>
                 <div className='flex flex-col items-center justify-between gap-6 p-8 lg:items-start lg:justify-center'>
                     <i className='mb-0 self-center lg:mb-10 lg:self-auto'>
-                        <CustomIcon
-                            className='-mt-4 h-6 w-6 text-accent-blue lg:h-12 lg:w-12 dark:lg:text-twitter-icon'
-                            iconName='TwitterIcon'
+                        {/*<CustomIcon*/}
+                        {/*    className='-mt-4 h-6 w-6 text-accent-blue lg:h-12 lg:w-12 dark:lg:text-twitter-icon'*/}
+                        {/*    iconName='TwitterIcon'*/}
+                        {/*/>*/}
+                        <NextImage
+                            useSkeleton
+                            width={100}
+                            height={100}
+                            alt={'TossLogo'}
+                            src={'/logo/logo-toss-symbol-alpha.png'}
                         />
                     </i>
                     <div className='flex max-w-xs flex-col gap-4 font-twitter-chirp-extended lg:max-w-none lg:gap-16'>

@@ -23,7 +23,7 @@ export function ShortsPlayer({url}: ShortsPlayerProps): JSX.Element {
                 onReady={handleReady}
                 muted={true}
                 loop={true}
-                controls={true}
+                controls={false}
                 playing={true}
                 width='100%'
                 height='100%'

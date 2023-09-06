@@ -17,7 +17,7 @@ const toastOptions: DefaultToastOptions = {
 
 export function CalcLayout({ children }: LayoutProps): JSX.Element {
     return (
-        <div className='flex w-full gap-0 lg:gap-4'>
+        <div className='flex w-full justify-center gap-0 lg:gap-4'>
             <WindowContextProvider>
                 <Sidebar />
                 <SWRConfig value={{ fetcher: fetchJSON }}>{children}</SWRConfig>

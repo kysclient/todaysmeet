@@ -6,7 +6,7 @@ type ShortsContainerProps = {
     className?: string;
 };
 
-export function ShortsContainer({
+export function ShortsContainer2({
                                   children,
                                   className
                               }: ShortsContainerProps): JSX.Element {

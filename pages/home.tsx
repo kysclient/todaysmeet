@@ -24,12 +24,6 @@ export default function Home(): JSX.Element {
     { includeUser: true, allowNull: true, preserve: true }
   );
 
-
-  useEffect(() => {
-      console.log('data : ', data)
-  }, [data])
-
-
   return (
     <MainContainer>
       <SEO title='오늘의 만남 - 투밋' />

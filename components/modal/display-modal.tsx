@@ -4,6 +4,7 @@ import {InputThemeRadio} from '../input/input-theme-radio';
 import {Button} from '../ui/button';
 import {InputAccentRadio} from '../input/input-accent-radio';
 import type {Theme, Accent} from '../../lib/types/theme';
+import {NextImage} from "@components/ui/next-image";
 
 type DisplayModalProps = {
     closeModal: () => void;
@@ -52,7 +53,15 @@ export function DisplayModal({closeModal}: DisplayModalProps): JSX.Element {
                    border-light-border px-4 py-3 dark:border-dark-border'
             >
                 <div className='grid grid-cols-[auto,1fr] gap-3'>
-                    <UserAvatar src='/assets/twitter-avatar.jpg' alt='Twitter'/>
+                    {/*<UserAvatar src='/assets/twitter-avatar.jpg' alt='Twitter'/>*/}
+                    <NextImage
+                        useSkeleton
+                        width={50}
+                        height={50}
+                        alt={'TossLogo'}
+                        src={'/logo/logo-toss-symbol-alpha.png'}
+                    />
+
                     <div>
                         <div className='flex gap-1'>
                             <UserName verified name='투밋'/>

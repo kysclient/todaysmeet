@@ -68,10 +68,6 @@ export function AsideTrends({inTrendsPage}: AsideTrendsProps): JSX.Element {
         }
     }
 
-    useEffect(() => {
-        console.log('trends : ', trends)
-        // fetchTrends()
-    }, [])
 
 
     return (
