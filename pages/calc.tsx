@@ -175,7 +175,7 @@ export default function Calc(): JSX.Element {
         })
 
         text += `\n${degree}차까지 달리시느라 고생하셨습니다\n`
-        text += `빠른정산은 사랑입니다 좋은하루보내세요❤️\n\n`
+        text += `빠른정산부탁드립니다 좋은하루보내세요❤️\n\n`
         text += `계좌번호: ${account}`
 
         const tweetData: WithFieldValue<Omit<Tweet, 'id'>> = {
