@@ -5,10 +5,10 @@ export function AppHead(): JSX.Element {
         <Head>
             <title>투밋 - 오늘의만남</title>
             <meta name='og:title' content='오늘의만남 - 투밋'/>
-            <link rel='icon' href="https://static.toss.im/homepage-static/newtoss/favicon-toss.png"/>
+            <link rel='icon' href="/logo192.png"/>
             <link rel='manifest' href='/site.webmanifest' key='site-manifest'/>
-            <link rel="apple-touch-icon" sizes="192x192" href="/https://static.toss.im/homepage-static/newtoss/favicon-toss.png"/>
-            <link rel="apple-touch-icon" sizes="512x512" href="/https://static.toss.im/homepage-static/newtoss/favicon-toss.png"/>
+            <link rel="apple-touch-icon" sizes="192x192" href="/logo192.png"/>
+            <link rel="apple-touch-icon" sizes="512x512" href="/logo512.png"/>
             <meta name='todaysmeet:site' content='@kysclient'/>
             <meta name='todaysmeet:card' content='summary_large_image'/>
             <meta name="viewport"
