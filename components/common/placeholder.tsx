@@ -8,7 +8,7 @@ export function Placeholder(): JSX.Element {
       <SEO
         title='투밋 - Todaysmeet'
         description='취미, 관심사 다양하게 공유, 함께 하는 소셜미디어'
-        image='/assets/twitter-banner.png'
+        image='https://static.toss.im/assets/homepage/newtossim/new_main.png'
       />
         <NextImage
             useSkeleton
