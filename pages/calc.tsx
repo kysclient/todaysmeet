@@ -22,7 +22,6 @@ import Spreadsheet, {CellBase, Matrix} from "react-spreadsheet";
 import {useTheme} from "../lib/context/theme-context";
 import {CalcLayout} from "../components/layout/calc-layout";
 import {People} from "../lib/types/people";
-import {useRouter} from "next/router";
 import {variants} from "../components/input/input";
 import {AnimatePresence, motion} from "framer-motion";
 import {getImagesData} from "../lib/validation";
@@ -36,10 +35,11 @@ import {User} from "../lib/types/user";
 import {addDoc, getDoc, serverTimestamp, WithFieldValue} from "firebase/firestore";
 import {Tweet} from "../lib/types/tweet";
 import {manageReply, manageTotalPhotos, manageTotalTweets, uploadImages} from "../lib/firebase/utils";
-import {Loading} from "../components/ui/loading";
 import {sleep} from "../lib/utils";
 import {tweetsCollection} from "../lib/firebase/collections";
 import Link from "next/link";
+import { saveAs } from 'file-saver';
+import * as XLSX from 'xlsx';
 
 export default function Calc(): JSX.Element {
     const [showResult, setShowResult] = useState<boolean>(false);
@@ -259,6 +259,35 @@ export default function Calc(): JSX.Element {
         URL.revokeObjectURL(src);
     };
 
+    const downloadExcel = () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const fileName = `${year}-${month}-${day}-정산.xlsx`;
+
+        console.log('data : ',data)
+        console.log('row :', rowLabels)
+        console.log('col : ', columnLabels)
+        const excelData = [
+            ["", ...columnLabels],
+
+            ...data.map((rowData, index) => {
+                return [rowLabels[index], ...rowData.map((cell: any, idx) => {
+                    if(rowData.length - 1 === idx) {
+                        return cell? cell[idx].value : '0'
+                    }
+                    return cell?.value
+                })];
+            })
+        ];
+        const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(excelData);
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet');
+
+        XLSX.writeFile(wb, fileName);
+    }
+
     const cleanImage = (): void => {
         imagesPreview.forEach(({src}) => URL.revokeObjectURL(src));
 
@@ -476,7 +505,7 @@ export default function Calc(): JSX.Element {
                                                      dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
                                                        hover:bg-main-accent/10 active:bg-main-accent/20`,
                                                 )}
-                                                onClick={shareOpenModal}
+                                                onClick={downloadExcel}
                                             >
                                                 <p className='xl:block'>엑셀 다운로드</p>
 
