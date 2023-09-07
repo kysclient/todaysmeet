@@ -276,6 +276,7 @@ export default function Calc(): JSX.Element {
 
     return (
         <>
+            <SEO title='정산 - 투밋'/>
             <Modal
                 modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
                 open={shareOpen}
@@ -292,11 +293,9 @@ export default function Calc(): JSX.Element {
                 />
             </Modal>
 
-            <main className="border-l-0
-         border-light-border pb-96 dark:border-dark-border xs:border-l
-        hover-animation flex min-h-screen w-full max-w-xl flex-col">
+            <main className="hover-animation flex min-h-screen w-full max-w-xl flex-col border-x-0
+         border-light-border pb-96 dark:border-dark-border">
 
-                <SEO title='정산 - 투밋'/>
                 <Modal
                     modalClassName='max-w-xs bg-main-background w-full p-8 rounded-2xl'
                     open={open}
@@ -327,7 +326,7 @@ export default function Calc(): JSX.Element {
                 {
 
                     !showResult ? <>
-                            <section className="p-4 w-[480px]">
+                            <section className="p-4 w-full">
                                 <div className="mb-6">
                                     <label htmlFor="username-success"
                                            className="block mb-2 text-sm font-medium text-main-accent">총 정산 금액
