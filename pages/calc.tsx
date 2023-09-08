@@ -117,7 +117,7 @@ export default function Calc(): JSX.Element {
 
     useEffect(() => {
         let data = [];
-        let degreeAccountData = [];
+        let degreeAccountData: any[] = [];
         for (let i = 0; i < degree; i++) {
             data.push(`${i + 1}차`);
             degreeAccountData.push('');
