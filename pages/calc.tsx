@@ -58,7 +58,7 @@ export default function Calc(): JSX.Element {
     }]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [account, setAccount] = useState<string>("")
-    const [degreeAccount, setDegreeAccount] = useState([]);
+    const [degreeAccount, setDegreeAccount] = useState<string[] | []>([]);
     // images
     const [selectedImages, setSelectedImages] = useState<FilesWithId>([]);
     const [imagesPreview, setImagesPreview] = useState<ImagesPreview>([]);
@@ -117,7 +117,7 @@ export default function Calc(): JSX.Element {
 
     useEffect(() => {
         let data = [];
-        let degreeAccountData: any[] = [];
+        let degreeAccountData = [];
         for (let i = 0; i < degree; i++) {
             data.push(`${i + 1}차`);
             degreeAccountData.push('');
