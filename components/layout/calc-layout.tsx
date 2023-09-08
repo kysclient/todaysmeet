@@ -23,7 +23,7 @@ export function CalcLayout({ children }: LayoutProps): JSX.Element {
                 <SWRConfig value={{ fetcher: fetchJSON }}>{children}</SWRConfig>
             </WindowContextProvider>
             <Toaster
-                position='bottom-center'
+                position='top-center'
                 toastOptions={toastOptions}
                 containerClassName='mb-12 xs:mb-0'
             />

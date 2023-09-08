@@ -38,7 +38,7 @@ import {manageReply, manageTotalPhotos, manageTotalTweets, uploadImages} from ".
 import {sleep} from "../lib/utils";
 import {tweetsCollection} from "../lib/firebase/collections";
 import Link from "next/link";
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 import * as XLSX from 'xlsx';
 
 export default function Calc(): JSX.Element {
@@ -58,7 +58,7 @@ export default function Calc(): JSX.Element {
     }]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [account, setAccount] = useState<string>("")
-
+    const [degreeAccount, setDegreeAccount] = useState([]);
     // images
     const [selectedImages, setSelectedImages] = useState<FilesWithId>([]);
     const [imagesPreview, setImagesPreview] = useState<ImagesPreview>([]);
@@ -102,6 +102,7 @@ export default function Calc(): JSX.Element {
 
     const showResultPage = () => {
         setShowResult(true)
+
     }
 
     const back = () => {
@@ -116,10 +117,13 @@ export default function Calc(): JSX.Element {
 
     useEffect(() => {
         let data = [];
+        let degreeAccountData = [];
         for (let i = 0; i < degree; i++) {
             data.push(`${i + 1}차`);
+            degreeAccountData.push('');
         }
         data.push('합계');
+        setDegreeAccount(degreeAccountData);
         setColumnLabels(data);
 
     }, [degree])
@@ -127,10 +131,15 @@ export default function Calc(): JSX.Element {
     useEffect(() => {
         if (showResult) {
             let colData = [];
+            let total = 0;
             for (let i = 0; i < degree; i++) {
-                colData.push({value: ""})
+                const acc = degreeAccount[i];
+                acc !== "" ? total += Math.round(parseInt(acc) / people.length) : total += 0;
+                acc !== "" ?
+                    colData.push({value: `${Math.round(parseInt(acc) / people.length)}`})
+                    : colData.push({value: ''})
             }
-            colData.push({value: "", readOnly: true})
+            colData.push({value: `${total}원`, readOnly: true})
             let rowData = [];
             for (let i = 0; i < people.length; i++) {
                 rowData.push(colData)
@@ -148,7 +157,7 @@ export default function Calc(): JSX.Element {
                 total += isNaN(parseInt(price?.value)) ? 0 : parseInt(price?.value)
                 if (col.length - 1 === idx) {
                     let copy = col;
-                    copy[idx] = {value: total.toString(), readOnly: true}
+                    copy[idx] = {value: `${total.toString()}원`, readOnly: true}
                     return copy;
                 }
                 return price
@@ -156,6 +165,7 @@ export default function Calc(): JSX.Element {
             return realCopy;
         }))
     }, [setData])
+
 
     const share = async (): Promise<void> => {
         setLoading(true);
@@ -248,6 +258,12 @@ export default function Calc(): JSX.Element {
         inputRef.current?.focus();
     };
 
+    const handleAccOnChange = (index: any, value: any): void => {
+        const newArray = [...degreeAccount];
+        newArray[index] = value;
+        setDegreeAccount(newArray);
+    };
+
     const removeImage = (targetId: string) => (): void => {
         setSelectedImages(selectedImages.filter(({id}) => id !== targetId));
         setImagesPreview(imagesPreview.filter(({id}) => id !== targetId));
@@ -266,20 +282,19 @@ export default function Calc(): JSX.Element {
         const day = String(currentDate.getDate()).padStart(2, '0');
         const fileName = `${year}-${month}-${day}-정산.xlsx`;
 
-        console.log('data : ',data)
-        console.log('row :', rowLabels)
-        console.log('col : ', columnLabels)
         const excelData = [
             ["", ...columnLabels],
-
             ...data.map((rowData, index) => {
                 return [rowLabels[index], ...rowData.map((cell: any, idx) => {
-                    if(rowData.length - 1 === idx) {
-                        return cell? cell[idx].value : '0'
+                    if (rowData.length - 1 === idx) {
+                        console.log('cell :', cell, idx)
+                        return cell ? cell.value : '0'
                     }
                     return cell?.value
                 })];
-            })
+            }),
+            ["총 정산금액", totalPrice],
+            ['계좌번호', account]
         ];
         const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(excelData);
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
@@ -434,6 +449,25 @@ export default function Calc(): JSX.Element {
 
                                 </div>
 
+                                <label
+                                    className="block mb-2 text-sm font-medium text-main-accent">차수별 총 금액</label>
+                                {
+                                    degreeAccount.map((acc, idx) => (
+                                        <>
+                                            <div className="mb-6">
+
+                                                <input type="text" id="total" placeholder={`${idx + 1}차 금액`}
+                                                       value={acc}
+                                                       onChange={(e) => {
+                                                           handleAccOnChange(idx, e.target.value)
+                                                       }}
+                                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                />
+                                            </div>
+                                        </>
+                                    ))
+                                }
+
                                 <div className="mb-6">
                                     <label
                                         className="block mb-2 text-sm font-medium text-main-accent">입금계좌</label>
@@ -457,6 +491,12 @@ export default function Calc(): JSX.Element {
                         </>
                         : <>
                             <section className='mt-0.5'>
+                                <label htmlFor="username-success"
+                                       className="block mt-2 mb-4 text-sm font-medium text-main-accent">
+                                    정산은 기본적으로 총 금액 / N 방식으로 정산됩니다. 필요시 임의로 금액을 조정해주세요.
+                                </label>
+
+
                                 <Spreadsheet
                                     darkMode={isDarkMode}
                                     columnLabels={columnLabels}
@@ -464,96 +504,102 @@ export default function Calc(): JSX.Element {
                                     data={data}
                                     onChange={sheetOnChange}/>
 
-                                <div className='mt-0.5 p-5 flex'>
-                                    <motion.div {...variants}>
-                                        <div
-                                            className='flex text-main-accent'
-                                        >
+                                <div className='flex flex-col'>
+                                    <p className='xl:block mt-2 mb-2'>계좌번호: {account}</p>
+                                    <p className='xl:block mb-2'>총 정산금액: {totalPrice}원</p>
+
+
+                                    <div className='mt-0.5 p-5 flex'>
+                                        <motion.div {...variants}>
                                             <div
-                                                className={cn(
-                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
+                                                className='flex text-main-accent'
+                                            >
+                                                <div
+                                                    className={cn(
+                                                        `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
                                                      duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
                                                      group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
                                                      dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
                                                        hover:bg-main-accent/10 active:bg-main-accent/20`,
-                                                )}
-                                                onClick={shareOpenModal}
-                                            >
-                                                <p className='xl:block'>공유하기</p>
+                                                    )}
+                                                    onClick={shareOpenModal}
+                                                >
+                                                    <p className='xl:block'>공유하기</p>
 
-                                                <HeroIcon
-                                                    className={cn(
-                                                        'h-5 w-5')}
-                                                    iconName={'ShareIcon'}
-                                                />
-                                                <ToolTip tip={'공유하기'} modal={false}/>
+                                                    <HeroIcon
+                                                        className={cn(
+                                                            'h-5 w-5')}
+                                                        iconName={'ShareIcon'}
+                                                    />
+                                                    <ToolTip tip={'공유하기'} modal={false}/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
+                                        </motion.div>
+                                    </div>
 
-                                <div className='mt-0.5 p-5 flex'>
-                                    <motion.div {...variants}>
-                                        <div
-                                            className='flex text-main-accent'
-                                        >
+                                    <div className='mt-0.5 p-5 flex'>
+                                        <motion.div {...variants}>
                                             <div
-                                                className={cn(
-                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
+                                                className='flex text-main-accent'
+                                            >
+                                                <div
+                                                    className={cn(
+                                                        `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
                                                      duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
                                                      group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
                                                      dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
                                                        hover:bg-main-accent/10 active:bg-main-accent/20`,
-                                                )}
-                                                onClick={downloadExcel}
-                                            >
-                                                <p className='xl:block'>엑셀 다운로드</p>
+                                                    )}
+                                                    onClick={downloadExcel}
+                                                >
+                                                    <p className='xl:block'>엑셀 다운로드</p>
 
-                                                <HeroIcon
-                                                    className={cn(
-                                                        'h-5 w-5')}
-                                                    iconName={'FolderArrowDownIcon'}
-                                                />
-                                                <ToolTip tip={'엑셀 다운로드'} modal={false}/>
+                                                    <HeroIcon
+                                                        className={cn(
+                                                            'h-5 w-5')}
+                                                        iconName={'FolderArrowDownIcon'}
+                                                    />
+                                                    <ToolTip tip={'엑셀 다운로드'} modal={false}/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </motion.div>
-                                </div>
+                                        </motion.div>
+                                    </div>
 
-                                <div className='mt-0.5 p-5 flex'>
-                                    <motion.div {...variants}>
-                                        <div
-                                            className='flex text-main-accent'
-                                        >
-                                            <input
-                                                className='hidden'
-                                                type='file'
-                                                accept='image/*'
-                                                onChange={handleImageUpload}
-                                                ref={inputFileRef}
-                                                multiple
-                                            />
+                                    <div className='mt-0.5 p-5 flex'>
+                                        <motion.div {...variants}>
                                             <div
-                                                className={cn(
-                                                    `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
+                                                className='flex text-main-accent'
+                                            >
+                                                <input
+                                                    className='hidden'
+                                                    type='file'
+                                                    accept='image/*'
+                                                    onChange={handleImageUpload}
+                                                    ref={inputFileRef}
+                                                    multiple
+                                                />
+                                                <div
+                                                    className={cn(
+                                                        `cursor-pointer custom-button flex items-center justify-center gap-4 self-start p-2 text-xl transition 
                                                      duration-200 group-hover:bg-light-primary/10 group-focus-visible:ring-2 
                                                      group-focus-visible:ring-[#878a8c] dark:group-hover:bg-dark-primary/10 
                                                      dark:group-focus-visible:ring-white xs:p-3 xl:pr-5 accent-tab accent-bg-tab group relative rounded-full p-2
                                                        hover:bg-main-accent/10 active:bg-main-accent/20`,
-                                                )}
-                                                onClick={onClick}
-                                            >
-                                                <p className='xl:block'>영수증 첨부하기</p>
+                                                    )}
+                                                    onClick={onClick}
+                                                >
+                                                    <p className='xl:block'>영수증 첨부하기</p>
 
-                                                <HeroIcon
-                                                    className={cn(
-                                                        'h-7 w-7')}
-                                                    iconName={'PhotoIcon'}
-                                                />
-                                                <ToolTip tip={'이미지'} modal={false}/>
+                                                    <HeroIcon
+                                                        className={cn(
+                                                            'h-7 w-7')}
+                                                        iconName={'PhotoIcon'}
+                                                    />
+                                                    <ToolTip tip={'이미지'} modal={false}/>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </motion.div>
+                                        </motion.div>
+                                    </div>
                                 </div>
 
                                 {isUploadingImages ? (
@@ -563,23 +609,23 @@ export default function Calc(): JSX.Element {
                                             removeImage={removeImage}
                                         />
                                     )
-                                    : (
-                                        <>
-                                            <div className="p-5 flex">
-                                                <NextImage
-                                                    className='w-[48px] h-[48px] transition
-                                                            hover:brightness-75 hover:duration-200'
-                                                    imgClassName="rounded-2xl"
-                                                    previewCount={previewCount}
-                                                    src={noImage}
-                                                    alt={"no_image"}
-                                                    useSkeleton
-                                                />
-                                                <p className='xl:block ml-2 mt-3 text-light-secondary dark:text-dark-secondary'>No
-                                                    image available</p>
-                                            </div>
-                                        </>
-                                    )
+                                    : null
+                                    // <>
+                                    //     <div className="p-5 flex">
+                                    //         <NextImage
+                                    //             className='w-[48px] h-[48px] transition
+                                    //                     hover:brightness-75 hover:duration-200'
+                                    //             imgClassName="rounded-2xl"
+                                    //             previewCount={previewCount}
+                                    //             src={noImage}
+                                    //             alt={"no_image"}
+                                    //             useSkeleton
+                                    //         />
+                                    //         <p className='xl:block ml-2 mt-3 text-light-secondary dark:text-dark-secondary'>No
+                                    //             image available</p>
+                                    //     </div>
+                                    // </>
+
                                 }
 
                             </section>
