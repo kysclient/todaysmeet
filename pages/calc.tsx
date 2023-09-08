@@ -101,6 +101,31 @@ export default function Calc(): JSX.Element {
     }
 
     const showResultPage = () => {
+        let validate = {message: '', flag: true}
+        if(totalPrice === 0) {
+            validate.flag = false;
+           validate.message = '총 정산금액을 입력해주세요'
+        }
+        people.forEach(p => {
+            if(p.name === '') {
+                validate.flag = false;
+                validate.message = '정산자의 이름을 입력해주세요'
+            }
+        })
+        degreeAccount.forEach(d => {
+            if(d === '') {
+                validate.flag = false;
+                validate.message = '차수별 정산금액을 입력해주세요'
+            }
+        })
+        if(account === '') {
+            validate.flag = false;
+            validate.message = '입금계좌를 입력해주세요'
+        }
+        if(!validate.flag) {
+            toast.error(validate.message);
+            return
+        }
         setShowResult(true)
 
     }
@@ -370,7 +395,7 @@ export default function Calc(): JSX.Element {
                 {
 
                     !showResult ? <>
-                            <section className="p-4 w-full">
+                            <section className="p-4 w-full relative">
                                 <div className="mb-6">
                                     <label htmlFor="username-success"
                                            className="block mb-2 text-sm font-medium text-main-accent">총 정산 금액
@@ -384,9 +409,8 @@ export default function Calc(): JSX.Element {
                                                onChange={(e) => {
                                                    setTotalPrice(parseInt(e.target.value))
                                                }}
-                                               className="rounded-none   bg-gray-50 border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                               className="rounded-none bg-main-sidebar-background border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                placeholder="총 정산 금액"/>
-
                                         <span
                                             className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-r-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                                         KRW
@@ -407,7 +431,7 @@ export default function Calc(): JSX.Element {
                                         추가
                                     </button>
                                 </div>
-                                <div className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                <div className="mt-1 mb-2 text-sm text-gray-500 dark:text-gray-300"
                                      id="user_avatar_help">
                                     정산자도 함께 포함하여 작성 해주세요.
                                 </div>
@@ -434,7 +458,7 @@ export default function Calc(): JSX.Element {
                                     <select id="countries" value={degree} onChange={(e) => {
                                         setDegree(parseInt(e.target.value))
                                     }}
-                                            className="items-center w-full py-2.5 px-4 text-sm font-medium rounded-lg text-center text-gray-900 bg-gray-50 dark:border-gray-700 dark:text-white hover:bg-gray-200  dark:bg-gray-700 dark:hover:bg-gray-700">
+                                            className="bg-main-sidebar-background items-center w-full py-2.5 px-4 text-sm font-medium rounded-lg text-center text-gray-900  dark:border-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700">
                                         <option value={1}>1차</option>
                                         <option value={2}>2차</option>
                                         <option value={3}>3차</option>
@@ -461,7 +485,7 @@ export default function Calc(): JSX.Element {
                                                        onChange={(e) => {
                                                            handleAccOnChange(idx, e.target.value)
                                                        }}
-                                                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                       className="bg-main-sidebar-background border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 />
                                             </div>
                                         </>
@@ -475,7 +499,7 @@ export default function Calc(): JSX.Element {
                                            onChange={(e) => {
                                                setAccount(e.target.value)
                                            }}
-                                           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                           className="bg-main-sidebar-background border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     />
                                     <div className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                          id="user_avatar_help">
@@ -484,7 +508,7 @@ export default function Calc(): JSX.Element {
                                 </div>
 
                                 <button type="button" onClick={showResultPage}
-                                        className="w-full text-[#F7F9F9] bg-main-accent hover:bg-main-accent/90  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                        className=" bottom-0 w-full text-[#F7F9F9] bg-main-accent hover:bg-main-accent/90  focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                     정산시작
                                 </button>
                             </section>
@@ -651,7 +675,7 @@ const StyledInput = ({value, nameOnChange, idx, deletePerson}: InputProps) => {
                     <input type="text" value={value} onChange={(e) => {
                         nameOnChange(e, idx)
                     }}
-                           className="block rounded-lg p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
+                           className="bg-main-sidebar-background block rounded-lg p-2.5 w-full z-20 text-sm text-gray-900 rounded-r-lg border-l-gray-100 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
                            placeholder="이름" required/>
 
                     <button type="button" onClick={() => {
