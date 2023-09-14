@@ -46,13 +46,12 @@ const navLinks: Readonly<NavLink[]> = [
         iconName: 'ChatBubbleOvalLeftIcon',
         username: 'explore'
     },
-    {
-        href: '/shorts',
-        linkName: '쇼츠',
-        iconName: 'PlayIcon',
-        username: 'shorts'
-
-    },
+    // {
+    //     href: '/shorts',
+    //     linkName: '쇼츠',
+    //     iconName: 'PlayIcon',
+    //     username: 'shorts'
+    // },
     // {
     //   href: '/notifications',
     //   linkName: 'Notifications',

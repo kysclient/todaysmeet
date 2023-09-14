@@ -21,6 +21,16 @@ export default function Shorts() {
     const {data, loading} = useCollection(
         query(shortsCollection, orderBy('createdAt', 'desc'), limit(10))
     );
+
+    const [autoPlay, setAutoPlay] = useState(false);
+
+    const handleSlideChange = (swiper) => {
+        console.log('swiper  :', swiper)
+        // 현재 활성화된 슬라이드의 인덱스를 가져올 수 있습니다.
+        const currentSlideIndex = swiper.realIndex;
+        console.log(`현재 슬라이드 인덱스: ${currentSlideIndex}`);
+    };
+
     return (
 
         <ShortsContainer>
@@ -31,6 +41,7 @@ export default function Shorts() {
                         <Loading/>
                         :
                         <Swiper
+                            onUpdate={(swiper) => {console.log('swiper : ', swiper)}}
                             speed={100}
                             direction={'vertical'}
                             slidesPerView={1}
